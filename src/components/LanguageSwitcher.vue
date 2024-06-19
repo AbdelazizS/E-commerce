@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 import { ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import {
@@ -9,11 +9,30 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
-const language = ref('العربية')
+import { setLocale } from '@/plugins/i18n'
+import i18n from '@/plugins/i18n'
+
+const locale = () => (i18n.global.locale.value === 'ar' ? 'home.nav.arabic' : 'home.nav.english')
+
+// const switchLanguage = async (event) => {
+//   const newLocale = event.target.value
+
+//   await Tr.switchLanguage(newLocale)
+
+//   try {
+//     await router.replace({ params: { locale: newLocale } }) // <--- 3
+//   } catch (e) {
+//     // <--- 4
+//     console.log(e)
+//     router.push('/')
+//   }
+// }
+
+// return { t, locale, supportedLocales, switchLanguage }
 </script>
 
 <template>
-  <DropdownMenu>
+  <DropdownMenu :dir="i18n.global.locale.value === 'ar' ? 'rtl' : 'ltr'">
     <DropdownMenuTrigger as-child>
       <Button variant="ghost" class="flex gap-1 justify-start">
         <svg
@@ -31,14 +50,54 @@ const language = ref('العربية')
           />
         </svg>
 
-        <span class="text-foreground">{{ language }}</span>
+        <span class="text-foreground"> {{ $t(locale()) }}</span>
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent>
-      <DropdownMenuRadioGroup v-model="language">
-        <DropdownMenuRadioItem value="العربية"> العربية </DropdownMenuRadioItem>
-        <DropdownMenuRadioItem value="English"> English </DropdownMenuRadioItem>
+      <DropdownMenuRadioGroup v-model="i18n.global.locale.value">
+        <DropdownMenuRadioItem value="ar" @click="setLocale('ar')">
+          {{ $t('home.nav.arabic') }}
+        </DropdownMenuRadioItem>
+        <DropdownMenuRadioItem value="en" @click="setLocale('en')">
+          {{ $t('home.nav.english') }}
+        </DropdownMenuRadioItem>
       </DropdownMenuRadioGroup>
     </DropdownMenuContent>
   </DropdownMenu>
 </template>
+
+<!-- <script setup>
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
+
+import { ref } from 'vue'
+
+const onCLick = () => {
+  console.log('www')
+}
+
+const language = ref('en')
+</script>
+
+<template>
+  <Select v-model="language">
+    <SelectTrigger class="w-[120px] lg:mx-2">
+      <SelectValue placeholder="Select a fruit" :value="'ee'" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectGroup>
+        <SelectLabel>Fruits</SelectLabel>
+        <SelectItem value="en">Apple </SelectItem>
+        <SelectItem value="banana"> Banana </SelectItem>
+      </SelectGroup>
+    </SelectContent>
+    <p @click="onCLick">asdasd</p>
+  </Select>
+</template> -->

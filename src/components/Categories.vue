@@ -10,7 +10,7 @@ import Container from '@/layouts/Container.vue'
     <Container>
       <div class="">
         <h2 class="text-2xl md:text-3xl text-foreground mb-8 tracking-wider font-bold">
-          Featured Categories
+          {{ $t(`home.categories`) }}
         </h2>
 
         <!-- <h2 class="text-3xl md:text-4xl text-center font-bold mb-4">

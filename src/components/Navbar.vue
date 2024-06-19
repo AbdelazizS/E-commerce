@@ -1,6 +1,6 @@
 <template>
   <Container>
-    <header class="flex justify-between items-center p-4 z-40">
+    <header class="flex justify-between items-center py-2 z-40">
       <!-- Logo  -->
       <div class="flex items-center">
         <img src="/src/assets/logo.png" alt="" class="w-16 md:w-20" />
@@ -73,7 +73,7 @@
 
           <!-- Cart -->
           <RouterLink to="/shopping-cart">
-            <Button size="sm" variant="ghost" class="relative w-full">
+            <Button size="sm" variant="ghost" class="relative">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -117,10 +117,7 @@
             </Button>
           </SheetTrigger>
 
-          <SheetContent
-            side="left"
-            class="flex flex-col justify-between -tr-2xl -br-2xl bg-card p-4 border-0"
-          >
+          <SheetContent side="left" class="flex flex-col justify-between bg-card p-4 border-0">
             <div>
               <SheetHeader class="mb-4">
                 <SheetTitle class="flex items-center">
@@ -183,4 +180,7 @@ import {
   SheetTrigger
 } from '@/components/ui/sheet'
 import { RouterLink } from 'vue-router'
+import { ref } from 'vue'
+
+const isOpen = ref(false)
 </script>

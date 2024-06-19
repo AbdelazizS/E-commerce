@@ -1,0 +1,44 @@
+{
+  "logotxt": "Elfatef",
+  "home": {
+    "nav": {
+      "light": "light",
+      "dark": "dark",
+      "arabic": "Arabic",
+      "english": "English",
+      "sign_up": "Create Account",
+      "sign_out": "Log out",
+      "sign_in": "Log In",
+      "my_account": "My Account",
+      "profile": "Profile",
+      "favourites": "Favourites",
+      "notifications": "Notifications"
+    },
+
+    "hero": {
+      "save": "Save Up to",
+      "save_perc": "15%",
+      "one_stop": "One-Stop",
+      "electronic": "Electronic",
+      "market": "Market",
+      "description": "description"
+    },
+    "footer": {
+      "services": "Services",
+      "company": "Company",
+      "platform": "Platform",
+      "additional": "Additional",
+      "support": "Support",
+      "about_us": "About Us",
+      "terms_conditions": "Terms & Conditions",
+      "careers": "Careers",
+      "contact_us": "Contact Us",
+      "partners": "Partners",
+      "rights": "All Rights Reserves"
+    },
+
+    "categories": "Featured Categories",
+    "products": "Featured Products",
+    "shop_now": "Shop Now"
+  }
+}

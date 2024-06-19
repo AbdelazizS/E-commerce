@@ -6,6 +6,13 @@ html {
   scroll-behavior: smooth;
 }
 
+html[dir='rtl'] * {
+  /* direction: rtl; */
+}
+.dir-ltr {
+  direction: ltr !important;
+}
+
 /* *=========== Default theme =========== */
 /* @layer base {
   :root {

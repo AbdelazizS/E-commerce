@@ -9,12 +9,12 @@
     <div
       class="absolute -bottom-80 group-hover:bottom-2 inset-0 flex flex-col items-start justify-end px-4 transition-all duration-300"
     >
-      <h3 class="text-xl font-bold text-orange-500 rounded-sm">Casual Trainers</h3>
+      <h3 class="text-xl font-bold text-orange-500 rounded-sm">{{ $t(`home.categories`) }}</h3>
 
       <span
         class="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white rounded-sm"
       >
-        Shop Now
+        {{ $t(`home.shop_now`) }}
       </span>
     </div>
   </div>

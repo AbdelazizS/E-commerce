@@ -28,30 +28,43 @@ const plugin = Autoplay({
         <div class="">
           <div class="ext-cener space-y-8">
             <Badge variant="outline" class="text-sm py-2 flex max-w-max gap-2">
-              <span>Save Up to</span>
+              <span>{{ $t(`home.hero.save`) }}</span>
               <span class="text-primary">
-                <Badge>15%</Badge>
+                <Badge>{{ $t(`home.hero.save_perc`) }}</Badge>
               </span>
             </Badge>
 
-            <div class="max-w-screen-sm text- text-3xl sm:text-4xl md:text-6xl font-bold">
+            <div
+              class="max-w-screen-sm text- text-3xl sm:text-4xl md:text-6xl font-bold"
+              v-if="$i18n.locale === 'ar'"
+            >
               <h1>
-                Your One-Stop
+                {{ $t(`home.hero.market`) }}
                 <span
                   class="text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text"
-                  >Electronic
+                  >{{ $t(`home.hero.electronic`) }}
                 </span>
-                Market
+                {{ $t(`home.hero.one_stop`) }}
+              </h1>
+            </div>
+
+            <div class="max-w-screen-sm text- text-3xl sm:text-4xl md:text-6xl font-bold" v-else>
+              <h1>
+                Your {{ $t(`home.hero.one_stop`) }}
+                <span
+                  class="text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text"
+                  >{{ $t(`home.hero.electronic`) }}
+                </span>
+                {{ $t(`home.hero.market`) }}
               </h1>
             </div>
 
             <p class="max-w-screen-sm text-xl text-muted-foreground">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit unde
-              asperiores voluptas beatae id pariatur debitis laudantium!
+              {{ $t(`home.hero.description`) }}
             </p>
 
             <div class="space-y-4 md:space-y-0 md:space-x-4">
-              <Button class="sm:w font-bold group/arrow"> SHOP NOW </Button>
+              <Button class="sm:w font-bold group/arrow">{{ $t(`home.shop_now`) }} </Button>
             </div>
           </div>
         </div>

@@ -11,9 +11,9 @@ import Footer from '@/components/Footer.vue'
     <Navbar />
     <Hero />
   </div>
-
   <Categories />
   <Products />
+  <Footer />
 </template>
 
 <style>

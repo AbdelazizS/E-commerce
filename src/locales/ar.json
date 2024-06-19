@@ -1,0 +1,43 @@
+{
+  "logotxt": "الفاتح",
+  "home": {
+    "nav": {
+      "light": "فاتح",
+      "dark": "داكن",
+      "arabic": "العربية",
+      "english": "الإنجليزية",
+      "sign_up": "إنشاء حساب",
+      "sign_out": "تسجيل الخروج",
+      "sign_in": "تسجيل الدخول",
+      "my_account": "حسابي",
+      "profile": "الملف الشخصي",
+      "favourites": "المفضلة",
+      "notifications": "الإشعارات"
+    },
+    "hero": {
+      "save": "وفر حتى",
+      "save_perc": "15%",
+      "one_stop": "الشامل",
+      "electronic": "الالكتروني",
+      "market": "متجرك",
+      "description": "وصف"
+    },
+    "footer": {
+      "services": "الخدمات",
+      "company": "المؤسسة",
+      "platform": "المنصات",
+      "additional": "روابط إضافية",
+      "support": "الدعم",
+      "about_us": "حول",
+      "terms_conditions": "البنود والشروط",
+      "careers": "الوظائف",
+      "contact_us": "تواصل معنا ",
+      "partners": "الشركاء",
+      "rights": "كل الحقوق محفوظة"
+    },
+    "categories": "الفئات المميزة",
+    "products": "المنتجات المميزة ",
+    "shop_now": "تسوق الأن",
+    "add_to_cart": "إضافة الى السلة"
+  }
+}

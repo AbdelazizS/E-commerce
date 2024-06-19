@@ -4,21 +4,17 @@ import Container from '@/layouts/Container.vue'
 
 const links = [
   {
-    services: [
-      { name: 'Support', path: '/' },
-      { name: '', path: '/' },
-      { name: '', path: '/' }
-    ],
+    services: [{ name: 'support', path: '/' }],
 
     company: [
-      { name: 'About Us', path: '/' },
-      { name: 'Terms & Conditions', path: '/' },
-      { name: 'Careers', path: '/' }
+      { name: 'about_us', path: '/' },
+      { name: 'terms_conditions', path: '/' },
+      { name: 'careers', path: '/' }
     ],
 
     additional: [
-      { name: 'Partners', path: '/' },
-      { name: 'Contact Us', path: '/' }
+      { name: 'partners', path: '/' },
+      { name: 'contact_us', path: '/' }
     ]
   }
 ]
@@ -40,7 +36,7 @@ const links = [
               /></a>
 
               <!-- Social -->
-              <ul class="mt-10 flex space-x-5">
+              <ul class="mt-10 flex gap-5">
                 <li>
                   <a href="javascript:void(0)">
                     <svg
@@ -107,7 +103,7 @@ const links = [
             <!-- Links -->
             <div>
               <h4 class="text-foreground font-semibold text-lg relative max-sm:cursor-pointer">
-                Services
+                {{ $t('home.footer.services') }}
 
                 <!-- <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -129,15 +125,16 @@ const links = [
                   <a
                     href="javascript:void(0)"
                     class="hover:text-primary hover:underline text-muted-foreground text-sm transition-all duration-300"
-                    >{{ link.name }}</a
                   >
+                    {{ $t(`home.footer.${link.name}`) }}
+                  </a>
                 </li>
               </ul>
             </div>
 
             <div>
               <h4 class="text-foreground font-semibold text-lg relative max-sm:cursor-pointer">
-                Company
+                {{ $t(`home.footer.company`) }}
                 <!-- <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16px"
@@ -158,15 +155,16 @@ const links = [
                   <a
                     href="javascript:void(0)"
                     class="hover:text-primary hover:underline text-muted-foreground text-sm transition-all duration-300"
-                    >{{ link.name }}</a
                   >
+                    {{ $t(`home.footer.${link.name}`) }}
+                  </a>
                 </li>
               </ul>
             </div>
 
             <div>
               <h4 class="text-foreground font-semibold text-lg relative max-sm:cursor-pointer">
-                Additional
+                {{ $t(`home.footer.additional`) }}
                 <!-- <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16px"
@@ -186,7 +184,8 @@ const links = [
                   <a
                     href="javascript:void(0)"
                     class="hover:text-primary hover:underline text-muted-foreground text-sm transition-all duration-300"
-                    >{{ link.name }}</a
+                  >
+                    {{ $t(`home.footer.${link.name}`) }}</a
                   >
                 </li>
               </ul>
@@ -194,7 +193,7 @@ const links = [
 
             <div>
               <h4 class="text-foreground font-semibold text-lg relative max-sm:cursor-pointer">
-                Platforms
+                {{ $t(`home.footer.platform`) }}
               </h4>
               <div class="mt-4 space-y-5">
                 <img src="/src/assets/app-download.png" class="w-36" lt="" />
@@ -228,12 +227,12 @@ const links = [
       </ul> -->
 
           <p class="text-foreground text-sm">
-            Copyright © 2024<a
-              href="/"
-              target="_blank"
-              class="text-primary hover:underline mx-1 font-semibold"
-              >Elfateh</a
-            >All Rights Reserved.
+            Copyright © {{}}
+            <a href="/" target="_blank" class="text-primary hover:underline px-.5 font-semibold">{{
+              $t(`logotxt`)
+            }}</a>
+
+            {{ $t(`home.footer.rights`) }}
           </p>
         </div>
       </div>

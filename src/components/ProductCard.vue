@@ -4,9 +4,8 @@ import { Heart, ShoppingBag, Star } from 'lucide-vue-next'
 
 import { ref } from 'vue'
 
-const fill = false
+const fill = ref(false)
 function setFav() {
-  // biome-ignore lint/complexity/noUselessTernary: <explanation>
   fill.value = fill.value === true ? false : true
 }
 </script>
@@ -27,7 +26,7 @@ function setFav() {
       <div class="absolute top-4 right-4">
         <Button @click="setFav()" variant="outline" size="icon" class="favIcon rounded-full">
           <svg
-            :class="`size-5 ${fill ? 'text-red-500' : 'text-red-500'}`"
+            :class="`size-5 ${fill ? 'text-red-500 ' : ''}`"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -86,7 +85,7 @@ function setFav() {
       </div>
 
       <Button class="gap-2">
-        <span>Add to Cart</span>
+        <span>{{ $t(`home.add_to_cart`) }}</span>
         <ShoppingBag />
       </Button>
     </div>

@@ -1,6 +1,6 @@
 # el-fateh
 
-.
+
 
 ## Recommended IDE Setup
 

@@ -40,5 +40,23 @@
     "categories": "Featured Categories",
     "products": "Featured Products",
     "shop_now": "Shop Now"
+  },
+  "auth": {
+    "login_title": "Log in to your account",
+    "register_title": "create your new account",
+    "havenot_account": "Don't have an account?",
+    "have_account": "have an account?",
+    "email": "Email Address",
+    "name": "User Name",
+    "password": "Password",
+    "confirm_password": "Password Confirmation",
+    "required": "this field is required",
+    "email_error": "please enter valid email address",
+    "match_error": "password confirmation doesn't match password",
+    "too_short": "this field is too short",
+    "too_long": "this field is too long",
+    "alpha_spaces": "this field should contain only letters",
+    "strong_password": "Your password must be at least 8 characters long, contain at least one number, one of the special characters, and a combination of upper and lower case letters.",
+    "passwordConf_err": "password does not match"
   }
 }

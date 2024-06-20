@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "^4.0.0",
+    "@vee-validate/rules": "^4.13.1",
     "@vueuse/core": "^10.11.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -23,9 +24,11 @@
     "radix-vue": "^1.8.3",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "vee-validate": "^4.13.1",
     "vue": "^3.4.21",
     "vue-i18n": "^9.9.0",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",

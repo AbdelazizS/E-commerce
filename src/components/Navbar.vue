@@ -2,10 +2,13 @@
   <Container>
     <header class="flex justify-between items-center py-2 z-40">
       <!-- Logo  -->
-      <div class="flex items-center">
-        <img src="/src/assets/logo.png" alt="" class="w-16 md:w-20" />
-        <h1 class="text-primary font-bold text-lg md:text-xl">Elfateh</h1>
-      </div>
+
+      <RouterLink to="/">
+        <div class="flex items-center cursor-pointer">
+          <img src="/src/assets/logo.png" alt="" class="w-16 md:w-20" />
+          <h1 class="text-primary font-bold text-lg md:text-xl">Elfateh</h1>
+        </div>
+      </RouterLink>
 
       <!-- SearchBar -->
       <div class="md:max-w-xl w-full hidden lg:block">
@@ -117,7 +120,10 @@
             </Button>
           </SheetTrigger>
 
-          <SheetContent side="left" class="flex flex-col justify-between bg-card p-4 border-0">
+          <SheetContent
+            side="left"
+            class="flex flex-col justify-between bg-card p-4 border-0"
+          >
             <div>
               <SheetHeader class="mb-4">
                 <SheetTitle class="flex items-center">
@@ -165,22 +171,28 @@
 </template>
 
 <script setup>
-import Container from '@/layouts/Container.vue'
-import ToggleTheme from '@/components/ToggleTheme.vue'
-import Account from '@/components/Account.vue'
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import Container from "@/layouts/Container.vue";
+import ToggleTheme from "@/components/ToggleTheme.vue";
+import Account from "@/components/Account.vue";
+import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Sheet,
   SheetContent,
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger
-} from '@/components/ui/sheet'
-import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { RouterLink } from "vue-router";
+import { ref } from "vue";
 
-const isOpen = ref(false)
+const form = ref({
+  email: "",
+  password: "",
+  remember: false,
+});
+
+const isOpen = ref(false);
 </script>

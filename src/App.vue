@@ -1,10 +1,11 @@
 <template>
+  <Toaster />
   <RouterView />
 </template>
 
 <script setup>
 import { RouterView } from 'vue-router'
-
+import Toaster from '@/components/ui/toast/Toaster.vue'
 import { onBeforeMount } from 'vue'
 import i18n from '@/plugins/i18n'
 
@@ -19,5 +20,3 @@ onBeforeMount(() => {
   }
 })
 </script>
-
-

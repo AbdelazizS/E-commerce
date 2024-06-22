@@ -1,6 +1,6 @@
 <script setup>
-import CategoryCard from './CategoryCard.vue'
-import Container from '@/layouts/Container.vue'
+import CategoryCard from "./CategoryCard.vue";
+import Container from "@/layouts/Container.vue";
 </script>
 
 <template>
@@ -8,19 +8,21 @@ import Container from '@/layouts/Container.vue'
     <!-- Title -->
 
     <Container>
-      <div class="">
-        <h2 class="text-2xl md:text-3xl text-foreground mb-8 tracking-wider font-bold">
+      <div class="mb-8">
+        <h2 class="text-2xl md:text-3xl text-foreground tracking-wider font-bold">
           {{ $t(`home.categories`) }}
         </h2>
 
-        <!-- <h2 class="text-3xl md:text-4xl text-center font-bold mb-4">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-      </h2> -->
+        <p class="text-base md:text-xl text-muted-foreground mt-2">
+          {{ $t(`home.categories_desc`) }}
+        </p>
       </div>
 
       <!-- Grid List -->
 
-      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center">
+      <div
+        class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center"
+      >
         <!-- Card -->
 
         <CategoryCard />

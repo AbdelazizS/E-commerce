@@ -165,10 +165,6 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 .dark::-webkit-scrollbar {
   width: 10px;
 }

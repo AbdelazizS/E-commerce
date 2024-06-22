@@ -1,6 +1,8 @@
 <template>
   <Navbar />
-  <!-- <BottomNav>Login</BottomNav> -->
+  <BottomNav>
+    {{ $t('home.nav.sign_up') }}
+  </BottomNav>
   <div class="bg-/10">
     <Container>
       <div class="grid grid-cols-1 lg:grid-cols-2 items-center">
@@ -9,15 +11,15 @@
             <img src="/src/assets/logo.png" class="mx-auto h-24 w-24" />
             <div class="mt-5 space-y-2">
               <h3 class="text-foreground text-2xl font-bold md:text-3xl">
-                {{ $t("auth.register_title") }}
+                {{ $t('auth.register_title') }}
               </h3>
               <p class="text-muted-foreground">
-                {{ $t("auth.have_account") }}
+                {{ $t('auth.have_account') }}
                 <RouterLink
                   to="/auth/login"
                   href="javascript:void(0)"
                   class="font-medium text-primary hover:text-primary hover:underline"
-                  >{{ $t("home.nav.sign_in") }}</RouterLink
+                  >{{ $t('home.nav.sign_in') }}</RouterLink
                 >
               </p>
             </div>
@@ -32,28 +34,20 @@
                 :label="$t('auth.email')"
               />
 
-              <BaseInput
-                name="password"
-                v-model="form.password"
-                :label="$t('auth.password')"
-              />
+              <BaseInput name="password" v-model="form.password" :label="$t('auth.password')" />
               <BaseInput
                 name="password_Confirmation"
                 v-model="form.password_Confirmation"
                 :label="$t('auth.confirm_password')"
               />
 
-              <Button class="w-full">{{ $t("home.nav.sign_up") }}</Button>
+              <Button class="w-full">{{ $t('home.nav.sign_up') }}</Button>
             </vee-form>
           </div>
         </div>
 
         <div class="hidden lg:block">
-          <img
-            src="/src/assets/register.svg"
-            alt=""
-            class="md:h-[400px] lg:h[450px] w-full"
-          />
+          <img src="/src/assets/register.svg" alt="" class="md:h-[300px] lg:h[350px] w-full" />
         </div>
       </div>
     </Container>
@@ -63,46 +57,39 @@
 </template>
 
 <script setup>
-import Navbar from "@/components/Navbar.vue";
-import BaseInput from "@/components/BaseInput.vue";
-import { Button } from "@/components/ui/button";
-import Container from "@/layouts/Container.vue";
-import Footer from "@/components/Footer.vue";
-import { ref } from "vue";
+import Navbar from '@/components/Navbar.vue'
+import BaseInput from '@/components/BaseInput.vue'
+import BottomNav from '@/components/BottomNav.vue'
+import { Button } from '@/components/ui/button'
+import Container from '@/layouts/Container.vue'
+import Footer from '@/components/Footer.vue'
+import { ref } from 'vue'
 
-import { Form, defineRule, configure } from "vee-validate";
-import {
-  required,
-  regex,
-  alpha_spaces,
-  email,
-  min,
-  max,
-  confirmed,
-} from "@vee-validate/rules";
+import { defineRule } from 'vee-validate'
+import { required, regex, alpha_spaces, email, min, max, confirmed } from '@vee-validate/rules'
 
-defineRule("required", required);
-defineRule("regex", regex);
-defineRule("email", email);
-defineRule("min", min);
-defineRule("max", max);
-defineRule("alpha_spaces", alpha_spaces);
-defineRule("confirmed", confirmed);
+defineRule('required', required)
+defineRule('regex', regex)
+defineRule('email', email)
+defineRule('min', min)
+defineRule('max', max)
+defineRule('alpha_spaces', alpha_spaces)
+defineRule('confirmed', confirmed)
 
-const strongPassword = "(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[^A-Za-z0-9])(?=.{8,35})";
+const strongPassword = '(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[^A-Za-z0-9])(?=.{8,35})'
 
 const form = ref({
-  name: "",
-  email: "",
-  password: "",
-  password_Confirmation: "",
-});
+  name: '',
+  email: '',
+  password: '',
+  password_Confirmation: ''
+})
 const schema = {
   name: { required: true, alpha_spaces: true, min: 3 },
   email: { required: true, email: true },
   password: { required: true, min: 8, regex: strongPassword },
-  password_Confirmation: { required: true, confirmed: "@password" },
-};
+  password_Confirmation: { required: true, confirmed: '@password' }
+}
 
 // const schema = {
 //   name: "required|min:3|max:50|alpha_spaces",
@@ -119,6 +106,6 @@ const schema = {
 // });
 
 const onSubmit = (values) => {
-  console.log(values);
-};
+  console.log(values)
+}
 </script>

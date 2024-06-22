@@ -4,6 +4,7 @@ import Hero from '@/components/Hero.vue'
 import Products from '@/components/Products.vue'
 import Categories from '@/components/Categories.vue'
 import Footer from '@/components/Footer.vue'
+import Container from '@/layouts/Container.vue'
 </script>
 
 <template>
@@ -12,6 +13,9 @@ import Footer from '@/components/Footer.vue'
     <Hero />
   </div>
   <Categories />
+  <Container>
+    <img src="../assets/offer.jpeg" alt="" class="w-ful" />
+  </Container>
   <Products />
   <Footer />
 </template>

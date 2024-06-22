@@ -1,12 +1,39 @@
+<!-- eslint-disable no-unused-vars -->
 <script setup>
 import { Button } from './ui/button'
-import { Heart, ShoppingBag, Star } from 'lucide-vue-next'
-
+import { ShoppingBag } from 'lucide-vue-next'
 import { ref } from 'vue'
+import Spinner from '../components/Spinner.vue'
+import { useCartStore } from '@/stores/cart.js'
+import { useToast } from '@/components/ui/toast/use-toast'
+
+const store = useCartStore()
+const { addItem } = store
+
+const addToCart = (item) => {
+  loading.value = true
+  // toast({
+  //   title: 'shopping_cart.added_success'
+  // })
+  addItem(item)
+  setTimeout(() => {
+    loading.value = false
+  }, 700)
+}
+
+const { toast } = useToast()
+
+const props = defineProps({
+  item: Object
+})
+
+const { title, price, Qty, category, pre_price, stars } = props.item
 
 const fill = ref(false)
+const loading = ref(false)
+
 function setFav() {
-  fill.value = fill.value === true ? false : true
+  fill.value = fill.value !== true
 }
 </script>
 
@@ -23,10 +50,10 @@ function setFav() {
     <!-- Content -->
     <div class="px-4 my-4">
       <!-- Favorite -->
-      <div class="absolute top-4 right-4">
+      <div class="absolute top-3 right-2">
         <Button @click="setFav()" variant="outline" size="icon" class="favIcon rounded-full">
           <svg
-            :class="`size-5 ${fill ? 'text-red-500 ' : ''}`"
+            :class="`size-5 ${fill ? 'fill-red-500 text-red-600 ' : ''}`"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -49,7 +76,7 @@ function setFav() {
       <div class="space-y-2 mb-4">
         <!-- category -->
         <div class="flex items-center justify-between">
-          <p class="text-base text-muted-foreground">computers</p>
+          <p class="text-base text-muted-foreground">{{ category }}</p>
           <div class="flex font-medium gap- items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +91,7 @@ function setFav() {
               />
             </svg>
 
-            <span class=""> 4 </span>
+            <span class=""> {{ stars }} </span>
           </div>
         </div>
 
@@ -73,54 +100,32 @@ function setFav() {
           <h4
             class="text-lg font-bold cursor-pointer transition-all duration-300 hover:text-primary"
           >
-            Mega LCD TV For Sports
+            {{ title }}
           </h4>
         </RouterLink>
 
         <!-- price -->
         <div class="flex items-center gap-2">
-          <p class="text-lg font-semibold text-foreground">$20.00</p>
-          <p class="text-base font-medium line-through text-muted-foreground">$25.00</p>
+          <p class="text-lg font-semibold text-foreground">${{ price }}</p>
+          <p class="text-base font-medium line-through text-muted-foreground">${{ pre_price }}</p>
         </div>
       </div>
 
-      <Button class="gap-2">
-        <span>{{ $t(`home.add_to_cart`) }}</span>
-        <ShoppingBag />
+      <Button
+        class="gap-2 relative w-40 max-w-sm"
+        @click="
+          addToCart(item),
+            toast({
+              title: $t('shopping_cart.added_success'),
+              success: true,
+              duration: 3000
+            })
+        "
+      >
+        <span :class="loading ? 'hidden' : ''">{{ $t(`home.add_to_cart`) }}</span>
+        <ShoppingBag class="size-5" :class="loading ? 'hidden' : ''" />
+        <Spinner v-if="loading" />
       </Button>
     </div>
   </div>
-
-  <!-- <div class="border rounded-lg shadow-md -64 relative">
-    <div
-      class="bg-muted-foreground/15 w-10 h-10 flex items-center justify-center rounded-full cursor-pointer absolute top-3 right-3"
-    >
-      <Heart fill="red" class="text-red-500 hover:scale-" />
-    </div>
-
-
-    <div class="max-h-64 h-64 bg-primary/10 border-b p-4 rounded-t-lg">
-      <img
-        src="/src/assets/pc.png"
-        class="w-full object-cover h-full hover:scale-105 transition-all duration-300"
-        lt=""
-      />
-    </div>
-    <div class="p-4 mt-">
-      <div class="flex justify-between items-center">
-        <h5 class="text-muted-foreground">computers</h5>
-        <div class="flex font-bold items-center">
-          <Star fill="yellow" class="h-4 w-5 text-yellow-300 font-semibold" />
-          4
-        </div>
-      </div>
-      <h4 class="font-bold hover:text-primary mt-2 mb-4">product name</h4>
-      <div class="flex justify-between items-center">
-        <span class="font-semibold">22$</span>
-        <Button variant="" class="flex gap-3"
-          >add to cart <ShoppingBag />
-        </Button>
-      </div>
-    </div>
-  </div> -->
 </template>

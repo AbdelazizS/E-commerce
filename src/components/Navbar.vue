@@ -56,7 +56,7 @@
 
             <span
               class="absolute left-3 -mx-3 top-1 rounded-full bg-primary px-1.5 py-0 text-xs text-muted"
-              >9</span
+              >{{ sortedItems?.length }}</span
             >
           </Button>
         </RouterLink>
@@ -94,7 +94,7 @@
 
               <span
                 class="absolute left-3 -mx-3 top-1 rounded-full bg-primary px-1.5 py-0 text-xs text-muted"
-                >9</span
+                >{{ sortedItems?.length }}</span
               >
             </Button>
           </RouterLink>
@@ -188,11 +188,11 @@ import {
 import { RouterLink } from "vue-router";
 import { ref } from "vue";
 
-const form = ref({
-  email: "",
-  password: "",
-  remember: false,
-});
+import { useCartStore } from "@/stores/cart.js";
+import { storeToRefs } from "pinia";
+
+const store = useCartStore();
+const { sortedItems } = storeToRefs(store);
 
 const isOpen = ref(false);
 </script>

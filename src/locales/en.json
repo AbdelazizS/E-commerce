@@ -1,5 +1,7 @@
 {
   "logotxt": "Elfatef",
+  "home_page": "Home",
+  "or": "or",
   "home": {
     "nav": {
       "light": "light",
@@ -37,9 +39,11 @@
       "rights": "All Rights Reserves"
     },
 
-    "categories": "Featured Categories",
+    "categories": "Shop by Category",
+    "categories_desc": "Discover multiple options in each category",
     "products": "Featured Products",
-    "shop_now": "Shop Now"
+    "shop_now": "Shop Now",
+    "add_to_cart": "Add to Cart"
   },
   "auth": {
     "login_title": "Log in to your account",
@@ -58,5 +62,19 @@
     "alpha_spaces": "this field should contain only letters",
     "strong_password": "Your password must be at least 8 characters long, contain at least one number, one of the special characters, and a combination of upper and lower case letters.",
     "passwordConf_err": "password does not match"
+  },
+  "shopping_cart": {
+    "title": "Shopping Cart",
+    "added_success": "Product Added Successfully",
+    "removed_success": "Product Removed Successfully",
+    "order_summary": "Order Summary",
+    "continue_shopping": "Continue Shopping",
+    "total": "Total",
+    "shipping": "Shipping",
+    "checkout": "Proceed to Checkout",
+    "original_price": "Original Price",
+    "your_cart": "Your Cart is",
+    "empty_cart_desc": "You can add products to your shopping cart, either by searching or browsing products",
+    "empty": "Empty"
   }
 }

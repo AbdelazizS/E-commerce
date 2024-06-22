@@ -66,7 +66,7 @@ export default createI18n({
 })
 
 export const setLocale = (locale) => {
-  window.location.href = '/'
+  window.location.reload()
   localStorage.setItem('language', locale)
   // i18n.global.locale.value = locale
 }

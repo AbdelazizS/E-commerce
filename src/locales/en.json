@@ -2,6 +2,7 @@
   "logotxt": "Elfatef",
   "home_page": "Home",
   "or": "or",
+  "total": "Total Price",
   "home": {
     "nav": {
       "light": "light",
@@ -84,5 +85,13 @@
     "your_cart": "Your Cart is",
     "empty_cart_desc": "You can add products to your shopping cart, either by searching or browsing products",
     "empty": "Empty"
+  },
+  "orders": {
+    "orders": "Orders",
+    "order_id": "Order Id",
+    "status": "Status",
+    "products": "Products",
+    "confirmed": "Confirmed",
+    "order_details": "Order Details"
   }
 }

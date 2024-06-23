@@ -11,6 +11,14 @@
               </RouterLink>
             </BreadcrumbLink>
           </BreadcrumbItem>
+          <BreadcrumbSeparator class="rtl:rotate-180" v-if="$slots.header" />
+          <BreadcrumbItem v-if="$slots.header">
+            <BreadcrumbLink>
+              <RouterLink to="/orders">
+                <slot name="header"></slot>
+              </RouterLink>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
           <BreadcrumbSeparator class="rtl:rotate-180" />
           <BreadcrumbItem>
             <BreadcrumbPage>

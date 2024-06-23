@@ -1,18 +1,46 @@
 <script setup>
-// import { ref } from 'vue'
+import { Heart } from 'lucide-vue-next'
 import { Button } from './ui/button'
 import { useCartStore } from '@/stores/cart.js'
 import { useToast } from '@/components/ui/toast/use-toast'
 
+import { useAuthStore } from '@/stores/authStore.js'
+import { useFavoritesStore } from '@/stores/favouritesStore.js'
+const authStore = useAuthStore()
 const CartStore = useCartStore()
-// const { sortedItems, addItems } = storeToRefs(store)
-const { removeItem, decrementQty, incrementQty } = CartStore
-
+const favoritesStore = useFavoritesStore()
 const { toast } = useToast()
+const { removeItem, decrementQty, incrementQty } = CartStore
+const { addToFavorites, isInFavorites } = favoritesStore
+// import {storeToRefs} from 'pinia'
+// const { cartItems } = storeToRefs(store)
+// const { totalAmount, cartItems } = CartStore
 
-// const addToCart = (item) => {
-//   addItems(item)
-// }
+function setFav() {
+  if (!authStore.isAuthenticated) {
+    if (!isInFavorites(id)) {
+      toast({
+        title: 'shopping_cart.added_to_fav',
+        success: true,
+        duration: 3000
+      })
+    } else {
+      toast({
+        title: 'shopping_cart.removed_from_fav',
+        success: true,
+        duration: 3000
+      })
+    }
+    addToFavorites(id)
+  } else {
+    toast({
+      title: 'shopping_cart.requireAuth',
+      success: true,
+      duration: 3000
+    })
+  }
+}
+
 const handleDecrement = (item) => {
   decrementQty(item)
   console.log(item)
@@ -28,7 +56,7 @@ const props = defineProps({
   item: Object
 })
 
-const { title } = props.item
+const { title, id } = props.item
 </script>
 <template>
   <div class="rounded-lg border bg-card p-4 shadow-sm md:p-6">
@@ -102,9 +130,9 @@ const { title } = props.item
         </a>
 
         <div class="flex items-center gap-4 abs">
-          <Button variant="outline" size="icon" class="rounded-full">
+          <Button @click="setFav()" variant="outline" size="icon" class="favIcon rounded-full">
             <svg
-              class="h-5 w-5"
+              :class="`size-5 ${isInFavorites(id) ? 'fill-red-500 text-red-600 ' : ''}`"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -120,35 +148,7 @@ const { title } = props.item
                 d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
               />
             </svg>
-
-            <!-- Add to Favorites -->
           </Button>
-
-          <!-- <button
-                type="button"
-                class="inline-flex items-center text-sm font-medium text-red-600 hover:underline :text-red-500"
-              >
-                <svg
-                  class="me-1.5 h-5 w-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18 17.94 6M18 18 6.06 6"
-                  />
-                </svg>
-                Remove
-
-              </button> -->
-
           <Button
             @click="
               removeFromCart(item),

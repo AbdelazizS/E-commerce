@@ -26,7 +26,6 @@ const router = createRouter({
           name: 'orders',
           component: () => import('../views/OrdersView.vue')
         },
-
         {
           path: '/orders/:id',
           name: 'order-details',
@@ -53,8 +52,8 @@ const router = createRouter({
         {
           path: '/profile/favourites',
           name: 'favourites',
-          meta: { requiresAuth: true },
-          component: () => import('../views/auth/RegisterView.vue')
+          // meta: { requiresAuth: true },
+          component: () => import('../views/FavouritesView.vue')
         }
       ]
     }

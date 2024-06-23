@@ -11,7 +11,7 @@ const { toasts } = useToast()
     <Toast v-for="toast in toasts" :key="toast.id" v-bind="toast">
       <div class="grid gap-1">
         <ToastTitle v-if="toast.title">
-          {{ toast.title }}
+          {{ $t(`${toast.title}`) }}
         </ToastTitle>
         <template v-if="toast.description">
           <ToastDescription v-if="isVNode(toast.description)">

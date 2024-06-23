@@ -8,10 +8,8 @@ import CartItem from '../components/CartItem.vue'
 import { useCartStore } from '@/stores/cart.js'
 // import {storeToRefs} from 'pinia'
 // const { cartItems } = storeToRefs(store)
-
-const CartStore = useCartStore()
-
 // const { totalAmount, cartItems } = CartStore
+const CartStore = useCartStore()
 </script>
 
 <template>

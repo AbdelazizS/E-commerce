@@ -1,3 +1,4 @@
+<!-- eslint-disable no-undef -->
 <template>
   <Navbar />
   <BottomNav>
@@ -64,6 +65,8 @@ import { Button } from '@/components/ui/button'
 import Container from '@/layouts/Container.vue'
 import Footer from '@/components/Footer.vue'
 import { ref } from 'vue'
+// import axios from '@/services/api'
+import axios from 'axios'
 
 import { defineRule } from 'vee-validate'
 import { required, regex, alpha_spaces, email, min, max, confirmed } from '@vee-validate/rules'
@@ -91,21 +94,27 @@ const schema = {
   password_Confirmation: { required: true, confirmed: '@password' }
 }
 
-// const schema = {
-//   name: "required|min:3|max:50|alpha_spaces",
-//   email: "required|email",
-//   // password: "required",
-//   // password_confirmation: "password_mismatch:@password",
-// };
-
-// configure({
-//   // Generates an English message locale generator
-//   generateMessage: {
-//     required: `${$t("auth.required")}`,
-//   },
-// });
-
 const onSubmit = (values) => {
-  console.log(values)
+  const formData = new FormData()
+  formData.append('client_name', values.name)
+  formData.append('email', values.email)
+  formData.append('password', values.password)
+  formData.append('c_password', values.password_Confirmation)
+  formData.append('app_id', 199)
+  formData.append('term_of_service', 1)
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${import.meta.env.VITE_BASE_API_URL}/register`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then((response) => {
+        resolve(response)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
 }
 </script>

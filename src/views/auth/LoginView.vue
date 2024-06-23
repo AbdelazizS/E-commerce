@@ -51,6 +51,7 @@ import { Button } from '@/components/ui/button'
 import Container from '@/layouts/Container.vue'
 import Footer from '@/components/Footer.vue'
 import { ref } from 'vue'
+import { useAuthStore } from '@/stores/authStore'
 
 import { defineRule } from 'vee-validate'
 import { required, regex, alpha_spaces, email, min, max, confirmed } from '@vee-validate/rules'
@@ -65,6 +66,7 @@ defineRule('confirmed', confirmed)
 
 // const strongPassword = '(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[^A-Za-z0-9])(?=.{8,35})'
 
+const authStore = useAuthStore()
 const form = ref({
   name: '',
   email: '',
@@ -77,6 +79,6 @@ const schema = {
 }
 
 const onSubmit = (values) => {
-  console.log(values)
+  authStore.login(values)
 }
 </script>

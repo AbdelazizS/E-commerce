@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+import '@/services/api'
 import './assets/index.css'
 import i18n from '@/plugins/i18n'
 import VeeValidatePlugin from '@/plugins/validation'

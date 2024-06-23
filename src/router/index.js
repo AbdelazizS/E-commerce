@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory, RouterView } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import ShoppingCart from '../views/ShoppingCart.vue'
-import LoginView from '../views/auth/LoginView.vue'
-import RegisterView from '../views/auth/RegisterView.vue'
+import { authGuard } from '@/guards/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,21 +17,33 @@ const router = createRouter({
         {
           path: '/shopping-cart',
           name: 'shoppingCart',
-          component: ShoppingCart
+
+          component: () => import('../views/ShoppingCart.vue')
         },
         {
           path: '/auth/register',
           name: 'register',
-          component: RegisterView
+          meta: { requiresLogged: true },
+          component: () => import('../views/auth/RegisterView.vue')
         },
         {
           path: '/auth/login',
           name: 'login',
-          component: LoginView
+          meta: { requiresLogged: true },
+          component: () => import('../views/auth/LoginView.vue')
+        },
+        {
+          path: '/profile/favourites',
+          name: 'favourites',
+          meta: { requiresAuth: true },
+          component: () => import('../views/auth/RegisterView.vue')
         }
       ]
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    return savedPosition || { top: 0 }
+  }
 })
 
 // router.beforeEach((to, from) => {
@@ -48,4 +58,16 @@ const router = createRouter({
 //   }
 // })
 
+router.beforeEach(authGuard)
 export default router
+
+// {
+//   path: "/:pathMatch(.*)*",
+//   name: "NotFound",
+//   component: NotFound,
+// },
+// {
+//   path: "/403",
+//   name: "Forbidden",
+//   component: Forbidden,
+// },

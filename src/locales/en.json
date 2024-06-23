@@ -63,6 +63,14 @@
     "strong_password": "Your password must be at least 8 characters long, contain at least one number, one of the special characters, and a combination of upper and lower case letters.",
     "passwordConf_err": "password does not match"
   },
+  "product_details": {
+    "related_products": "Related Products",
+    "reviews": "Reviews",
+    "customers_reviews": "Customers Reviws",
+    "specifications": "Specifications",
+    "product_specifications": "Product Specifications",
+    "read_all": "Read all Reviews"
+  },
   "shopping_cart": {
     "title": "Shopping Cart",
     "added_success": "Product Added Successfully",

@@ -21,6 +21,12 @@ const router = createRouter({
           component: () => import('../views/ShoppingCart.vue')
         },
         {
+          path: '/product/:id',
+          name: 'ProductDetails',
+
+          component: () => import('../views/ProductDetails.vue')
+        },
+        {
           path: '/auth/register',
           name: 'register',
           meta: { requiresLogged: true },

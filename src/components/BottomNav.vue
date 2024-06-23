@@ -1,6 +1,6 @@
 <template>
   <!-- Breadcrumb -->
-  <nav class="flex px-5 py-3 border bg-muted-foreground/5" aria-label="Breadcrumb">
+  <nav class="flex py-3 border bg-muted-foreground/5" aria-label="Breadcrumb">
     <Container>
       <Breadcrumb>
         <BreadcrumbList>
@@ -11,7 +11,7 @@
               </RouterLink>
             </BreadcrumbLink>
           </BreadcrumbItem>
-          <BreadcrumbSeparator />
+          <BreadcrumbSeparator class="rtl:rotate-180" />
           <BreadcrumbItem>
             <BreadcrumbPage>
               <slot />

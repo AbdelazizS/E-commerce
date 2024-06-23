@@ -1,4 +1,3 @@
-<!-- eslint-disable no-undef -->
 <template>
   <Navbar />
   <BottomNav>
@@ -104,10 +103,11 @@ const onSubmit = (values) => {
   formData.append('term_of_service', 1)
   return new Promise((resolve, reject) => {
     axios
-      .post(`${import.meta.env.VITE_BASE_API_URL}/register`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+      .post('https://api.etoolabbs.com/v3/public/api/', formData, {
+        header: [
+          { key: 'Accept', value: 'application/json', type: 'text' },
+          { key: 'Content-Type', value: 'application/json', type: 'text' }
+        ]
       })
       .then((response) => {
         resolve(response)

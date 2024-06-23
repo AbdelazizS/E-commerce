@@ -1,5 +1,6 @@
 <template>
   <Toaster />
+
   <RouterView />
 </template>
 
@@ -12,7 +13,7 @@ import i18n from '@/plugins/i18n'
 onBeforeMount(() => {
   console.log(i18n.global.locale.value)
   if (i18n.global.locale.value === 'en') {
-    document.documentElement.dir = ',ltr'
+    document.documentElement.dir = 'ltr'
     document.documentElement.setAttribute('dir', 'ltr')
   } else {
     document.documentElement.dir = 'rtl'

@@ -63,6 +63,14 @@
     "passwordConf_err": "غير متطابقة مع كلمة السر"
   },
 
+  "product_details": {
+    "related_products": "المنتجات ذات الصلة",
+    "reviews": "التقيمات",
+    "customers_reviews": " تقيمات العملاء",
+    "specifications": "المواصفات",
+    "product_specifications": "مواصفات المنتج",
+    "read_all": "قراءة كل التقيمات"
+  },
   "shopping_cart": {
     "title": "سلة المشتريات",
     "added_success": "تمت إضافة المنتج بنجاح",

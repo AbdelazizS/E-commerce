@@ -1,6 +1,6 @@
 <template>
   <Navbar />
-  <BottomNav> Apple iMac 24 </BottomNav>
+  <BottomNav>{{ product.title }}</BottomNav>
 
   <Container>
     <div class="py-8 md:py-16">
@@ -92,8 +92,12 @@
         <div class="max-w-xl py-1 mx-auto lg:m-0">
           <!-- Title -->
           <div>
-            <h2 class="text-2xl font-bold text-foreground">Apple iMac 24</h2>
-            <p class="text-sm text-muted-foreground mt-2">Computers</p>
+            <h2 class="text-2xl font-bold text-foreground">
+              {{ product.title }}
+            </h2>
+            <p class="text-sm text-muted-foreground mt-2">
+              {{ product.category }}
+            </p>
           </div>
 
           <!-- Reviews -->
@@ -178,18 +182,17 @@
           <div class="mt-4">
             <!-- <h3 class="text-foreground text-3xl font-bold">$30</h3> -->
             <div class="flex items-center gap-2">
-              <p class="text-xl sm:text-2xl font-bold text-foreground">$20.00</p>
-              <p class="text-base font-medium h-6 line-through text-muted-foreground/50">$25.00</p>
+              <p class="text-xl sm:text-2xl font-bold text-foreground">${{ product.price }}</p>
+              <p class="text-base font-medium h-6 line-through text-muted-foreground/50">
+                ${{ product.pre_price }}
+              </p>
             </div>
           </div>
 
           <!-- Description -->
           <div class="mt-4">
             <p class="text-muted-foreground">
-              Step up your footwear game with our premium men's shoes. Designed for comfort and
-              crafted with a contemporary aesthetic, these versatile shoes are a must-have addition
-              to your wardrobe. The supple and breathable materials ensure all-day comfort, making
-              them perfect for everyday wear
+              {{ product.description }}
             </p>
           </div>
 
@@ -202,19 +205,32 @@
             Buy now
           </button> -->
 
-            <Button variant="default" class="gap-2">
-              {{ $t('home.add_to_cart') }}
-
-              <ShoppingBag class="size-5 text-white" />
+            <Button class="gap-2 relative w-40 max-w-sm" @click="addToCart(product)">
+              <span :class="loading ? 'hidden' : ''">{{ $t(`home.add_to_cart`) }}</span>
+              <ShoppingBag class="size-5" :class="loading ? 'hidden' : ''" />
+              <Spinner v-if="loading" />
             </Button>
-            <Button variant="outline" class="btn gap-2">
-              <Heart
-                @click="setFav()"
-                :class="`size-5 hover:scale-105 transition-all duration-300 ${
-                  fill ? `text-red-500 fill-red-500` : `text-muted-foreground`
-                }`"
-                class="`${(rate.people / data.views) * 100}`"
-              />
+
+            <Button @click="setFav()" variant="outline" size="icon" class="favIcon rounded-full">
+              <svg
+                :class="`size-5 ${isInFavorites(id) ? 'fill-red-500 text-red-600 ' : ''}`"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
+                />
+              </svg>
+
+              <!-- Add to Favorites -->
             </Button>
           </div>
 
@@ -424,22 +440,21 @@ import Navbar from '@/components/Navbar.vue'
 import Container from '@/layouts/Container.vue'
 import Footer from '@/components/Footer.vue'
 import BottomNav from '@/components/BottomNav.vue'
+import Spinner from '@/components/Spinner.vue'
 import { Heart, ShoppingBag } from 'lucide-vue-next'
 import ProductCard from '@/components/ProductCard.vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { watchOnce } from '@vueuse/core'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Card, CardContent } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useRoute } from 'vue-router'
+import { useProductStore } from '@/stores/productStore'
+
+import { useCartStore } from '@/stores/cart.js'
+import { useFavoritesStore } from '@/stores/favouritesStore'
+import { useAuthStore } from '@/stores/authStore'
+import { useToast } from '@/components/ui/toast/use-toast'
 
 const emblaMainApi = ref()
 const emblaThumbnailApi = ref()
@@ -464,11 +479,64 @@ watchOnce(emblaMainApi, (emblaMainApi) => {
   emblaMainApi.on('reInit', onSelect)
 })
 
-const fill = ref(false)
+const product = ref({})
+const loading = ref(false)
+const cartStore = useCartStore()
+const favoritesStore = useFavoritesStore()
+const authStore = useAuthStore()
+const { addItem } = cartStore
+const { addToFavorites, isInFavorites } = favoritesStore
+const productStore = useProductStore()
+const { products } = productStore
+const route = useRoute()
+const id = Number(route.params.id)
+const { toast } = useToast()
+
+const addToCart = (item) => {
+  loading.value = true
+  addItem(item)
+  toast({
+    title: 'shopping_cart.added_success',
+    success: true,
+    duration: 3000
+  })
+  setTimeout(() => {
+    loading.value = false
+  }, 700)
+}
 
 function setFav() {
-  fill.value = fill.value === true ? false : true
+  if (!authStore.isAuthenticated) {
+    if (!isInFavorites(id)) {
+      toast({
+        title: 'shopping_cart.added_to_fav',
+        success: true,
+        duration: 3000
+      })
+    } else {
+      toast({
+        title: 'shopping_cart.removed_from_fav',
+        success: true,
+        duration: 3000
+      })
+    }
+    addToFavorites(id)
+  } else {
+    toast({
+      title: 'shopping_cart.requireAuth',
+      success: true,
+      duration: 3000
+    })
+  }
 }
+
+const fetchProduct = () => {
+  const item = products.find((x) => x.id === id)
+  product.value = item
+}
+onMounted(() => {
+  fetchProduct()
+})
 
 const newItems = ref([
   {
@@ -499,27 +567,4 @@ const newItems = ref([
     stars: 3
   }
 ])
-
-let rating = [
-  {
-    total: '4.8',
-    reviews: '198',
-    views: '58',
-    stars: {
-      one: {
-        name: '1',
-        people: '7'
-      },
-      two: {
-        name: '2',
-        people: '35'
-      },
-
-      three: {
-        name: '3',
-        people: '5'
-      }
-    }
-  }
-]
 </script>

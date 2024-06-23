@@ -5,16 +5,24 @@ import { ShoppingBag } from 'lucide-vue-next'
 import { ref } from 'vue'
 import Spinner from '../components/Spinner.vue'
 import { useCartStore } from '@/stores/cart.js'
+import { useFavoritesStore } from '@/stores/favouritesStore'
+import { useAuthStore } from '@/stores/authStore'
 import { useToast } from '@/components/ui/toast/use-toast'
+import { RouterLink } from 'vue-router'
 
-const store = useCartStore()
-const { addItem } = store
+const cartStore = useCartStore()
+const favoritesStore = useFavoritesStore()
+const authStore = useAuthStore()
+const { addItem } = cartStore
+const { addToFavorites, isInFavorites } = favoritesStore
 
 const addToCart = (item) => {
   loading.value = true
-  // toast({
-  //   title: 'shopping_cart.added_success'
-  // })
+  toast({
+    title: 'shopping_cart.added_success',
+    success: true,
+    duration: 3000
+  })
   addItem(item)
   setTimeout(() => {
     loading.value = false
@@ -27,14 +35,37 @@ const props = defineProps({
   item: Object
 })
 
-const { title, price, Qty, category, pre_price, stars } = props.item
+const { title, price, Qty, category, pre_price, stars, id } = props.item
 
 const fill = ref(false)
 const loading = ref(false)
 
 function setFav() {
-  fill.value = fill.value !== true
+  if (!authStore.isAuthenticated) {
+    if (!isInFavorites(id)) {
+      toast({
+        title: 'shopping_cart.added_to_fav',
+        success: true,
+        duration: 3000
+      })
+    } else {
+      toast({
+        title: 'shopping_cart.removed_from_fav',
+        success: true,
+        duration: 3000
+      })
+    }
+    addToFavorites(id)
+  } else {
+    toast({
+      title: 'shopping_cart.requireAuth',
+      success: true,
+      duration: 3000
+    })
+  }
 }
+
+// console.log(isInFavorites(id))
 </script>
 
 <template>
@@ -53,7 +84,7 @@ function setFav() {
       <div class="absolute top-3 right-2">
         <Button @click="setFav()" variant="outline" size="icon" class="favIcon rounded-full">
           <svg
-            :class="`size-5 ${fill ? 'fill-red-500 text-red-600 ' : ''}`"
+            :class="`size-5 ${isInFavorites(id) ? 'fill-red-500 text-red-600 ' : ''}`"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -96,7 +127,7 @@ function setFav() {
         </div>
 
         <!-- title -->
-        <RouterLink to="/product/1">
+        <RouterLink :to="`/product/${id}`">
           <h4
             class="text-lg font-bold cursor-pointer transition-all duration-300 hover:text-primary"
           >
@@ -111,17 +142,7 @@ function setFav() {
         </div>
       </div>
 
-      <Button
-        class="gap-2 relative w-40 max-w-sm"
-        @click="
-          addToCart(item),
-            toast({
-              title: $t('shopping_cart.added_success'),
-              success: true,
-              duration: 3000
-            })
-        "
-      >
+      <Button class="gap-2 relative w-40 max-w-sm" @click="addToCart(item)">
         <span :class="loading ? 'hidden' : ''">{{ $t(`home.add_to_cart`) }}</span>
         <ShoppingBag class="size-5" :class="loading ? 'hidden' : ''" />
         <Spinner v-if="loading" />

@@ -56,7 +56,7 @@
 
             <span
               class="absolute left-3 -mx-3 top-1 rounded-full bg-primary px-1.5 py-0 text-xs text-muted"
-              >{{ sortedItems?.length }}</span
+              >{{ CartStore.countCartItems }}</span
             >
           </Button>
         </RouterLink>
@@ -120,10 +120,7 @@
             </Button>
           </SheetTrigger>
 
-          <SheetContent
-            side="left"
-            class="flex flex-col justify-between bg-card p-4 border-0"
-          >
+          <SheetContent side="left" class="flex flex-col justify-between bg-card p-4 border-0">
             <div>
               <SheetHeader class="mb-4">
                 <SheetTitle class="flex items-center">
@@ -171,28 +168,24 @@
 </template>
 
 <script setup>
-import Container from "@/layouts/Container.vue";
-import ToggleTheme from "@/components/ToggleTheme.vue";
-import Account from "@/components/Account.vue";
-import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Container from '@/layouts/Container.vue'
+import ToggleTheme from '@/components/ToggleTheme.vue'
+import Account from '@/components/Account.vue'
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import {
   Sheet,
   SheetContent,
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { RouterLink } from "vue-router";
-import { ref } from "vue";
+  SheetTrigger
+} from '@/components/ui/sheet'
+import { RouterLink } from 'vue-router'
+import { ref } from 'vue'
+import { useCartStore } from '@/stores/cart.js'
+const CartStore = useCartStore()
 
-import { useCartStore } from "@/stores/cart.js";
-import { storeToRefs } from "pinia";
-
-const store = useCartStore();
-const { sortedItems } = storeToRefs(store);
-
-const isOpen = ref(false);
+const isOpen = ref(false)
 </script>

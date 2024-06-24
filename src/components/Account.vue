@@ -11,6 +11,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+
+import { useAuthStore } from '@/stores/authStore'
+import { useFavoritesStore } from '@/stores/favouritesStore'
+
+const authStore = useAuthStore()
+const notificationStore = useFavoritesStore()
 </script>
 
 <template>
@@ -33,26 +39,38 @@ import {
         </svg>
       </Button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent class="w-56" v-if="no">
+    <DropdownMenuContent class="w-48 md:w-56" v-if="!authStore.isAuthenticated">
       <DropdownMenuLabel>{{ $t(`home.nav.my_account`) }}</DropdownMenuLabel>
       <DropdownMenuSeparator />
-      <DropdownMenuGroup>
-        <DropdownMenuItem>
-          <User class="me-2 h-4 w-4" />
-          <span>{{ $t(`home.nav.profile`) }}</span>
-        </DropdownMenuItem>
+      <DropdownMenuGroup class="space-y-.5">
+        <RouterLink to="/profile">
+          <DropdownMenuItem>
+            <User class="me-2 h-4 w-4" />
+            <span>{{ $t(`home.nav.profile`) }}</span>
+          </DropdownMenuItem>
+        </RouterLink>
 
-        <DropdownMenuItem class="flex items-center">
-          <div class="flex items-center">
-            <Bell class="me-2 h-4 w-4" />
-            <span>{{ $t(`home.nav.notifications`) }}</span>
-          </div>
-        </DropdownMenuItem>
+        <RouterLink to="/profile/notifications">
+          <DropdownMenuItem class="flex items-center">
+            <div class="flex items-center me-2">
+              <div class="relative inline-flex w-fit">
+                <div
+                  v-if="notificationStore.favouriteItems?.length > 0"
+                  class="absolute bottom-auto start-1 top-1 z-10 inline-block -translate-x-2/4 -translate-y-1/2 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 rounded-full bg-red-600 p-1 text-xs"
+                ></div>
+                <Bell class="h-4 w-4" />
+              </div>
+            </div>
+            {{ $t(`home.nav.notifications`) }}
+          </DropdownMenuItem>
+        </RouterLink>
 
-        <DropdownMenuItem>
-          <Heart class="me-2 h-4 w-4" />
-          <span>{{ $t(`home.nav.favourites`) }}</span>
-        </DropdownMenuItem>
+        <RouterLink to="/profile/favourites">
+          <DropdownMenuItem>
+            <Heart class="me-2 h-4 w-4" />
+            <span>{{ $t(`home.nav.favourites`) }}</span>
+          </DropdownMenuItem>
+        </RouterLink>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
       <DropdownMenuItem>

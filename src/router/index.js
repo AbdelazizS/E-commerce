@@ -50,10 +50,28 @@ const router = createRouter({
           component: () => import('../views/auth/LoginView.vue')
         },
         {
+          path: '/profile',
+          name: 'profile',
+          // meta: { requiresAuth: true },
+          component: () => import('../views/ProfileView.vue')
+        },
+        {
           path: '/profile/favourites',
           name: 'favourites',
           // meta: { requiresAuth: true },
           component: () => import('../views/FavouritesView.vue')
+        },
+        {
+          path: '/profile/reset-password',
+          name: 'reset-password',
+          // meta: { requiresAuth: true },
+          component: () => import('../views/UpdatePassword.vue')
+        },
+        {
+          path: '/notifications',
+          name: 'notifications',
+          // meta: { requiresAuth: true },
+          component: () => import('../views/NotificationsView.vue')
         }
       ]
     }

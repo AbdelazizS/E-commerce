@@ -84,5 +84,5 @@ export const useFavoritesStore = defineStore('favorites', () => {
     }
   }
 
-  return { addToFavorites, isInFavorites }
+  return { addToFavorites, isInFavorites, favouriteItems }
 })

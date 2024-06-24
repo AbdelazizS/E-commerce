@@ -20,7 +20,7 @@ import OrderCard from '@/components/OrderCard.vue'
 
   <!--  -->
   <Container>
-    <div class="py-8 md:mb-16">
+    <div class="py-8 mb-16">
       <div class="grid md:grid-cols-2 md:gap-4 gap-6">
         <OrderCard />
         <OrderCard />

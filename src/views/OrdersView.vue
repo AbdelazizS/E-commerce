@@ -12,7 +12,10 @@ import OrderCard from '@/components/OrderCard.vue'
   <!--  -->
   <Navbar />
 
-  <BottomNav>
+  <BottomNav :baseRoute="'profile'">
+    <template #base>
+      {{ $t('home.nav.profile') }}
+    </template>
     {{ $t('orders.orders') }}
   </BottomNav>
 

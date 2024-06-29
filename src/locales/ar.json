@@ -2,7 +2,14 @@
   "logotxt": "الفاتح",
   "home_page": "الصفحة الرئيسية",
   "total": "الإجمالي",
+  "network_error": "خطأ في الشبكة ! الرجاء التحقق من اتصالك",
+  "cancel": "الغاء",
+  "favourites": "المفضلة",
+  "change_theme": "تغيير المظهر",
+  "notifications": "الإشعارات",
+  "back": "رجوع",
 
+  "submit": "تأكيد",
   "or": "أو",
   "home": {
     "nav": {
@@ -47,22 +54,45 @@
   },
 
   "auth": {
+    "logout_success": "تم تسجيل الخروج بنجاح",
+    "login_success": "تم تسجيل الدخول بنجاح",
+    "check_inbox": "تحقق من بريدك الوارد",
+    "password_reseted_success": "تمت اعادة تعيين كلمة المرور بنجاح",
+    "forgot_password": "نسيت كلمة المرور",
+    "reset_code_sended": "تم إرسال بريد إلكتروني يحتوي على رمز إعادة التعيين إلى بريدك الإلكتروني للتو",
+    "code_sended": "تم ارسال الرمز بنجاح     ",
+    "reset_password": "إعادة تعيين كلمة المرور",
+    "reset_password_desc": "أدخل كلمة المرور الجديدة و تاكيد كلمة المرور الجديدة لتحديث حسابك",
+    "forgot_password_desc": "أدخل عنوان بريدك الإلكتروني وسنرسل إليك رسالة بريد إلكتروني تتضمن رمزًا لإعادة تعيين كلمة المرور الخاصة بك.",
+    "name_placeholder": "ادخل اسمك",
+    "password_placeholder": "ادخل كلمة المرور الخاصة بك",
+    "passwordConfirm_placeholder": "قم بتاكيد كلمة المرور ",
+    "register_success": "تم التسجيل بنجاح",
+    "redirect_to_verify": "يتم توجيهك الى صفحة تاكيد البريد الالكتروني",
+    "redirect_to_login": "يتم توجيهك الى صفحة تسجيل الدخول",
+    "redirect_to_home": "يتم توجيهك الى الصفحة الرئيسية",
+    "emailUsed": "هذا البريد الالكتروني قيد الاستخدام",
+    "unValidCode": "الرجاء ادخل الكود الصحيح",
+    "account_not_exist": "هذا الحساب غير موجود",
+    "verified_success": "تم التاكيد بنجاح",
+    "email_or_password_error": "خطأ في البريد الالكتروني او كلمة المرور",
+    "verify_account_first": "قم بتاكيد البريد الالكتروني الخاص بك اولا",
     "login_title": "تسجيل الدخول إلى حسابك",
     "register_title": "أنشئ حسابا جديدا",
     "havenot_account": "ليس لديك حساب؟",
     "have_account": " لديك حساب؟",
     "email": "البريد الالكتروني",
-    "password": "كلمة السر",
+    "password": "كلمة المرور",
     "name": " إسم المستخدم",
     "required": "هذا الحقل مطلوب",
     "email_error": "الرجاء إدخال عنوان بريد الكتروني صالح",
-    "match_error": "غير متطابق مع كلمة السر",
-    "confirm_password": "تأكيد كلمة السر",
-    "password_length_error": "كلمة السر يجب أن لا تقل عن 8 احرف",
+    "match_error": "غير متطابق مع كلمة المرور",
+    "confirm_password": "تأكيد كلمة المرور",
+    "password_length_error": "كلمة المرور يجب أن لا تقل عن 8 احرف",
     "too_short": "هذا الحقل قصير جدا",
     "alpha_spaces": "هذا الحقل يجب أن يتضمن أحرف فقط",
     "strong_password": "يجب أن تتكون كلمة المرور الخاصة بك من 8 أحرف على الأقل، وتحتوي على رقم واحد على الأقل، وأحد الرموز الخاصة، ومجموعة من الأحرف الكبيرة والصغيرة.",
-    "passwordConf_err": "غير متطابقة مع كلمة السر"
+    "passwordConf_err": "غير متطابقة مع كلمة المرور"
   },
 
   "product_details": {
@@ -90,7 +120,11 @@
     "your_cart": " السلة",
     "empty": " فارغة"
   },
-  "profile": {},
+  "profile": {
+    "update_password": "تحديث كلمة المرور",
+    "personal_info": "البيانات الشخصية",
+    "settings&data": "إعدادات وبيانات الموقع"
+  },
   "orders": {
     "orders": "الطلبات",
     "order_id": "معرف الطلب",
@@ -98,5 +132,9 @@
     "products": "عدد المنتجات",
     "order_details": "تفاصيل الطلب",
     "confirmed": "تم التاكيد"
+  },
+  "category": {
+    "title": "الفئات",
+    "products": "المنتجات"
   }
 }

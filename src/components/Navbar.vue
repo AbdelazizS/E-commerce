@@ -94,7 +94,7 @@
 
               <span
                 class="absolute left-3 -mx-3 top-1 rounded-full bg-primary px-1.5 py-0 text-xs text-muted"
-                >{{ sortedItems?.length }}</span
+                >{{ CartStore.countCartItems }}</span
               >
             </Button>
           </RouterLink>

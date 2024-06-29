@@ -150,7 +150,8 @@ const button = document.querySelector('button'),
   closeIcon = document.querySelector('.close'),
   progress = document.querySelector('.progress')
 
-let timer1, timer2
+let timer1
+let timer2
 
 button.addEventListener('click', () => {
   toast.classList.add('active')

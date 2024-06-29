@@ -1,7 +1,13 @@
 {
   "logotxt": "Elfatef",
   "home_page": "Home",
+  "submit": "submit",
+  "change_theme": "Change Theme",
+  "cancel": "cancel",
+  "back": "back",
   "or": "or",
+  "notifications": "Notifications",
+  "network_error": "Network Error ! please check your connection",
   "total": "Total Price",
   "home": {
     "nav": {
@@ -47,7 +53,28 @@
     "add_to_cart": "Add to Cart"
   },
   "auth": {
+    "reset_password_desc": "Enter the new password and confirm the new password to update your account",
+    "reset_code_sended": "An email containing the reset code has just been sent to your email",
+    "code_sended": "code sended successfully to your email",
+    "password_reseted_success": "password reseted successfully",
+    "forgot_password": "Forgot Password",
+    "forgot_password_desc": "Enter your email address and we'll send you an email message with send you a code to reset your password.",
+    "name_placeholder": "Enter your name",
+    "password_placeholder": "Enter your own password ",
+    "passwordConfirm_placeholder": "confirm password your",
+    "register_success": "You have been successfully registered",
+    "redirect_to_verify": "Redirecting you to verification page",
+    "redirect_to_home": "Redirecting you to home page",
+    "redirect_to_login": "Redirecting you to login page",
+    "account_not_exist": "this account is not exist",
+    "email_or_password_error": "wrong password or email",
+    "emailUsed": "this email is already used",
+    "verify_account_first": "please , verify your email before login",
     "login_title": "Log in to your account",
+    "login_success": "You have been logged in successfully",
+    "logout_success": "You have been logged out successfully",
+    "verified_success": "Email verified successfully",
+    "unValidCode": "wrong code , please enter the correct code",
     "register_title": "create your new account",
     "havenot_account": "Don't have an account?",
     "have_account": "have an account?",
@@ -89,6 +116,11 @@
     "empty_cart_desc": "You can add products to your shopping cart, either by searching or browsing products",
     "empty": "Empty"
   },
+  "profile": {
+    "update_password": "Update Password",
+    "personal_info": "Personal Info",
+    "settings&data": "Website Settings & Data"
+  },
   "orders": {
     "orders": "Orders",
     "order_id": "Order Id",
@@ -96,5 +128,8 @@
     "products": "Products",
     "confirmed": "Confirmed",
     "order_details": "Order Details"
+  },
+  "category": {
+    "products": "Products"
   }
 }

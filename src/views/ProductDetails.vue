@@ -506,7 +506,7 @@ const addToCart = (item) => {
 }
 
 function setFav() {
-  if (!authStore.isAuthenticated) {
+  if (authStore.isAuthenticated) {
     if (!isInFavorites(id)) {
       toast({
         title: 'shopping_cart.added_to_fav',

@@ -9,10 +9,12 @@ import { useFavoritesStore } from '@/stores/favouritesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useToast } from '@/components/ui/toast/use-toast'
 import { RouterLink } from 'vue-router'
+import { storeToRefs } from 'pinia'
 
 const cartStore = useCartStore()
 const favoritesStore = useFavoritesStore()
 const authStore = useAuthStore()
+const { isAuthenticated } = storeToRefs(authStore)
 const { addItem } = cartStore
 const { addToFavorites, isInFavorites } = favoritesStore
 
@@ -41,7 +43,7 @@ const fill = ref(false)
 const loading = ref(false)
 
 function setFav() {
-  if (!authStore.isAuthenticated) {
+  if (isAuthenticated) {
     if (!isInFavorites(id)) {
       toast({
         title: 'shopping_cart.added_to_fav',
@@ -70,7 +72,9 @@ function setFav() {
 
 <template>
   <!-- Card Wrapper -->
-  <div class="relative shadow-md overflow-hidden border rounded-lg w-full max-w-xs bg-card">
+  <div
+    class="relative shadow-md overflow-hidden border rounded-lg w-full max-w-xs bg-card max-h-fit"
+  >
     <!-- Image -->
     <div
       class="w-full h-[210px] overflow-hidden mx-auto aspect-w!-16 aspect-h-8 bg-primary/10 dark:bg-primary-foreground/5"
@@ -143,7 +147,7 @@ function setFav() {
       </div>
 
       <Button class="gap-2 relative w-40 max-w-sm" @click="addToCart(item)">
-        <span :class="loading ? 'hidden' : ''">{{ $t(`home.add_to_cart`) }}</span>
+        <span :class="loading ? 'opacity-0' : ''">{{ $t(`home.add_to_cart`) }}</span>
         <ShoppingBag class="size-5" :class="loading ? 'hidden' : ''" />
         <Spinner v-if="loading" />
       </Button>

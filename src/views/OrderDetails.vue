@@ -9,8 +9,11 @@ import Footer from '@/components/Footer.vue'
   <!--  -->
   <Navbar />
 
-  <BottomNav>
-    <template #header>
+  <BottomNav :baseRoute="'profile/orders'" :rootRoute="'profile'">
+    <template #root>
+      {{ $t('profile') }}
+    </template>
+    <template #base>
       {{ $t('orders.orders') }}
     </template>
     {{ $t('orders.order_details') }}

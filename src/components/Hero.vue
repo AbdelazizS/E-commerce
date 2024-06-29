@@ -1,9 +1,7 @@
 <script setup>
-import { useColorMode } from '@vueuse/core'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Container from '@/layouts/Container.vue'
-
 import Autoplay from 'embla-carousel-autoplay'
 import {
   Carousel,
@@ -12,7 +10,6 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/ui/carousel'
-// import { Card, CardContent } from '@/components/ui/card'
 
 const plugin = Autoplay({
   delay: 3000,
@@ -26,7 +23,7 @@ const plugin = Autoplay({
     <Container>
       <div class="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
         <div class="">
-          <div class="ext-cener space-y-8">
+          <div class="space-y-8">
             <Badge variant="outline" class="text-sm py-2 flex max-w-max gap-2">
               <span>{{ $t(`home.hero.save`) }}</span>
               <span class="text-primary">
@@ -38,7 +35,7 @@ const plugin = Autoplay({
               class="max-w-screen-sm text- text-3xl sm:text-4xl md:text-6xl font-bold"
               v-if="$i18n.locale === 'ar'"
             >
-              <h1>
+              <h1 class="left">
                 {{ $t(`home.hero.market`) }}
                 <span
                   class="text-transparent bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text"
@@ -90,5 +87,6 @@ const plugin = Autoplay({
       </div>
     </Container>
   </div>
+
   <!-- </div> -->
 </template>

@@ -15,6 +15,11 @@ const router = createRouter({
           component: HomeView
         },
         {
+          path: '/category/:id',
+          name: 'category',
+          component: () => import('../views/CategoryView.vue')
+        },
+        {
           path: '/shopping-cart',
           name: 'shoppingCart',
 
@@ -22,13 +27,13 @@ const router = createRouter({
         },
 
         {
-          path: '/orders',
+          path: '/profile/orders',
           name: 'orders',
           component: () => import('../views/OrdersView.vue')
         },
         {
-          path: '/orders/:id',
-          name: 'order-details',
+          path: '/profile/orders/:id',
+          name: 'orderDetails',
           component: () => import('../views/OrderDetails.vue')
         },
         {
@@ -47,30 +52,44 @@ const router = createRouter({
           path: '/auth/login',
           name: 'login',
           meta: { requiresLogged: true },
-          component: () => import('../views/auth/LoginView.vue')
+          component: () => import('../views/auth/LoginView.vue'),
+          props: true
+        },
+        {
+          path: '/auth/forgot-password',
+          name: 'forgotPassword',
+          meta: { requiresLogged: true },
+          component: () => import('../views/auth/ForgotPassword.vue')
+        },
+        {
+          path: '/auth/verify',
+          name: 'verify',
+          meta: { requiresRegister: true },
+          component: () => import('../views/auth/VerifyView.vue'),
+          props: true
         },
         {
           path: '/profile',
           name: 'profile',
-          // meta: { requiresAuth: true },
+          meta: { requiresAuth: true },
           component: () => import('../views/ProfileView.vue')
         },
         {
           path: '/profile/favourites',
           name: 'favourites',
-          // meta: { requiresAuth: true },
+          meta: { requiresAuth: true },
           component: () => import('../views/FavouritesView.vue')
         },
         {
-          path: '/profile/reset-password',
-          name: 'reset-password',
-          // meta: { requiresAuth: true },
+          path: '/profile/update-password',
+          name: 'update-password',
+          meta: { requiresAuth: true },
           component: () => import('../views/UpdatePassword.vue')
         },
         {
-          path: '/notifications',
+          path: '/profile/notifications',
           name: 'notifications',
-          // meta: { requiresAuth: true },
+          meta: { requiresAuth: true },
           component: () => import('../views/NotificationsView.vue')
         }
       ]

@@ -13,13 +13,25 @@
     <div
       class="absolute bottom-0 z-50 group-hover:bottom-2 inset-0 flex flex-col items-start justify-end p-4 transition-all duration-300"
     >
-      <h3 class="text-xl font-bold text-orange-500 rounded-sm">{{ $t(`home.hero.electronic`) }}</h3>
+      <h3 class="text-xl font-bold text-orange-500 rounded-sm">
+        {{ title }}
+      </h3>
 
-      <span
-        class="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white rounded-sm"
-      >
-        {{ $t(`home.shop_now`) }}
-      </span>
+      <RouterLink :to="`/category/${id}`">
+        <span
+          class="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white rounded-sm"
+        >
+          {{ $t(`home.shop_now`) }}
+        </span>
+      </RouterLink>
     </div>
   </div>
 </template>
+
+<script setup>
+const props = defineProps({
+  item: Object
+})
+
+const { id, title } = props.item
+</script>

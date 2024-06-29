@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import router from '@/router'
+import { instance } from '@/services/api'
+import { Login } from '@/services/api'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
@@ -16,44 +18,59 @@ export const useAuthStore = defineStore('auth', () => {
 
   //   actions
   async function login(payload) {
-    try {
-      // const response = await true
-      // const token = `Bearer ${response.token}`;
-      // localStorage.setItem("token", token);
-      // axios.defaults.headers.common["Authorization"] = token;
-      // redirect to previous url or default to home page
-      // router.push(this.returnUrl || '/')
-    } catch (error) {
-      console.log(error)
-    }
-    console.log(payload)
+    return new Promise((resolve, reject) => {
+      try {
+        Login({
+          email: payload.email,
+          password: payload.password,
+          token_firebase: import.meta.env.VITE_FIREBASE_TOKEN,
+          app_id: '1999'
+        })
+          .then((resp) => {
+            if (resp.data.status === true) {
+              const userInfo = resp.data.client
+              token.value = userInfo.api_token
+              userInfo.value = JSON.stringify(userInfo)
+              localStorage.setItem('userInfo', JSON.stringify(userInfo))
+              localStorage.setItem('access_token', userInfo.api_token)
+            }
+            resolve(resp.data)
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      } catch (error) {
+        reject(new Error(error))
+      }
+    })
   }
+  // axios.defaults.headers.common["Authorization"] = token;
 
-  async function register(payload) {
-    // return new Promise((resolve, reject) => {
-    //   axios
-    //     .post('/register/', {
-    //       name: data.name,
-    //       email: data.email,
-    //     })
-    //     .then((response) => {
-    //       resolve(response)
-    //     })
-    //     .catch((error) => {
-    //       reject(error)
-    //     })
-    // })
+  async function logout() {
+    return new Promise((resolve, reject) => {
+      try {
+        instance
+          .post('logout', {
+            email: userInfo.value.email,
+            token_firebase: import.meta.env.VITE_FIREBASE_TOKEN,
+            app_id: '1999'
+          })
+          .then((resp) => {
+            resolve(resp)
+            if (resp.status === 200) {
+              userInfo.value = {}
+              token.value = ''
+              localStorage.removeItem('access_token')
+              localStorage.removeItem('userInfo')
+            }
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      } catch (error) {
+        reject(new Error(error))
+      }
+    })
   }
-
-  async function fetchUser() {
-    try {
-      // const response = await true;
-      // const token = `Bearer ${response.token}`;
-      // localStorage.setItem("token", token);
-      // axios.defaults.headers.common["Authorization"] = token;
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  return { isAuthenticated, login }
+  return { isAuthenticated, login, userInfo, returnUrl, logout }
 })

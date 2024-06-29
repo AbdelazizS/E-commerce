@@ -7,6 +7,12 @@ export function authGuard(to, from, next) {
     } else {
       next()
     }
+  } else if (to.matched.some((record) => record.meta.requiresRegister)) {
+    if (!authStore.isAuthenticated && authStore.isRegistered) {
+      next({ name: 'home' })
+    } else {
+      next()
+    }
   } else if (to.matched.some((record) => record.meta.requiresLogged)) {
     // else if any of the routes in ./router.js has a meta named 'requiresLogged: true'
     // then check if the user is logged in; if true continue to home page else continue routing to the destination path

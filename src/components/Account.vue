@@ -14,12 +14,45 @@ import {
 
 import { useAuthStore } from '@/stores/authStore'
 import { useFavoritesStore } from '@/stores/favouritesStore'
+import { storeToRefs } from 'pinia'
+import { useToast } from './ui/toast'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import Loader from './Loader.vue'
 
+const { toast } = useToast()
+const router = useRouter()
+const loading = ref(false)
 const authStore = useAuthStore()
+const { isAuthenticated } = storeToRefs(authStore)
 const notificationStore = useFavoritesStore()
+
+const handleLogout = () => {
+  loading.value = true
+  authStore
+    .logout()
+    .then((res) => {
+      if (res.status === 200) {
+        toast({
+          title: 'auth.logout_success',
+          success: true,
+          duration: 3000
+        })
+        setTimeout(() => {
+          loading.value = false
+          router.push('/')
+        }, 10000)
+      }
+    })
+    .catch((error) => {
+      loading.value = false
+      console.log(error)
+    })
+}
 </script>
 
 <template>
+  <Loader v-if="loading" />
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
       <Button variant="ghost" size="sm" class="p-2">
@@ -39,7 +72,7 @@ const notificationStore = useFavoritesStore()
         </svg>
       </Button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent class="w-48 md:w-56" v-if="!authStore.isAuthenticated">
+    <DropdownMenuContent class="w-48 md:w-56" v-if="isAuthenticated">
       <DropdownMenuLabel>{{ $t(`home.nav.my_account`) }}</DropdownMenuLabel>
       <DropdownMenuSeparator />
       <DropdownMenuGroup class="space-y-.5">
@@ -73,7 +106,7 @@ const notificationStore = useFavoritesStore()
         </RouterLink>
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
-      <DropdownMenuItem>
+      <DropdownMenuItem @click="handleLogout">
         <LogOut class="me-2 h-4 w-4" />
         <span>{{ $t(`home.nav.sign_out`) }}</span>
       </DropdownMenuItem>

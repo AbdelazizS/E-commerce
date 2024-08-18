@@ -100,17 +100,18 @@ const router = createRouter({
   }
 })
 
-// router.beforeEach((to, from) => {
-//   if (to.meta.requiresAuth) {
-//     // this route requires auth, check if logged in
-//     // if not, redirect to login page.
-//     if (!user.state.flag) {
-//       return {
-//         path: '/login'
-//       }
-//     }
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  // use the language from the routing param or default language
+  let language = to.params.language
+  if (!language) {
+    language = 'en'
+  }
+
+  // set the current language for vuex-i18n. note that translation data
+  // for the language might need to be loaded first
+  // Vue.i18n.set(language)
+  next()
+})
 
 router.beforeEach(authGuard)
 export default router

@@ -1,6 +1,7 @@
 <script setup>
 // import { Button } from '../components/ui/button'
 import Navbar from '@/components/Navbar.vue'
+import Footer from '@/components/Footer.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import Container from '@/layouts/Container.vue'
 import ProductCard from '@/components/ProductCard.vue'
@@ -70,4 +71,6 @@ const id = Number(route.params.id)
       </div>
     </Container>
   </section>
+
+  <Footer />
 </template>

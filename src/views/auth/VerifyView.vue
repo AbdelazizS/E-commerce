@@ -118,32 +118,32 @@ const onSubmit = () => {
     verify('verify', formData)
       .then((response) => {
         console.log(response)
-        // if (response.status === true) {
-        //   toast({
-        //     title: 'auth.verified_success',
-        //     success: true,
-        //     duration: 3000
-        //   })
+        if (response.status === true) {
+          toast({
+            title: 'auth.verified_success',
+            success: true,
+            duration: 3000
+          })
 
-        //   setTimeout(() => {
-        //     toast({
-        //       title: 'auth.redirect_to_login',
-        //       success: true,
-        //       duration: 3000
-        //     })
-        //     router.push({ name: 'login', state: { email: email.value } })
-        //   }, 1500)
+          setTimeout(() => {
+            toast({
+              title: 'auth.redirect_to_login',
+              success: true,
+              duration: 3000
+            })
+            router.push({ name: 'login', state: { email: email.value } })
+          }, 1500)
 
-        //   console.log(response)
-        // } else if (response.status === false) {
-        //   if (response.errNum === 0) {
-        //     if (response.msg === 'This code is expired') {
-        //       unValidCode.value = 'codeExpired'
-        //     } else {
-        //       unValidCode.value = 'unValidCode'
-        //     }
-        //   }
-        // }
+          console.log(response)
+        } else if (response.status === false) {
+          if (response.errNum === 0) {
+            if (response.msg === 'This code is expired') {
+              unValidCode.value = 'codeExpired'
+            } else {
+              unValidCode.value = 'unValidCode'
+            }
+          }
+        }
       })
       .catch((error) => {
         console.log(error)

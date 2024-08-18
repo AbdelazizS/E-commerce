@@ -19,7 +19,7 @@ const plugin = Autoplay({
 </script>
 
 <template>
-  <div class="py-8 md:py-12">
+  <div class="py-8 md:py-16">
     <Container>
       <div class="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
         <div class="">
@@ -57,7 +57,7 @@ const plugin = Autoplay({
             </div>
 
             <p class="max-w-screen-sm text-xl text-muted-foreground">
-              {{ $t(`home.hero.description`) }}
+              {{ $t(`home.cta.description`) }}
             </p>
 
             <div class="space-y-4 md:space-y-0 md:space-x-4">

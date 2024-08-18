@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import Container from '@/layouts/Container.vue'
 
 const links = [

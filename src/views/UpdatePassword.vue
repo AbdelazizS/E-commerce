@@ -62,13 +62,13 @@ const onSubmit = (values, { resetForm }) => {
     })
     .catch((error) => {
       console.log(error)
-      if (!error.response) {
-        toast({
-          title: 'network_error',
-          // success: true,
-          duration: 3000
-        })
-      }
+      // if (!error.response) {
+      //   toast({
+      //     title: 'network_error',
+      //     // success: true,
+      //     duration: 3000
+      //   })
+      // }
     })
 
     .finally(() => {

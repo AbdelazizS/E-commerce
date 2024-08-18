@@ -13,7 +13,11 @@ const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <DropdownMenuRoot v-bind="forwarded" :dir="$i18n.locale === 'ar' ? 'rtl' : 'ltr'">
+  <DropdownMenuRoot
+    class="z-[1000000000000]"
+    v-bind="forwarded"
+    :dir="$i18n.locale === 'ar' ? 'rtl' : 'ltr'"
+  >
     <slot />
   </DropdownMenuRoot>
 </template>

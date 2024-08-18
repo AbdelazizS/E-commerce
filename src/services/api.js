@@ -1,6 +1,4 @@
-import { useAuthStore } from '@/stores/authStore'
 import axios from 'axios'
-import { storeToRefs } from 'pinia'
 const host = import.meta.env.VITE_BASE_API_URL
 const baseURL = `${host}`
 
@@ -11,6 +9,18 @@ export const instance = axios.create({
   }
 })
 
+export const getProducts = (url) => {
+  return new Promise((resolve, reject) => {
+    instance
+      .post('product_category')
+      .then((resp) => {
+        resolve(resp)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
 export const Login = (payload) => {
   return new Promise((resolve, reject) => {
     instance

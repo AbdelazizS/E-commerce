@@ -11,7 +11,7 @@ import Footer from '@/components/Footer.vue'
 
   <BottomNav :baseRoute="'profile/orders'" :rootRoute="'profile'">
     <template #root>
-      {{ $t('profile') }}
+      {{ $t('home.nav.profile') }}
     </template>
     <template #base>
       {{ $t('orders.orders') }}

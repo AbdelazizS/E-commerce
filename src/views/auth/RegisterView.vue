@@ -7,7 +7,7 @@
   <div class="bg-/10">
     <Container>
       <div class="grid grid-cols-1 lg:grid-cols-2 items-center">
-        <div class="flex min-h-full flex-col justify-center py-8 mb-8">
+        <div class="flex flex-col justify-center py-8 mb-8">
           <div class="text-center">
             <img src="/src/assets/logo.png" class="mx-auto h-24 w-24" />
             <div class="mt-5 space-y-2">

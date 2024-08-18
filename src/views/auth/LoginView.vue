@@ -10,7 +10,7 @@
         <div class="hidden lg:block">
           <img src="/src/assets/login.svg" alt="" class="md:h-[350px] lg:h[400px] w-full" />
         </div>
-        <div class="flex min-h-full flex-col justify-center py-8 mb-8">
+        <div class="flex flex-col justify-center py-8 mb-8">
           <div class="text-center">
             <img src="/src/assets/logo.png" class="mx-auto h-24 w-24" />
             <div class="mt-5 space-y-2">

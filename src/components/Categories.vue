@@ -8,21 +8,24 @@ import { ref } from 'vue'
 const newItems = ref([
   {
     title: 'Computers',
-    id: 1
+    id: 1,
+    image: '/src/assets/pc.png'
   },
   {
     title: 'Accessories',
-    id: 2
+    id: 2,
+    image: '/src/assets/watch.png'
   },
   {
-    title: 'Phones',
-    id: 3
+    title: 'SomeSth',
+    id: 1,
+    image: '/src/assets/cta.png'
   }
 ])
 </script>
 
 <template>
-  <section id="categories" class="my-16 md:my-24">
+  <section id="categories" class="my-16 md:my-24 Categories">
     <!-- Title -->
     <Container>
       <div class="mb-8">
@@ -41,7 +44,7 @@ const newItems = ref([
         <!-- Card -->
 
         <div
-          v-if="newItems"
+          v-if="!newItems"
           class="flex flex-col space-y-3"
           v-for="item in newItems"
           :key="item.id"
@@ -51,7 +54,7 @@ const newItems = ref([
           />
         </div>
 
-        <CategoryCard v-else for="item in newItems" :key="item.id" :item="item" />
+        <CategoryCard v-for="item in newItems" :key="item.id" :item="item" />
       </div>
     </Container>
   </section>

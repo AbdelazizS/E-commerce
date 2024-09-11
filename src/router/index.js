@@ -15,6 +15,11 @@ const router = createRouter({
           component: HomeView
         },
         {
+          path: '/search/:q',
+          name: 'search',
+          component: () => import('../views/SearchView.vue')
+        },
+        {
           path: '/category/:id',
           name: 'category',
           component: () => import('../views/CategoryView.vue')

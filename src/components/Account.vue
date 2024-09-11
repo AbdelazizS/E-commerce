@@ -30,6 +30,7 @@ const notificationStore = useFavoritesStore()
 const handleLogout = () => {
   loading.value = true
   authStore
+
     .logout()
     .then((res) => {
       if (res.status === 200) {
@@ -41,7 +42,7 @@ const handleLogout = () => {
         setTimeout(() => {
           loading.value = false
           router.push('/')
-        }, 10000)
+        }, 1000)
       }
     })
     .catch((error) => {

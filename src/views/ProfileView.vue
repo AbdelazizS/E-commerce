@@ -23,16 +23,17 @@ import { Moon, Sun } from 'lucide-vue-next'
 import { useAuthStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
 import { useToast } from '@/components/ui/toast'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Loader from '@/components/Loader.vue'
+import Skeleton from '@/components/ui/skeleton/Skeleton.vue'
 
 const { toast } = useToast()
 const router = useRouter()
 const loading = ref(false)
 
 const authStore = useAuthStore()
-const { userInfo } = storeToRefs(authStore)
+// const { userInfo } = storeToRefs(authStore)
 
 const handleLogout = () => {
   loading.value = true
@@ -56,6 +57,10 @@ const handleLogout = () => {
       console.log(error)
     })
 }
+
+onMounted(() => {
+  console.log(authStore)
+})
 </script>
 
 <template>
@@ -71,24 +76,32 @@ const handleLogout = () => {
       <div class="flex gap-8 flex-col lg:flex-row">
         <div class="w-full lg:max-w-xs">
           <div
-            class="flex items-center gap-4 px-4 py-6 lg:py-6 bg-muted rounded-md shadow-sm border h-24"
+            class="flex items-center gap-3 md:gap-4 px-4 py-6 lg:py-6 bg-muted rounded-md shadow-sm border h-24"
           >
             <!-- Avatar -->
             <div
-              class="flex justify-center items-center w-14 h-14 shadow-md rounded-full border-4 overflow-hidden border-card bg-primary/50"
+              v-if="authStore.userInfo"
+              class="flex justify-center items-center w-12 h-12 shadow-md rounded-full border-4 overflow-hidden border-card bg-primary/50"
             >
               <div class="font-bold">
-                {{ userInfo.client_name?.slice(0, 1) }}
+                {{ authStore.userInfo.client_name?.slice(0, 1) }}
               </div>
             </div>
+            <data v-else>
+              <Skeleton
+                class="w-14 h-14 shadow-md rounded-full border-4 overflow-hidden border-card"
+              />
+            </data>
 
             <!-- user data -->
             <div class="">
               <h3 class="text-lg md:text-xl text-foreground relative font-bold leading-6">
-                {{ userInfo.client_name }}
+                <!-- {{ userInfo.client_name }} -->
+                {{ authStore.userInfo.client_name }}
               </h3>
               <p class="text-ltr text-sm md:text-base text-muted-foreground">
-                {{ userInfo.email }}
+                <!-- {{ userInfo.email }} -->
+                {{ authStore.userInfo.email }}
               </p>
             </div>
           </div>
@@ -210,7 +223,7 @@ const handleLogout = () => {
                     {{ $t('auth.name') }}
                   </div>
                   <div class="text-sm text-muted-foreground">
-                    {{ userInfo.client_name }}
+                    {{ authStore.userInfo.client_name }}
                   </div>
                 </div>
               </div>
@@ -229,7 +242,7 @@ const handleLogout = () => {
                     {{ $t('auth.email') }}
                   </div>
                   <div class="text-sm text-muted-foreground">
-                    {{ userInfo.email }}
+                    {{ authStore.userInfo.email }}
                   </div>
                 </div>
               </div>

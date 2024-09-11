@@ -38,6 +38,26 @@ const newItems = ref([
   }
 ])
 
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+onMounted(() => {
+  gsap.from('.fade-up', {
+    scrollTrigger: {
+      trigger: '.Categories',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    delay: 0.4,
+    duration: 0.7,
+    stagger: 0.1
+  })
+})
+
 const fetchProduct = () => {
   const item = newItems.value.find((x) => x.id === id)
   const title = item.category
@@ -55,18 +75,18 @@ const id = Number(route.params.id)
 
   <BottomNav> {{ fetchProduct() }} </BottomNav>
 
-  <section id="categories" class="py-8 mb-8">
+  <section id="categories" class="Categories py-8 mb-8">
     <!-- Title -->
 
     <Container>
       <div class="mb-8">
-        <h2 class="text-2xl md:text-3xl text-foreground text mb-8 tracking-wider font-bold">
+        <h2 class="fade-up text-2xl md:text-3xl text-foreground text mb-8 tracking-wider font-bold">
           {{ $t('category.products') }}
         </h2>
         <div
           class="justify-items-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-xl:gap-4 gap-6"
         >
-          <ProductCard v-for="item in newItems" :key="item.id" :item="item" />
+          <ProductCard class="fade-up" v-for="item in newItems" :key="item.id" :item="item" />
         </div>
       </div>
     </Container>

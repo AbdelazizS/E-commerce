@@ -1,6 +1,44 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
 import Container from '@/layouts/Container.vue'
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+onMounted(() => {
+  gsap.from('.scard', {
+    scrollTrigger: {
+      trigger: '.Services',
+      start: 'top 60%',
+      toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    delay: 0.2,
+    stagger: 0.2
+  })
+
+  // gsap.fromTo(
+  //   '.scard',
+  //   { opacity: 0, y: 50 },
+  //   {
+  //     scrollTrigger: {
+  //       trigger: '.Services',
+  //       start: 'top 70%',
+  //       scrub: true
+  //     },
+  //     opacity: 1,
+  //     y: 0,
+  //     ease: 'power1.inOut',
+  //     stagger: 0.1,
+  //     delay: 0.6,
+  //     duration: 7
+  //   }
+  // )
+})
 </script>
 
 <!-- eslint-disable vue/multi-word-component-names -->
@@ -8,12 +46,12 @@ import Container from '@/layouts/Container.vue'
 <template>
   <!-- mb-8 md:mb-16 -->
   <!-- bg-gradient-to-r to-primary from-primary/50 dark:bg-muted dark:to-muted dark:from-background/80dark:bg-muted dark:from-background/80 -->
-  <section class="relative">
+  <section class="relative Services">
     <Container>
       <div class="grid md:grid-cols-2 lg:md:grid-cols-3 gap-10 items-center">
-        <div class="rounded-md px-4 py-6 text-center shadow-md border bg-card">
+        <div class="scard rounded-md px-4 py-6 text-center shadow-md border bg-card">
           <div class="button-text mx-auto flex h-12 w-12 items-center justify-center rounded-md">
-            <span class="text-primary bg-primary/10 p-3 rounded-full"
+            <span class="text-primary bg-primary/10 p-3 rounded-full shadow-sm border"
               ><svg
                 width="15"
                 height="15"
@@ -37,7 +75,7 @@ import Container from '@/layouts/Container.vue'
             <!-- وسنطابق أقل سعر -->
           </p>
         </div>
-        <div class="rounded-md px-4 py-6 text-center shadow-md border bg-card">
+        <div class="scard rounded-md px-4 py-6 text-center shadow-md border bg-card">
           <div class="button-text mx-auto flex h-12 w-12 items-center justify-center rounded-md">
             <span class="text-primary bg-primary/10 p-3 rounded-full"
               ><svg
@@ -61,7 +99,7 @@ import Container from '@/layouts/Container.vue'
             التوصيل المجاني للمنازل استمتع بتوصيل مجاني للطلبات أكثر من 99 رس.
           </p>
         </div>
-        <div class="rounded-md px-4 py-6 text-center shadow-md border bg-card">
+        <div class="scard rounded-md px-4 py-6 text-center shadow-md border bg-card">
           <div class="button-text mx-auto flex h-12 w-12 items-center justify-center rounded-md">
             <span class="text-primary bg-primary/10 p-3 rounded-full"
               ><svg

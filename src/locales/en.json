@@ -70,9 +70,18 @@
     "shop_now": "Shop Now",
     "add_to_cart": "Add to Cart"
   },
+  "search": {
+    "items_amount": "{amount} Items Founded",
+    "single_item": "one Item Founded",
+    "no_match": "No Results Matches ",
+    "found": "found"
+  },
   "auth": {
+    "verify_email": "Email Verification",
+    "reset_password": "Reset Your Password",
     "reset_password_desc": "Enter the new password and confirm the new password to update your account",
     "reset_code_sended": "An email containing the reset code has just been sent to your email",
+    "check_inbox": "Check Your Inbox",
     "code_sended": "code sended successfully to your email",
     "password_reseted_success": "password reseted successfully",
     "forgot_password": "Forgot Password",

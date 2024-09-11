@@ -66,20 +66,17 @@ export const useFavoritesStore = defineStore('favorites', () => {
     return favouriteItems.value.some((product) => product.id === id)
   }
 
-  function addToFavorites(id) {
-    const existingItem = favouriteItems.value.find((x) => x.id === id)
-    const productStore = useProductStore()
+  function addToFavorites(item) {
+    console.log(item)
+
+    const existingItem = favouriteItems.value.find((x) => x.id === item.id)
+    // const productStore = useProductStore()
     if (!existingItem) {
-      const addedFavorite = productStore.products.find((product) => product.id === id)
-      console.log(
-        productStore.products.find((product) => product.id === id),
-        id
-      )
-      favouriteItems.value.push({ ...addedFavorite })
+      // const addedFavorite = productStore.products.find((product) => product.id === id)
+      favouriteItems.value.push({ ...item })
       updateLocalStorage(favouriteItems.value)
-      console.log({ ...addedFavorite })
     } else {
-      favouriteItems.value = favouriteItems.value.filter((x) => x.id !== id)
+      favouriteItems.value = favouriteItems.value.filter((x) => x.id !== item.id)
       updateLocalStorage(favouriteItems.value)
     }
   }

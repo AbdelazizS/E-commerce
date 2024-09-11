@@ -5,6 +5,7 @@ import Container from '@/layouts/Container.vue'
 import Footer from '@/components/Footer.vue'
 import { ref, onMounted } from 'vue'
 import { useFavoritesStore } from '@/stores/favouritesStore.js'
+import { getFavourites } from '@/services/api'
 
 // const favouriteItems = ref([])
 const favouriteStore = useFavoritesStore()
@@ -12,6 +13,14 @@ const { favouriteItems } = favouriteStore
 
 onMounted(() => {
   // console.log(favouriteStore.favouriteItems)
+
+  getFavourites()
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 })
 </script>
 
@@ -38,7 +47,7 @@ onMounted(() => {
           <div class="flex items-center gap-4 md:gap-6 items-">
             <div class="w-36 h-26 md:w-40 md:h-40">
               <img
-                src="/src/assets/pc.png"
+                :src="item.image"
                 alt="product-image"
                 class="w-full rounded-lg h-full object-cover"
               />
@@ -49,11 +58,11 @@ onMounted(() => {
                 <h2
                   class="text-lg font-bold text-foreground transition-all duration-300 hover:underline hover:text-primary"
                 >
-                  {{ item.title }}
+                  {{ item.product_name }}
                 </h2>
               </RouterLink>
               <div class="flex items-center text-muted-foreground">
-                <p class="text-base">{{ item.price }}.00 $</p>
+                <p class="text-base">{{ item.product_price }} $</p>
               </div>
             </div>
           </div>

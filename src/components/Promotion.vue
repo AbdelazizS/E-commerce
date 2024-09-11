@@ -2,7 +2,7 @@
 <template>
   <!--  bg-sky-600 -->
   <section
-    class="overflow-hidden relative h-64 text-gray-50 flex flex-col justify-center items-center gap-4 py-4 bg-gradient-to-r to-primary from-primary/30 dark:bg-muted dark:to-muted dark:from-background/80 my-8 md:my-16"
+    class="overflow-hidden relative h-64 text-gray-50 flex flex-col justify-center items-center gap-4 py-4 bg-gradient-to-r to-primary from-primary/30 dark:bg-muted dark:to-muted dark:from-background/80 my-8 md:my-16 Promo"
   >
     <svg
       y="0"
@@ -23,7 +23,7 @@
         class="svg-stroke-primary"
       ></path>
     </svg>
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center Promo_text">
       <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">
         {{ $t(`home.offers.discounts`) }}
       </h2>
@@ -32,8 +32,8 @@
       >
         {{ $t(`home.offers.up_to`) }}
       </p>
+      <span class="font-extrabold text-5xl md:text-7xl -skew-x-12 -skew-y-12 mt-4">18%</span>
     </div>
-    <span class="font-extrabold text-5xl md:text-7xl -skew-x-12 -skew-y-12">18%</span>
     <!-- <button
       class="z-10 duration-500 font-bold px-4 py-2 bg-gray-50 text-sky-500 hover:bg-sky-500 hover:text-gray-50"
     >
@@ -41,3 +41,35 @@
     </button> -->
   </section>
 </template>
+
+<script setup>
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+onMounted(() => {
+  gsap.from('.Promo', {
+    y: '20%',
+    opacity: 0,
+    duration: 1,
+    delay: 0.2,
+    scrollTrigger: {
+      trigger: '.Promo'
+      // toggleActions: 'play pause restart reset'
+    }
+  })
+
+  gsap.from('.Promo_text', {
+    y: '50%',
+    opacity: 0,
+    duration: 1.5,
+    delay: 0.4,
+    scrollTrigger: {
+      trigger: '.Promo'
+      // toggleActions: 'play pause restart reset'
+    }
+  })
+})
+</script>

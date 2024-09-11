@@ -3,6 +3,25 @@ import Navbar from '@/components/Navbar.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import Container from '@/layouts/Container.vue'
 import Footer from '@/components/Footer.vue'
+
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+onMounted(() => {
+  gsap.from('.fade-up', {
+    scrollTrigger: {
+      trigger: '.Orders_details',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.1
+  })
+})
 </script>
 
 <template>
@@ -21,9 +40,9 @@ import Footer from '@/components/Footer.vue'
 
   <!--  -->
   <Container>
-    <div class="py-8 md:mb-16">
+    <div class="py-8 md:mb-16 Orders_details">
       <div class="grid md:grid-cols-2 md:gap-4 gap-6">
-        <div class="bg-card shadow-md border max-w-lg p-4 relative">
+        <div class="fade-up bg-card shadow-md border max-w-lg p-4 relative">
           <div
             class="bg-primary w-8 h-8 md:h-10 md:w-10 flex items-center justify-center rounded-full cursor-pointer absolute top-2 ltr:right-2 rtl:left-2 rtl:md:left-4 md:top-4 ltr:md:right-4 text-white font-bold"
           >
@@ -46,7 +65,7 @@ import Footer from '@/components/Footer.vue'
             </div>
           </div>
         </div>
-        <div class="bg-card shadow-md border max-w-lg p-4 relative">
+        <div class="fade-up bg-card shadow-md border max-w-lg p-4 relative">
           <div
             class="bg-primary w-8 h-8 md:h-10 md:w-10 flex items-center justify-center rounded-full cursor-pointer absolute top-2 ltr:right-2 rtl:left-2 rtl:md:left-4 md:top-4 ltr:md:right-4 text-white font-bold"
           >

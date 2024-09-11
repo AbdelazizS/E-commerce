@@ -4,20 +4,24 @@
   <BottomNav>
     {{ $t('home.nav.sign_in') }}
   </BottomNav>
-  <div class="bg-/10">
+  <div class="bg-/10 Login">
     <Container>
       <div class="grid grid-cols-1 lg:grid-cols-2 items-center">
         <div class="hidden lg:block">
-          <img src="/src/assets/login.svg" alt="" class="md:h-[350px] lg:h[400px] w-full" />
+          <img
+            src="/src/assets/login.svg"
+            alt=""
+            class="slide-left md:h-[350px] lg:h[400px] w-full"
+          />
         </div>
         <div class="flex flex-col justify-center py-8 mb-8">
           <div class="text-center">
-            <img src="/src/assets/logo.png" class="mx-auto h-24 w-24" />
+            <img src="/src/assets/logo.png" class="fade-up mx-auto h-24 w-24" />
             <div class="mt-5 space-y-2">
-              <h3 class="text-foreground text-2xl font-bold md:text-3xl">
+              <h3 class="fade-up text-foreground text-2xl font-bold md:text-3xl">
                 {{ $t('auth.login_title') }}
               </h3>
-              <p class="text-muted-foreground">
+              <p class="text-muted-foreground fade-up">
                 {{ $t('auth.havenot_account') }}
                 <RouterLink
                   to="/auth/register"
@@ -31,16 +35,18 @@
           <div class="mt-6 mx-auto w-full max-w-sm">
             <vee-form :validation-schema="schema" @submit="onSubmit" class="space-y-6">
               <BaseInput
+                class="fade-up"
                 :value="form.email"
+                v-model="form.email"
                 placeholder="e.g@example.com"
                 name="email"
-                v-model="form.email"
                 :label="$t('auth.email')"
               />
 
               <div class="">
                 <PasswordInput
                   :placeholder="$t('auth.password_placeholder')"
+                  class="fade-up"
                   name="password"
                   v-model="form.password"
                   :label="$t('auth.password')"
@@ -64,7 +70,7 @@
                     {{ $t('auth.remember_me') }}
                   </label>
                 </div> -->
-                <div class="text-sm">
+                <div class="text-sm fade-up">
                   <RouterLink
                     to="/auth/forgot-password"
                     class="text-blue-600 hover:underline font-semibold"
@@ -73,7 +79,7 @@
                   </RouterLink>
                 </div>
               </div>
-              <Button class="w-full">{{ $t('home.nav.sign_in') }}</Button>
+              <Button class="fade-up w-full">{{ $t('home.nav.sign_in') }}</Button>
             </vee-form>
           </div>
         </div>
@@ -99,6 +105,37 @@ import { useAuthStore } from '@/stores/authStore'
 import { defineRule } from 'vee-validate'
 import { required, regex, alpha_spaces, email, min, max, confirmed } from '@vee-validate/rules'
 import { useToast } from '@/components/ui/toast/use-toast'
+
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+onMounted(() => {
+  gsap.from('.slide-left', {
+    scrollTrigger: {
+      trigger: '.Login',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    opacity: 0,
+    x: 80,
+    delay: 0.1,
+    duration: 1
+  })
+
+  gsap.from('.fade-up', {
+    scrollTrigger: {
+      trigger: '.Login',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.1
+  })
+})
 
 defineRule('required', required)
 defineRule('regex', regex)
@@ -146,7 +183,7 @@ const onSubmit = (values, { resetForm }) => {
             success: true,
             duration: 3000
           })
-          router.push({ name: 'home' })
+          window.location.href = '/'
         }, 1500)
       }
       if (response.message === 'This email does not exist') {
@@ -155,8 +192,6 @@ const onSubmit = (values, { resetForm }) => {
       if (response.errNum === 'E001') {
         console.log(response)
         errorMsg.value = 'email_or_password_error'
-      } else {
-        errorMsg.value = 'verify_account_first'
       }
     })
     .catch((err) => {
@@ -176,12 +211,7 @@ const onSubmit = (values, { resetForm }) => {
       setTimeout(() => {
         loading.value = false
       }, 1500)
-      resetForm({
-        values: {
-          password: '',
-          email: values.email
-        }
-      })
+
       setTimeout(() => {
         errorMsg.value = ''
       }, 3500)

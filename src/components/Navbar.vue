@@ -13,11 +13,18 @@
         </RouterLink>
 
         <!-- SearchBar -->
-        <div class="md:max-w-xl w-full hidden lg:block">
-          <div
+        <!-- <div class="md:max-w-xl w-full hidden lg:block">
+          <form
             class="shadow-sm focus-within:shadow-md transition-all duration-300 text-foreground flex max-xl:w-full px-2 py-1 rounded-md border items-center bg-muted/30"
+            @submit.prevent="SearchFilter()"
           >
-            <Input class="border-0 bg-transparent" />
+            <BaseInput
+              v-model="searchQuery"
+              class="w-full"
+              :value="searchQuery"
+              :search_bar="true"
+              :placeholder="$t('search_here')"
+            />
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -30,8 +37,9 @@
                 clip-rule="evenodd"
               />
             </svg>
-          </div>
-        </div>
+          </form>
+        </div> -->
+        <SearchBar class="md:max-w-xl w-full hidden lg:block" />
 
         <!-- Features Icons -->
         <div class="hidden lg:flex">
@@ -135,6 +143,8 @@
                     </a>
                   </SheetTitle>
                 </SheetHeader>
+
+                <!-- SearchBar -->
                 <div class="md:max-w-xl w-full lg:hidden block my-2">
                   <div
                     class="shadow-sm focus-within:shadow-md transition-all duration-300 text-foreground flex max-xl:w-full px-3 py-1 rounded-sm border border-muted items-center bg-muted/30"
@@ -189,12 +199,13 @@ import {
   SheetTitle,
   SheetTrigger
 } from '@/components/ui/sheet'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import { ref } from 'vue'
 import { useCartStore } from '@/stores/cart.js'
 import { onBeforeMount } from 'vue'
+import SearchBar from '@/components/SearchBar.vue'
 const CartStore = useCartStore()
-
+const route = useRoute()
 const isOpen = ref(false)
 const top = ref(false)
 
@@ -213,7 +224,10 @@ const top = ref(false)
 // detect whether user has scrolled the page down by 10px
 const scrollHandler = () => {
   // window.pageYOffset
-  window.scrollY > 150 ? (top.value = false) : (top.value = true)
+  window.scrollY > 150 ? (top.value = true) : (top.value = true)
+  if (route.path === '/') {
+    window.scrollY > 150 ? (top.value = false) : (top.value = true)
+  }
 }
 
 onBeforeMount(() => {

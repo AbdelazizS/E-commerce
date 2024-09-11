@@ -11,6 +11,25 @@ import { useFavoritesStore } from '@/stores/favouritesStore.js'
 // const favouriteItems = ref([])
 const favouriteStore = useFavoritesStore()
 const { favouriteItems } = favouriteStore
+
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+onMounted(() => {
+  gsap.from('.fade-up', {
+    scrollTrigger: {
+      trigger: '.Notifications',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.1
+  })
+})
 </script>
 
 <template>
@@ -29,12 +48,12 @@ const { favouriteItems } = favouriteStore
   <!--  -->
   <Container>
     <!--  -->
-    <div class="py-8 mb-8">
+    <div class="py-8 mb-8 Notifications">
       <div class="grid md:grid-cols-2 gap-6 md:gap-8" v-if="favouriteItems?.length > 0">
         <div
           v-for="item in favouriteItems"
           :key="item.id"
-          class="relative px-4 py-6 border bg-card rounded-lg shadow-sm w-full"
+          class="fade-up relative px-4 py-6 border bg-card rounded-lg shadow-sm w-full"
         >
           <div class="inline-flex items-center justify-between w-full">
             <div class="inline-flex items-center gap-2">

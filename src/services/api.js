@@ -9,10 +9,83 @@ export const instance = axios.create({
   }
 })
 
-export const getProducts = (url) => {
+export const addFavourites = () => {
   return new Promise((resolve, reject) => {
     instance
-      .post('product_category')
+      // product_category
+      .post('add_favorite', {
+        app_id: '199',
+        product_id: '66',
+        client_id: '411',
+        product_name: 'قلادة في شكل قلب',
+        product_price: '11690.00',
+        image: ''
+      })
+
+      .then((resp) => {
+        resolve(resp)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+export const addCartItem = () => {
+  return new Promise((resolve, reject) => {
+    instance
+
+      // product_category
+      .post('add_cart', {
+        client_id: '411',
+        app_id: '199',
+        product_id: 72
+      })
+
+      .then((resp) => {
+        resolve(resp)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+export const getFavourites = () => {
+  return new Promise((resolve, reject) => {
+    instance
+      // product_category
+      .get('get_favorites', {
+        client_id: '411'
+      })
+
+      .then((resp) => {
+        resolve(resp)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+export const getCartItems = () => {
+  return new Promise((resolve, reject) => {
+    instance
+      // product_category
+      .post('get_cart', {
+        client_id: '411'
+      })
+
+      .then((resp) => {
+        resolve(resp)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+export const getFeaturedProducts = () => {
+  return new Promise((resolve, reject) => {
+    instance
+      // product_category
+      .get('features_product')
       .then((resp) => {
         resolve(resp)
       })

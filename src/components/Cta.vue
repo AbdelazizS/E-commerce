@@ -1,9 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <section
-    class="relative z-20 bg-gradient-to-r to-primary from-primary/30 overflow-hidden dark:bg-muted dark:to-muted dark:from-background/80 mt-16 md:mt-24"
+    class="Cta relative z-20 bg-gradient-to-r to-primary from-primary/30 overflow-hidden dark:bg-muted dark:to-muted dark:from-background/80 mt-16 md:mt-24"
   >
-    <span class="absolute bottom-0 -right-48 -z-10">
+    <span class="fade-up-shapes absolute bottom-0 -right-48 -z-10">
       <svg
         width="388"
         height="250"
@@ -29,7 +29,7 @@
             <stop offset="1" stop-color="white" stop-opacity="0"></stop>
           </linearGradient>
         </defs></svg></span
-    ><span class="absolute bottom-0 -right-40 -z-10"
+    ><span class="fade-up-shapes absolute bottom-0 -right-40 -z-10"
       ><svg
         width="324"
         height="250"
@@ -55,7 +55,7 @@
             <stop offset="1" stop-color="white" stop-opacity="0"></stop>
           </linearGradient>
         </defs></svg></span
-    ><span class="absolute top-4 left-8 -z-10"
+    ><span class="fade-up-shapes absolute top-4 left-8 -z-10"
       ><svg
         width="43"
         height="56"
@@ -210,20 +210,22 @@
     <!-- sm:py-16   py-8 lg:px-6 -->
     <Container class="py-4 md:py-0">
       <div class="grid gap-8 xl:gap-16 items-center md:grid-cols-2">
-        <img class="w-full" src="/src/assets/cta.png" alt="cta image" />
+        <img class="slide-right w-full" src="/src/assets/cta.png" alt="cta image" />
         <!-- mt-4 block display -->
         <div class="md:mt-0">
-          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-foreground">
+          <h2 class="fade-up mb-4 text-4xl tracking-tight font-extrabold text-foreground">
             {{ $t(`home.cta.title`) }}
           </h2>
-          <p class="mb-6 text-lg text-muted-foreground">
+          <p class="fade-up mb-6 text-lg text-muted-foreground">
             {{ $t(`home.cta.description`) }}
           </p>
-          <button
-            class="inline-block bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white rounded-sm cursor-pointer hover:scale-105 transition-all duration-200 hover:bg-black/90"
-          >
-            {{ $t('download_now') }}
-          </button>
+          <p class="fade-up">
+            <button
+              class="bg-black px-5 py-3 text-xs font-medium uppercase tracking-wide text-white rounded-sm cursor-pointer hover:scale-105 transition-all duration-200 hover:bg-black/90"
+            >
+              {{ $t('download_now') }}
+            </button>
+          </p>
         </div>
       </div>
     </Container>
@@ -239,6 +241,51 @@
 <script setup>
 import Container from '@/layouts/Container.vue'
 import { Button } from '@/components/ui/button'
+
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+onMounted(() => {
+  gsap.from('.slide-right', {
+    scrollTrigger: {
+      trigger: '.Cta',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    opacity: 0,
+    x: -50,
+    delay: 0.2,
+    duration: 1
+  })
+
+  gsap.from('.fade-up', {
+    scrollTrigger: {
+      trigger: '.Cta',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.1
+  })
+
+  gsap.from('.fade-up-shapes', {
+    scrollTrigger: {
+      trigger: '.Cta',
+      start: 'top 60%',
+      toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    delay: 0.4,
+    stagger: 0.1
+  })
+})
 </script>
 
 <style></style>

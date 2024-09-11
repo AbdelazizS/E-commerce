@@ -9,25 +9,42 @@ import Promotion from '@/components/Promotion.vue'
 import Offer from '@/components/Offer.vue'
 import Services from '@/components/Services.vue'
 
-import { getProducts } from '@/services/api'
 import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { getCartItems } from '@/services/api'
+
+gsap.registerPlugin(ScrollTrigger)
 
 onMounted(() => {
-  getProducts()
+  getCartItems()
     .then((res) => {
       console.log(res)
     })
     .catch((err) => {
       console.log(err)
     })
+
+  gsap.set('.whatsIcon', { scale: 0.8, y: 60, opacity: 0 })
+  gsap.to('.whatsIcon', {
+    scrollTrigger: {
+      trigger: 'section'
+    },
+    scale: 1,
+    y: 0,
+    opacity: 1,
+    delay: 1.7,
+    duration: 1,
+    ease: 'power1.inOut'
+  })
 })
 </script>
 
 <template>
-  <div class="heroBg">
+  <section class="heroBg">
     <Navbar id="header" class="navbar" />
     <Hero />
-  </div>
+  </section>
   <Services />
   <Categories />
   <Promotion />
@@ -35,55 +52,11 @@ onMounted(() => {
   <Offer />
   <Cta />
 
-  <!-- <section
-    data-aos="zoom-in"
-    data-aos-delay="50"
-    data-aos-duration="500"
-    class="relative w-full bg-[#D8EEFE] py-12 rounded-xl shadow-[0_6px_30px_rgba(9,64,103,0.13)] mb-24 overflow-hidden"
-  >
-    <div class="relative z-10 flex flex-col items-center px-4 sm:px-8">
-      <h3
-        class="text text-2xl sm:text-3xl lg:text-4xl text-[#094067] text-center font-bold leading-tight px-0 lg:px-24 xl:px-48 mb-9"
-      >
-        Pengen Dapet Info Seputar Destinasi Wisata? Yuk Berlangganan Di Newsletter Kami
-      </h3>
-      <div
-        class="w-full flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4"
-      >
-        <div
-          class="px-6 py-4 w-full md:w-[550px] bg-white shadow-md rounded-md flex space-x-2 focus-within:ring-2 focus-within:ring-[#3DA9FC] ring-offset-2 transition duration-300"
-        >
-          <input
-            class="w-full border-none outline-none focus:outline-none"
-            type="text"
-            placeholder="Tulis alamat email kamu disini"
-          />
-        </div>
-        <button
-          class="w-full sm:w-fit bg-[#EF4565] px-6 py-4 text-white font-bold shadow-md shadow-[rgba(239,69,101,0.25)] rounded-md hover:bg-[#d03753] transition-colors duration-300"
-        >
-          Subscribe
-        </button>
-      </div>
-    </div>
-    <div
-      class="absolute top-[-140%] left-[-27%] w-[500px] h-[680px] border-8 border-[rgba(255,255,255,0.75)] rounded-full"
-    ></div>
-    <div
-      class="absolute bottom-[-190%] left-[-25%] w-[500px] h-[680px] rotate-45 border-8 border-[rgba(255,255,255,0.75)] rounded-full"
-    ></div>
-    <div
-      class="absolute top-[-140%] right-[-27%] w-[500px] h-[680px] border-8 border-[rgba(255,255,255,0.75)] rounded-full"
-    ></div>
-    <div
-      class="absolute bottom-[-190%] right-[-16%] w-[500px] h-[680px] rotate-45 border-8 border-[rgba(255,255,255,0.75)] rounded-full"
-    ></div>
-  </section> -->
   <Footer />
 
   <a
     href="https://wa.me/+24911345959"
-    class="cursor-pointer z-[100000000] btn-whatsapp-pulse btn-whatsapp-pulse-border"
+    class="whatsIcon cursor-pointer z-[100000000] btn-whatsapp-pulse btn-whatsapp-pulse-border"
   >
     <svg fill="#fff" class="w-8 h-8" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
       <path

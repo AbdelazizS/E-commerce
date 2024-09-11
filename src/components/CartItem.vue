@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-dupe-keys -->
 <script setup>
 // import { Heart } from 'lucide-vue-next'
 import { Button } from './ui/button'
@@ -6,11 +7,13 @@ import { useToast } from '@/components/ui/toast/use-toast'
 
 import { useAuthStore } from '@/stores/authStore.js'
 import { useFavoritesStore } from '@/stores/favouritesStore.js'
+import Skeleton from './ui/skeleton/Skeleton.vue'
+import { ref } from 'vue'
 const authStore = useAuthStore()
 const CartStore = useCartStore()
 const favoritesStore = useFavoritesStore()
 const { toast } = useToast()
-const { removeItem, decrementQty, incrementQty } = CartStore
+const { removeItem, decrementQty, incrementQty, itemLoading } = CartStore
 const { addToFavorites, isInFavorites } = favoritesStore
 // import {storeToRefs} from 'pinia'
 // const { cartItems } = storeToRefs(store)
@@ -41,28 +44,48 @@ function setFav() {
   }
 }
 
+const loading = ref(false)
+
 const handleDecrement = (item) => {
+  itemLoading(true)
+  loading.value = true
   decrementQty(item)
-  console.log(item)
+  setTimeout(() => {
+    itemLoading(false)
+    loading.value = false
+  }, 2000)
 }
+
 const handleIncrement = (item) => {
+  itemLoading(true)
+  loading.value = true
   incrementQty(item)
+
+  setTimeout(() => {
+    itemLoading(false)
+    loading.value = false
+  }, 2000)
 }
 const removeFromCart = (item) => {
   removeItem(item.id)
 }
 
 const props = defineProps({
-  item: Object
+  item: Object,
+  loading: Object
 })
 
-const { title, id } = props.item
+const {
+  item: { product_name, id, image }
+} = props
+
+console.log(props)
 </script>
 <template>
   <div class="rounded-lg border bg-card p-4 shadow-sm md:p-6">
     <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
       <a href="#" class="shrink-0 md:order-1">
-        <img class="h-24 w-24 :hidden" src="/src/assets/pc.png" alt="imac image" />
+        <img class="h-24 w-24 :hidden" :src="image" alt="imac image" />
         <img
           class="hidden h-20 w-20 :block"
           src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-.svg"
@@ -116,9 +139,12 @@ const { title, id } = props.item
             </svg>
           </Button>
         </div>
-        <div class="text-end md:order-4 md:w-32">
+        <div class="Item text-end md:order-4 md:w-32">
           <p class="text-base font-bold text-foreground">
-            ${{ props.item.price * props.item.quantity }}
+            <span v-if="!loading"> ${{ props.item.product_price * props.item.quantity }} </span>
+            <span v-else>
+              <Skeleton class="ms-auto h-6 rounded-md w-[90px]" />
+            </span>
           </p>
           <!-- <span class="text-sm">{{ price }}*{{ quantity }}</span> -->
         </div>
@@ -126,7 +152,7 @@ const { title, id } = props.item
 
       <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
         <a href="#" class="text-lg md:text-xl font-semibold text-foreground hover:underline">
-          {{ title }}
+          {{ product_name }}
         </a>
 
         <div class="flex items-center gap-4 abs">

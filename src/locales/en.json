@@ -6,9 +6,11 @@
   "cancel": "cancel",
   "back": "back",
   "or": "or",
+  "download_now": "Download Now",
   "notifications": "Notifications",
   "network_error": "Network Error ! please check your connection",
   "total": "Total Price",
+  "verify_your_email": "Verify your email address",
   "home": {
     "nav": {
       "light": "light",
@@ -32,6 +34,21 @@
       "market": "Market",
       "description": "description"
     },
+    "offers": {
+      "discounts": "Discounts",
+      "offer-name": "Winter Sale",
+      "offer-discount": "30% OFF",
+      "offer-title": "Fine Smile",
+      "offer-date": "10 Jan to 28 Jan",
+      "offer-description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio illo debitis quam.",
+
+      "offer-product-title": "Nvidia Ms11 Pc",
+      "up_to": "Up to"
+    },
+    "cta": {
+      "title": "Let's create more tools and ideas that brings us together.",
+      "description": "Flowbite helps you connect with friends and communities of people who share your interests. Connecting with your friends and family as well as discovering new"
+    },
     "footer": {
       "services": "Services",
       "company": "Company",
@@ -45,6 +62,7 @@
       "partners": "Partners",
       "rights": "All Rights Reserves"
     },
+    "get_it_now": "Get it Now",
 
     "categories": "Shop by Category",
     "categories_desc": "Discover multiple options in each category",
@@ -52,9 +70,18 @@
     "shop_now": "Shop Now",
     "add_to_cart": "Add to Cart"
   },
+  "search": {
+    "items_amount": "{amount} Items Founded",
+    "single_item": "one Item Founded",
+    "no_match": "No Results Matches ",
+    "found": "found"
+  },
   "auth": {
+    "verify_email": "Email Verification",
+    "reset_password": "Reset Your Password",
     "reset_password_desc": "Enter the new password and confirm the new password to update your account",
     "reset_code_sended": "An email containing the reset code has just been sent to your email",
+    "check_inbox": "Check Your Inbox",
     "code_sended": "code sended successfully to your email",
     "password_reseted_success": "password reseted successfully",
     "forgot_password": "Forgot Password",
@@ -125,6 +152,7 @@
     "orders": "Orders",
     "order_id": "Order Id",
     "status": "Status",
+    "order_added": "order added successfully",
     "products": "Products",
     "confirmed": "Confirmed",
     "order_details": "Order Details"

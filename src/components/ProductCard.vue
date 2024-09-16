@@ -10,6 +10,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useToast } from '@/components/ui/toast/use-toast'
 import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
+import { addFavouriteItem } from '@/services/api'
 
 const cartStore = useCartStore()
 const favoritesStore = useFavoritesStore()
@@ -37,7 +38,8 @@ const props = defineProps({
   item: Object
 })
 
-const { title, price, Qty, category, pre_price, stars, id } = props.item
+const { product_name, product_price, Qty, category, product_price_old, stars, id, image } =
+  props.item
 
 const fill = ref(false)
 const loading = ref(false)
@@ -57,7 +59,14 @@ function setFav() {
         duration: 3000
       })
     }
-    addToFavorites(id)
+    addToFavorites(props.item)
+    addFavouriteItem({ product: props.item, user: authStore.userInfo })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   } else {
     toast({
       title: 'shopping_cart.requireAuth',
@@ -67,19 +76,21 @@ function setFav() {
   }
 }
 
-// console.log(isInFavorites(id))
+console.log(isInFavorites(id))
 </script>
 
 <template>
   <!-- Card Wrapper -->
   <div
-    class="relative shadow-md overflow-hidden border rounded-lg w-full max-w-xs bg-card max-h-fit"
+    class="p-card relative shadow-md overflow-hidden border rounded-lg w-full max-w-xs bg-card max-h-fit"
   >
     <!-- Image -->
-    <div
-      class="w-full h-[210px] overflow-hidden mx-auto aspect-w!-16 aspect-h-8 bg-primary/10 dark:bg-primary-foreground/5"
-    >
-      <img src="/src/assets/pc.png" class="h-full w-full object-contain" />
+    <!-- bg-primary/10 dark:bg-primary-foreground/5 -->
+    <div class="w-full h-[210px] overflow-hidden mx-auto aspect-w!-16 aspect-h border-b">
+      <img
+        :src="image"
+        class="w-full h-full object-cover p- scale- hover:scale-105 transition-all duration-300 cursor-pointer"
+      />
     </div>
 
     <!-- Content -->
@@ -110,7 +121,7 @@ function setFav() {
       </div>
       <div class="space-y-2 mb-4">
         <!-- category -->
-        <div class="flex items-center justify-between">
+        <!-- <div class="flex items-center justify-between">
           <p class="text-base text-muted-foreground">{{ category }}</p>
           <div class="flex font-medium gap- items-center">
             <svg
@@ -128,21 +139,32 @@ function setFav() {
 
             <span class=""> {{ stars }} </span>
           </div>
-        </div>
+        </div> -->
 
         <!-- title -->
         <RouterLink :to="`/product/${id}`">
           <h4
             class="text-lg font-bold cursor-pointer transition-all duration-300 hover:text-primary"
           >
+            <<<<<<< HEAD
+            {{ product_name }}
+            =======
             {{ title }}
+            >>>>>>> 11252191ac8e126d917fd152361c3af4b75be6ab
           </h4>
         </RouterLink>
 
         <!-- price -->
         <div class="flex items-center gap-2">
+          <<<<<<< HEAD
+          <p class="text-lg font-semibold text-foreground">${{ product_price }}</p>
+          <p class="text-base font-medium line-through text-muted-foreground">
+            ${{ product_price_old }}
+          </p>
+          =======
           <p class="text-lg font-semibold text-foreground">${{ price }}</p>
           <p class="text-base font-medium line-through text-muted-foreground">${{ pre_price }}</p>
+          >>>>>>> 11252191ac8e126d917fd152361c3af4b75be6ab
         </div>
       </div>
 

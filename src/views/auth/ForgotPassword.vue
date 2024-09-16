@@ -2,21 +2,24 @@
   <Loader v-if="loading" />
   <Navbar />
 
-  <BottomNav>
-    {{ $t('home.nav.sign_up') }}
+  <BottomNav :baseRoute="'auth/login'">
+    <template #base>
+      {{ $t('home.nav.sign_in') }}
+    </template>
+    {{ $t('auth.forgot_password') }}
   </BottomNav>
 
-  <div class="heroBg">
+  <div class="heroBg ForgotPassword">
     <div class="py-16 md:py-24">
       <Container>
         <div v-if="!hideSend && hideOtpForm" class="flex flex-col">
           <div class="text-center">
-            <img src="/src/assets/logo.png" class="mx-auto h-24 w-24" />
+            <img src="/src/assets/logo.png" class="fade-up mx-auto h-24 w-24" />
             <div class="mt-5 space-y-2">
-              <h3 class="text-foreground text-2xl font-bold md:text-3xl">
+              <h3 class="fade-up text-foreground text-2xl font-bold md:text-3xl">
                 {{ $t('auth.forgot_password') }}
               </h3>
-              <p class="text-muted-foreground w-full md:max-w-xl mx-auto">
+              <p class="fade-up text-muted-foreground w-full md:max-w-xl mx-auto">
                 {{ $t('auth.forgot_password_desc') }}
               </p>
             </div>
@@ -31,11 +34,11 @@
                 :hide_error="true"
                 placeholder="e.g@example.com"
                 name="email"
-                class="w-full"
+                class="fade-up w-full"
                 v-model="form.email"
               />
 
-              <Button class="max-md:w-full">
+              <Button class="fade-up max-md:w-full">
                 {{ $t('submit') }}
               </Button>
             </vee-form>
@@ -44,14 +47,14 @@
 
         <div v-if="hideSend && hideOtpForm" class="space-y-8">
           <div
-            class="rounded-lg border p-6 bg-card text-card-foreground shadow-sm mx-auto max-w-md"
+            class="rounded-lg fade-up border p-6 bg-card text-card-foreground shadow-sm mx-auto max-w-md"
             data-v0-t="card"
           >
             <div class="flex flex-col pb-6 space-y-1">
-              <h3 class="whitespace-nowrap tracking-tight text-2xl font-bold">
+              <h3 class="fade-up whitespace-nowrap tracking-tight text-2xl font-bold">
                 {{ $t('auth.reset_password') }}
               </h3>
-              <p class="text-sm text-muted-foreground">
+              <p class="fade-up text-sm text-muted-foreground">
                 {{ $t('auth.reset_password_desc') }}
               </p>
             </div>
@@ -63,12 +66,14 @@
               <PasswordInput
                 :placeholder="$t('auth.password_placeholder')"
                 name="password"
+                class="fade-up"
                 v-model="form1.password"
                 :label="$t('auth.password')"
               />
               <PasswordInput
                 :placeholder="$t('auth.passwordConfirm_placeholder')"
                 name="password_Confirmation"
+                class="fade-up"
                 v-model="form1.password_Confirmation"
                 :label="$t('auth.confirm_password')"
               />
@@ -76,11 +81,11 @@
               <div class="flex gap-4 items-center justify-end">
                 <div
                   @click="backStep"
-                  class="flex items-center justify-center cursor-pointer transition-colors rounded-md h-10 px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                  class="fade-up flex items-center justify-center cursor-pointer transition-colors rounded-md h-10 px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
                 >
                   {{ $t('back') }}
                 </div>
-                <Button class="">{{ $t('submit') }}</Button>
+                <Button class="fade-up">{{ $t('submit') }}</Button>
               </div>
 
               <span
@@ -96,12 +101,12 @@
 
         <div v-if="!hideOtpForm && hideSend" class="flex flex-col">
           <div class="text-center">
-            <img src="/src/assets/logo.png" class="mx-auto h-24 w-24" />
+            <img src="/src/assets/logo.png" class="mx-auto h-24 w-24 fade-up" />
             <div class="mt-5 space-y-2">
-              <h3 class="text-foreground text-2xl font-bold md:text-3xl">
+              <h3 class="fade-up text-foreground text-2xl font-bold md:text-3xl">
                 {{ $t('auth.check_inbox') }}
               </h3>
-              <p class="text-muted-foreground w-full md:max-w-xl mx-auto">
+              <p class="fade-up text-muted-foreground w-full md:max-w-xl mx-auto">
                 {{ $t('auth.reset_code_sended') }}
               </p>
             </div>
@@ -111,12 +116,12 @@
               @submit="onVerify"
               class="flex flex-col md:flex-row items-center max-md:space-y-2 gap-4 text-center"
             >
-              <PinInput id="pin-input" v-model="form.otp_number" placeholder="○">
+              <PinInput class="fade-up" id="pin-input" v-model="form.otp_number" placeholder="○">
                 <PinInputGroup>
                   <PinInputInput v-for="(id, index) in 4" :key="id" :index="index" />
                 </PinInputGroup>
               </PinInput>
-              <Button class="max-md:w-4/5 w-full">
+              <Button class="fade-up max-md:w-4/5 w-full">
                 {{ $t('submit') }}
               </Button>
             </vee-form>
@@ -142,6 +147,26 @@ import Loader from '@/components/Loader.vue'
 import { ForgotPassword, ResetPassword, verify } from '@/services/api'
 import { useToast } from '@/components/ui/toast'
 import { useRouter } from 'vue-router'
+
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+onMounted(() => {
+  gsap.from('.fade-up', {
+    scrollTrigger: {
+      trigger: '.ForgotPassword',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.1
+  })
+})
+
 defineRule('email', email)
 defineRule('required', required)
 defineRule('regex', regex)
@@ -196,33 +221,35 @@ const onReset = (values) => {
   })
     .then((response) => {
       console.log(response)
-      if (response.status === true) {
-        toast({
-          title: 'auth.password_reseted_success',
-          success: true,
-          duration: 3000
-        })
-        verify('resend_verify', {
-          email: form.value.email
-        })
-        setTimeout(() => {
-          toast({
-            title: 'auth.redirect_to_verify',
-            success: true,
-            duration: 3000
-          })
-          router.push({ name: 'verify', state: { email: form.value.email } })
-        }, 1500)
-      }
+      // if (response.status === true) {
+      //   toast({
+      //     title: 'auth.password_reseted_success',
+      //     success: true,
+      //     duration: 3000
+      //   })
+      //   verify('resend_verify', {
+      //     email: form.value.email
+      //   })
+      //   setTimeout(() => {
+      //     toast({
+      //       title: 'auth.redirect_to_verify',
+      //       success: true,
+      //       duration: 3000
+      //     })
+      //     router.push({ name: 'verify', state: { email: form.value.email } })
+      //   }, 1500)
+      // }
     })
     .catch((error) => {
+      console.log(error)
+
       if (error.response.status === 422) {
         unValidCode.value = 'unValidCode'
       }
       if (!error.response) {
         toast({
           title: 'network_error',
-          // success: true,
+          error: true,
           duration: 3000
         })
       }
@@ -276,7 +303,7 @@ const onSend = (values, { resetForm }) => {
       if (!error.response) {
         toast({
           title: 'network_error',
-          // success: true,
+          error: true,
           duration: 3000
         })
       }

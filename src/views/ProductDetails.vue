@@ -1,9 +1,9 @@
 <template>
   <Navbar />
-  <BottomNav>{{ product.title }}</BottomNav>
+  <BottomNav>{{ product.product_name }}</BottomNav>
 
   <Container>
-    <div class="py-8 md:py-16">
+    <div class="P-Details py-8 md:py-16">
       <div class="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
         <!-- Image -->
         <div class="space-y-4 text-center lg:sticky top-4 mx-auto lg:m-0">
@@ -11,7 +11,7 @@
             <CarouselContent>
               <CarouselItem v-for="(_, index) in 3" :key="index">
                 <div class="p-1">
-                  <Card class="bg-muted/50 sm:h-[450px] flex items-center justify-center">
+                  <Card class="fade-left bg-muted/50 sm:h-[450px] flex items-center justify-center">
                     <CardContent class="">
                       <img
                         src="/src/assets/pc.png"
@@ -92,16 +92,16 @@
         <div class="max-w-xl py-1 mx-auto lg:m-0">
           <!-- Title -->
           <div>
-            <h2 class="text-2xl font-bold text-foreground">
+            <h2 class="fade-up text-2xl font-bold text-foreground">
               {{ product.title }}
             </h2>
-            <p class="text-sm text-muted-foreground mt-2">
+            <p class="fade-up text-sm text-muted-foreground mt-2">
               {{ product.category }}
             </p>
           </div>
 
           <!-- Reviews -->
-          <div class="flex items-center gap-2 mt-2">
+          <div class="flex items-center gap-2 mt-2 fade-up">
             <div class="flex items-center gap-1">
               <svg
                 class="w-4 h-4 text-yellow-300"
@@ -179,7 +179,7 @@
           </div>
 
           <!-- price -->
-          <div class="mt-4">
+          <div class="mt-4 fade-up">
             <!-- <h3 class="text-foreground text-3xl font-bold">$30</h3> -->
             <div class="flex items-center gap-2">
               <p class="text-xl sm:text-2xl font-bold text-foreground">${{ product.price }}</p>
@@ -190,18 +190,16 @@
           </div>
 
           <!-- Description -->
-          <div class="mt-4">
+          <div class="mt-4 fade-up">
             <p class="text-muted-foreground">
               {{ product.description }}
             </p>
           </div>
 
           <!-- Buttons -->
+          <div class="flex flex-wrap gap-4 mt-8 fade-up">
           <div class="flex flex-wrap gap-4 mt-8">
             <!-- <button
-            type="button"
-            class="min-w-[200px] px-4 py-3 bg-gray-800 hover:bg-gray-900 text-white text-sm font-semibold rounded"
-          >
             Buy now
           </button> -->
 
@@ -416,6 +414,7 @@
   <!-- Related Products -->
 
   <Container>
+    <div class="py-8 md:py-16 Related">
     <div class="py-8 md:py-16">
       <h2
         class="border-b pb-4 text-2xl md:text-3xl text-foreground font-semibold mb-6 md:mb-8 leading-tight"
@@ -426,8 +425,9 @@
       <div
         class="justify-items-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-xl:gap-4 gap-6"
       >
-        <ProductCard v-for="item in newItems" :key="item.id" :item="item" />
+        <ProductCard class="fade-up-card" v-for="item in newItems" :key="item.id" :item="item" />
       </div>
+    </div>
     </div>
   </Container>
 
@@ -456,6 +456,48 @@ import { useFavoritesStore } from '@/stores/favouritesStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useToast } from '@/components/ui/toast/use-toast'
 
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+onMounted(() => {
+  gsap.from('.fade-left', {
+    scrollTrigger: {
+      trigger: '.P-Details',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    x: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.1
+  })
+  gsap.from('.fade-up', {
+    scrollTrigger: {
+      trigger: '.P-Details',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.1
+  })
+  gsap.from('.fade-up-card', {
+    scrollTrigger: {
+      trigger: '.Related',
+      start: 'top center',
+      toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.1,
+    delay: 0.2
+  })
+})
+
+
 const emblaMainApi = ref()
 const emblaThumbnailApi = ref()
 const selectedIndex = ref(0)
@@ -479,7 +521,16 @@ watchOnce(emblaMainApi, (emblaMainApi) => {
   emblaMainApi.on('reInit', onSelect)
 })
 
-const product = ref({})
+const product = ref({
+  product_name: 'Mega LCD TV For Sports',
+  id: 1,
+  product_price: 440,
+  product_price_old: 500,
+  image: '/src/assets/pc.png',
+  category: 'Computers',
+  stars: 4
+})
+// const product = ref({})
 const loading = ref(false)
 const cartStore = useCartStore()
 const favoritesStore = useFavoritesStore()
@@ -529,6 +580,15 @@ function setFav() {
     })
   }
 }
+
+// const fetchProduct = () => {
+//   const item = products.find((x) => x.id === id)
+//   product.value = item
+// }
+// onMounted(() => {
+//   fetchProduct()
+// })
+
 
 const fetchProduct = () => {
   const item = products.find((x) => x.id === id)

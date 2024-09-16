@@ -1,5 +1,5 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
-import { ref } from 'vue'
 import Container from '@/layouts/Container.vue'
 
 const links = [
@@ -18,10 +18,41 @@ const links = [
     ]
   }
 ]
+
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+onMounted(() => {
+  gsap.from('.fade-up-text', {
+    scrollTrigger: {
+      trigger: '.Footer',
+      start: 'top 80%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    delay: 0.2,
+    opacity: 0,
+    duration: 0.7
+  })
+  gsap.from('.fade-text', {
+    scrollTrigger: {
+      trigger: '.Footer',
+      start: 'top 80%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.3,
+    stagger: 0.2
+  })
+})
 </script>
 
 <template>
-  <footer class="font-sans tracking-wide">
+  <footer class="Footer font-sans tracking-wide">
     <div class="bg-primary/10 dark:bg-card">
       <Container>
         <div class="py-8 md:py-16">
@@ -31,13 +62,13 @@ const links = [
           >
             <!-- logo & social icons-->
             <div>
-              <a href="javascript:void(0)"
-                ><img src="/src/assets/logo.png" alt="logo" class="w-40"
+              <a class="" href="javascript:void(0)"
+                ><img src="/src/assets/logo.png" alt="logo" class="fade-text w-40"
               /></a>
 
               <!-- Social -->
               <ul class="mt-10 flex gap-5">
-                <li>
+                <li class="fade-text">
                   <a href="javascript:void(0)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +84,7 @@ const links = [
                     </svg>
                   </a>
                 </li>
-                <li>
+                <li class="fade-text">
                   <a href="javascript:void(0)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +100,7 @@ const links = [
                     </svg>
                   </a>
                 </li>
-                <li>
+                <li class="fade-text">
                   <a href="javascript:void(0)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +114,7 @@ const links = [
                     </svg>
                   </a>
                 </li>
-                <li>
+                <li class="fade-text">
                   <a href="javascript:void(0)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +152,7 @@ const links = [
               </h4>
 
               <ul class="mt-4 space-y-5" v-for="link in links[0].services">
-                <li :key="link">
+                <li :key="link" class="fade-up-text">
                   <a
                     href="javascript:void(0)"
                     class="hover:text-primary hover:underline text-muted-foreground text-sm transition-all duration-300"
@@ -151,7 +182,7 @@ const links = [
               </h4>
 
               <ul class="mt-4 space-y-5" v-for="link in links[0].company">
-                <li :key="link">
+                <li :key="link" class="fade-up-text">
                   <a
                     href="javascript:void(0)"
                     class="hover:text-primary hover:underline text-muted-foreground text-sm transition-all duration-300"
@@ -180,7 +211,7 @@ const links = [
           </svg> -->
               </h4>
               <ul class="mt-4 space-y-5" v-for="link in links[0].additional">
-                <li :key="link">
+                <li :key="link" class="fade-up-text">
                   <a
                     href="javascript:void(0)"
                     class="hover:text-primary hover:underline text-muted-foreground text-sm transition-all duration-300"
@@ -196,7 +227,7 @@ const links = [
                 {{ $t(`home.footer.platform`) }}
               </h4>
               <div class="mt-4 space-y-5">
-                <img src="/src/assets/app-download.png" class="w-36" lt="" />
+                <img src="/src/assets/app-download.png" class="fade-up-text w-36" lt="" />
               </div>
             </div>
           </div>
@@ -226,7 +257,7 @@ const links = [
         </li>
       </ul> -->
 
-          <p class="text-foreground text-sm">
+          <p class="fade-up-text text-foreground text-sm">
             Copyright © {{}}
             <a href="/" target="_blank" class="text-primary hover:underline px-.5 font-semibold">{{
               $t(`logotxt`)

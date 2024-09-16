@@ -7,6 +7,8 @@ function updateLocalStorage(cart) {
 
 export const useCartStore = defineStore('cart', () => {
   // state
+  const loading = ref(false)
+
   const cartItems = ref(
     localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
   )
@@ -16,11 +18,18 @@ export const useCartStore = defineStore('cart', () => {
 
   const totalAmount = computed(() =>
     cartItems.value.reduce((total, p) => {
-      return total + p.price * p.quantity
+      return total + p.product_price * p.quantity
     }, 0)
   )
 
+  console.log(cartItems)
+
   //actions
+
+  const itemLoading = (value) => {
+    loading.value = value
+  }
+
   const addItem = (item) => {
     //Find the object whose id is similar to the item
     const existingItem = cartItems.value.find((x) => x.id === item.id)
@@ -72,6 +81,8 @@ export const useCartStore = defineStore('cart', () => {
     totalAmount,
     countCartItems,
     incrementQty,
+    itemLoading,
+    loading,
     decrementQty
   }
 })

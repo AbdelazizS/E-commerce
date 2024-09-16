@@ -14,6 +14,9 @@ import Loader from '@/components/Loader.vue'
 import { useToast } from '@/components/ui/toast'
 import { useRouter } from 'vue-router'
 import { UpdatePassword } from '@/services/api'
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 defineRule('required', required)
 defineRule('regex', regex)
@@ -37,8 +40,6 @@ const authStore = useAuthStore()
 const { userInfo } = storeToRefs(authStore)
 const { toast } = useToast()
 const router = useRouter()
-
-console.log(userInfo.value)
 
 const onSubmit = (values, { resetForm }) => {
   loading.value = true
@@ -65,7 +66,7 @@ const onSubmit = (values, { resetForm }) => {
       if (!error.response) {
         toast({
           title: 'network_error',
-          // success: true,
+          error: true,
           duration: 3000
         })
       }
@@ -83,6 +84,21 @@ const onSubmit = (values, { resetForm }) => {
       }, 1500)
     })
 }
+
+gsap.registerPlugin(ScrollTrigger)
+onMounted(() => {
+  gsap.from('.fade-up', {
+    scrollTrigger: {
+      trigger: '.Update',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.1
+  })
+})
 </script>
 
 <template>
@@ -98,13 +114,13 @@ const onSubmit = (values, { resetForm }) => {
   </BottomNav>
 
   <Container>
-    <div class="py-8 mb-8">
+    <div class="py-8 mb-8 Update">
       <div class="flex gap-8 flex-col md:flex-row">
         <div class="w-full md:max-w-xs">
           <div class="flex items-center gap-4 px-4 py-6 bg-muted rounded-md shadow-sm border h-24">
             <!-- Avatar -->
             <div
-              class="flex justify-center items-center w-14 h-14 shadow-md rounded-full border-4 overflow-hidden border-card bg-primary/50"
+              class="flex justify-center items-center w-12 h-12 shadow-md rounded-full border-4 overflow-hidden border-card bg-primary/50"
             >
               <div class="font-bold">
                 {{ userInfo.client_name.slice(0, 1) }}
@@ -125,7 +141,7 @@ const onSubmit = (values, { resetForm }) => {
 
         <div class="w-full md:max-w-xl space-y-10">
           <div
-            class="rounded-lg border p-4 md:p-6 bg-card text-card-foreground shadow-sm max-w-md"
+            class="rounded-lg border p-4 md:p-6 bg-card text-card-foreground shadow-sm max-w-md fade-up"
             data-v0-t="card"
           >
             <div class="flex flex-col pb-6 space-y-1">

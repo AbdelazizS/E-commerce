@@ -6,6 +6,33 @@ import Container from '@/layouts/Container.vue'
 import Footer from '../components/Footer.vue'
 // import { Badge } from '@/components/ui/badge'
 import OrderCard from '@/components/OrderCard.vue'
+
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { getOrders } from '@/services/api'
+
+gsap.registerPlugin(ScrollTrigger)
+onMounted(() => {
+  getOrders()
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  gsap.from('.fade-up', {
+    scrollTrigger: {
+      trigger: '.Orders',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.1
+  })
+})
 </script>
 
 <template>
@@ -23,10 +50,10 @@ import OrderCard from '@/components/OrderCard.vue'
 
   <!--  -->
   <Container>
-    <div class="py-8 mb-16">
+    <div class="Orders py-8 mb-16">
       <div class="grid md:grid-cols-2 md:gap-4 gap-6">
-        <OrderCard />
-        <OrderCard />
+        <OrderCard class="fade-up" />
+        <OrderCard class="fade-up" />
       </div>
     </div>
   </Container>

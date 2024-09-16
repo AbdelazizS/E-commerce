@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouterView } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { authGuard } from '@/guards/auth'
+import i18n from '@/plugins/i18n'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,9 +11,14 @@ const router = createRouter({
       component: RouterView,
       children: [
         {
-          path: '',
+          path: '/',
           name: 'home',
           component: HomeView
+        },
+        {
+          path: '/search/:q',
+          name: 'search',
+          component: () => import('../views/SearchView.vue')
         },
         {
           path: '/category/:id',
@@ -100,17 +106,22 @@ const router = createRouter({
   }
 })
 
-// router.beforeEach((to, from) => {
-//   if (to.meta.requiresAuth) {
-//     // this route requires auth, check if logged in
-//     // if not, redirect to login page.
-//     if (!user.state.flag) {
-//       return {
-//         path: '/login'
-//       }
-//     }
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  // use the language from the routing param or default language
+  let language = to.params.language
+  if (!language) {
+    language = 'en'
+  }
+
+  // set the current language for vuex-i18n. note that translation data
+  // for the language might need to be loaded first
+  // Vue.i18n.set(language)
+  // i18n.global.locale = language
+
+  console.log(language, i18n.global.locale)
+
+  next()
+})
 
 router.beforeEach(authGuard)
 export default router

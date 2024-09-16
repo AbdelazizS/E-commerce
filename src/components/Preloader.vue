@@ -1,9 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div id="preloader-active">
+  <div v-if="!isReady" id="preloader-active">
     <div class="preloader loading-page flex items-center justify-center bg-muted">
       <div class="preloader-inner position-relative">
-        <div class="preloader-circle bg-muted"></div>
+        <div class="preloader-circle shadow-lg bg-muted"></div>
         <div class="preloader-img pere-text">
           <img src="/src/assets/logo.png" alt="" class="preloader-img" />
         </div>
@@ -22,7 +22,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 999999;
+  z-index: 10000000000000000000;
   -webkit-transition: 0.6s;
   -o-transition: 0.6s;
   transition: 0.6s;
@@ -40,8 +40,8 @@
   border-right-color: transparent;
   z-index: 10;
   border-radius: 50%;
-  -webkit-box-shadow: 0 1px 5px 0 rgba(35, 181, 185, 0.15);
-  box-shadow: 0 1px 5px 0 rgba(35, 181, 185, 0.15);
+  /* -webkit-box-shadow: 0 1px 5px 0 rgba(35, 181, 185, 0.15);
+  box-shadow: 0 1px 5px 0 rgba(35, 181, 185, 0.15); */
   -webkit-animation: zoom 2000ms infinite ease;
   animation: zoom 2000ms infinite ease;
   -webkit-transition: 0.6s;
@@ -105,8 +105,12 @@
 </style>
 
 <script setup>
-import { gsap } from 'gsap'
-import { onMounted } from 'vue'
+// import { gsap } from 'gsap'
+// import { onMounted } from 'vue'
+
+import { usePageReady } from '@/composable/useWindowLoad'
+
+const { isReady } = usePageReady()
 
 // /1/ hide
 // .to(".hide", { opacity: 0, duration: 0.3 })
@@ -120,17 +124,17 @@ import { onMounted } from 'vue'
 // ease: 'easeInOut',
 // duration: 0.7,
 // /3/ to
-onMounted(() => {
-  //   awesome
-  gsap.fromTo(
-    '.loading-page',
-    { opacity: 1 },
-    {
-      opacity: 0,
-      display: 'none',
-      duration: 1.5,
-      delay: 1.5
-    }
-  )
-})
+// onMounted(() => {
+//   //   awesome
+//   gsap.fromTo(
+//     '.loading-page',
+//     { opacity: 1 },
+//     {
+//       opacity: 0,
+//       display: 'none',
+//       duration: 1.5,
+//       delay: 1.5
+//     }
+//   )
+// })
 </script>

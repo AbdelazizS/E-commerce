@@ -6,13 +6,78 @@ import BottomNav from '@/components/BottomNav.vue'
 import Footer from '../components/Footer.vue'
 import CartItem from '../components/CartItem.vue'
 import { useCartStore } from '@/stores/cart.js'
-// import {storeToRefs} from 'pinia'
+import { storeToRefs } from 'pinia'
 // const { cartItems } = storeToRefs(store)
 // const { totalAmount, cartItems } = CartStore
 const CartStore = useCartStore()
+const authStore = useAuthStore()
+
+import { onMounted, ref } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Skeleton } from '@/components/ui/skeleton'
+import { getCartItems, addCartItem, addOrder } from '@/services/api'
+import Loader from '@/components/Loader.vue'
+import { useAuthStore } from '@/stores/authStore'
+import { useToast } from '@/components/ui/toast'
+import { useRouter } from 'vue-router'
+
+const loading = ref(false)
+const { toast } = useToast()
+const router = useRouter()
+
+const checkout = () => {
+  loading.value = true
+  addOrder({ totalAmount: CartStore.totalAmount, user: authStore.userInfo })
+    .then((res) => {
+      console.log(res)
+      if (res.data.success) {
+        loading.value = false
+        toast({
+          title: 'orders.order_added',
+          success: true,
+          duration: 3000
+        })
+        router.push('/profile/orders')
+      }
+    })
+    .catch((err) => {
+      loading.value = false
+      if (!err.response) {
+        toast({
+          title: 'network_error',
+          error: true,
+          duration: 3000
+        })
+      }
+      console.log(err)
+    })
+}
+gsap.registerPlugin(ScrollTrigger)
+onMounted(() => {
+  addCartItem()
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  gsap.from('.fade-up', {
+    scrollTrigger: {
+      trigger: '.Cart',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.1
+  })
+})
 </script>
 
 <template>
+  <Loader v-if="loading" />
   <!--  -->
   <Navbar />
 
@@ -23,15 +88,22 @@ const CartStore = useCartStore()
 
   <!--  -->
   <Container>
-    <div class="py-8 mb-8">
+    <div class="Cart py-8 mb-8">
       <div class="md:gap-6 lg:flex lg:items-start xl:gap-8" v-if="CartStore.cartItems?.length > 0">
         <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
           <div class="space-y-6">
-            <CartItem v-for="item in CartStore.cartItems" :key="item.id" :item="item" />
+            <CartItem
+              class="fade-up"
+              v-for="item in CartStore.cartItems"
+              :key="item.id"
+              :item="item"
+            />
           </div>
         </div>
 
-        <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full lg:sticky lg:top-4">
+        <div
+          class="fade-up mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full lg:sticky lg:top-4"
+        >
           <div
             class="space-y-4 rounded-lg border bg-card p-4 shadow-sm :border-gray-700 :bg-gray-800 sm:p-6"
           >
@@ -46,7 +118,10 @@ const CartStore = useCartStore()
                     {{ $t('shopping_cart.original_price') }}
                   </dt>
                   <dd class="text-base font-medium text-foreground">
-                    ${{ CartStore.totalAmount }}
+                    <span v-if="!CartStore.loading"> ${{ CartStore.totalAmount }} </span>
+                    <span v-else>
+                      <Skeleton class="h-5 rounded-md w-[80px]" />
+                    </span>
                   </dd>
                 </dl>
 
@@ -54,7 +129,13 @@ const CartStore = useCartStore()
                   <dt class="text-base font-normal text-foreground/60 :text-gray-400">
                     {{ $t('shopping_cart.shipping') }}
                   </dt>
-                  <dd class="text-base font-medium text-text-foreground">$9</dd>
+                  <dd v-if="!CartStore.loading" class="text-base font-medium text-text-foreground">
+                    $9
+                  </dd>
+
+                  <dd v-else>
+                    <Skeleton class="h-5 rounded-md w-[50px]" />
+                  </dd>
                 </dl>
               </div>
 
@@ -62,13 +143,26 @@ const CartStore = useCartStore()
                 <dt class="text-base font-bold text-foreground">
                   {{ $t('shopping_cart.total') }}
                 </dt>
-                <dd class="text-base font-bold text-foreground">
-                  ${{ CartStore.totalAmount + 9 }}
+
+                <dd class="text-base font-medium text-foreground">
+                  <span v-if="!CartStore.loading"> ${{ CartStore.totalAmount + 9 }} </span>
+                  <span v-else>
+                    <Skeleton class="h-5 rounded-md w-[90px]" />
+                  </span>
                 </dd>
               </dl>
             </div>
 
-            <Button variant="default" class="w-full">{{ $t('shopping_cart.checkout') }}</Button>
+            <Button
+              v-if="!CartStore.loading"
+              @click="checkout()"
+              variant="default"
+              class="w-full"
+              >{{ $t('shopping_cart.checkout') }}</Button
+            >
+            <Button v-else disabled variant="default" class="w-full">{{
+              $t('shopping_cart.checkout')
+            }}</Button>
 
             <div class="flex items-center justify-center gap-2">
               <span class="text-sm font-normal text-foreground/60 :text-gray-400">
@@ -101,26 +195,31 @@ const CartStore = useCartStore()
         </div>
       </div>
 
+      <!-- EMPTY PAGE -->
       <div
         v-else
         class="heroBg my-8 md:mb-16 flex flex-col justify-center space-y-6 text-center items-center"
       >
         <div>
-          <img src="/src/assets/empty_cart.svg" alt="" class="h-44 md:max-h-[200px] w-full mb-16" />
-          <h3 class="text-xl md:text-2xl font-semibold text-foreground">
+          <img
+            src="/src/assets/empty_cart.svg"
+            alt=""
+            class="fade-up h-44 md:max-h-[200px] w-full mb-16"
+          />
+          <h3 class="fade-up text-xl md:text-2xl font-semibold text-foreground">
             {{ $t(`shopping_cart.your_cart`) }}
             <span
-              class="text-transparent font-bold bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text"
+              class="fade-up text-transparent font-bold bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text"
               >{{ $t(`shopping_cart.empty`) }}
             </span>
           </h3>
 
-          <p class="text-base md:text-lg text-muted-foreground mt-2">
+          <p class="fade-up text-base md:text-lg text-muted-foreground mt-2">
             {{ $t(`shopping_cart.empty_cart_desc`) }}
           </p>
         </div>
         <RouterLink to="/">
-          <Button variant="default" class="max-w-max">{{
+          <Button variant="default" class="fade-up max-w-max">{{
             $t('shopping_cart.continue_shopping')
           }}</Button>
         </RouterLink>

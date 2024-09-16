@@ -1,12 +1,12 @@
 <template>
   <div
-    class="bg-primary/10 dark:bg-card shadow-p p-3 rounded-lg group overflow-hidden cursor-pointer relative z-50 hover:before:bg-black/50 before:absolute before:inset-0 before:opacity-10 before:transition-all w-full max-w-sm"
+    class="CategoryCard bg-primary/10 dark:bg-card shadow-p p-3 rounded-lg group overflow-hidden cursor-pointer relative z-50 hover:before:bg-black/50 before:absolute before:inset-0 before:opacity-10 before:transition-all w-full max-w-sm"
   >
     <div class="w-full h-[200px] overflow-hidden mx-auto aspect-w-16 aspect-h-8">
       <img
-        src="/src/assets/watch.png"
+        :src="image"
         alt="product8"
-        class="h-full w-full object-contain rtl:object-left ltr:object-right"
+        class="CategoryImg h-full w-full object-contain rtl:object-left ltr:object-right"
       />
     </div>
 
@@ -33,5 +33,27 @@ const props = defineProps({
   item: Object
 })
 
-const { id, title } = props.item
+const { id, title, image } = props.item
+
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+onMounted(() => {
+  gsap.set('.CategoryImg', { scale: 1.2, y: 40, opacity: 0 })
+  gsap.to('.CategoryImg', {
+    scrollTrigger: {
+      trigger: '.Categories',
+      start: 'top 64%'
+      // toggleActions: 'play pause restart reset'
+    },
+    scale: 1,
+    y: 0,
+    ease: 'power2.inout',
+    opacity: 1,
+    duration: 1
+  })
+})
 </script>

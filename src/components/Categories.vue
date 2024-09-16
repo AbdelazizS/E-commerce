@@ -1,27 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
 import CategoryCard from './CategoryCard.vue'
+import { Skeleton } from '@/components/ui/skeleton'
 import Container from '@/layouts/Container.vue'
-import { ref } from 'vue'
-
-const newItems = ref([
-  {
-    title: 'Computers',
-    id: 1
-  },
-  {
-    title: 'Accessories',
-    id: 2
-  },
-  {
-    title: 'Phones',
-    id: 3
-  }
-])
 </script>
 
 <template>
-  <section id="categories" class="py-8 md:py-16">
+  <section id="categories" class="my-16 md:my-24 Categories">
     <!-- Title -->
     <Container>
       <div class="mb-8">
@@ -39,7 +25,10 @@ const newItems = ref([
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
         <!-- Card -->
 
-        <CategoryCard v-for="item in newItems" :key="item.id" :item="item" />
+        <CategoryCard />
+        <CategoryCard />
+        <CategoryCard />
+        <CategoryCard />
       </div>
     </Container>
   </section>

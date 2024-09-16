@@ -4,17 +4,17 @@
   <BottomNav>
     {{ $t('home.nav.sign_up') }}
   </BottomNav>
-  <div class="bg-/10">
+  <div class="bg-/10 Register">
     <Container>
       <div class="grid grid-cols-1 lg:grid-cols-2 items-center">
-        <div class="flex min-h-full flex-col justify-center py-8 mb-8">
+        <div class="flex flex-col justify-center py-8 mb-8">
           <div class="text-center">
-            <img src="/src/assets/logo.png" class="mx-auto h-24 w-24" />
+            <img src="/src/assets/logo.png" class="fade-up mx-auto h-24 w-24" />
             <div class="mt-5 space-y-2">
-              <h3 class="text-foreground text-2xl font-bold md:text-3xl">
+              <h3 class="fade-up text-foreground text-2xl font-bold md:text-3xl">
                 {{ $t('auth.register_title') }}
               </h3>
-              <p class="text-muted-foreground">
+              <p class="fade-up text-muted-foreground">
                 {{ $t('auth.have_account') }}
                 <RouterLink
                   to="/auth/login"
@@ -30,11 +30,13 @@
               <BaseInput
                 :placeholder="$t('auth.name_placeholder')"
                 name="name"
+                class="fade-up"
                 v-model="form.name"
                 :label="$t('auth.name')"
               />
               <div class="">
                 <BaseInput
+                  class="fade-up"
                   autocomplete="email"
                   placeholder="e.g@example.com"
                   name="email"
@@ -52,24 +54,30 @@
               <PasswordInput
                 :placeholder="$t('auth.password_placeholder')"
                 name="password"
+                class="fade-up"
                 v-model="form.password"
                 :label="$t('auth.password')"
               />
 
               <PasswordInput
+                class="fade-up"
                 :placeholder="$t('auth.passwordConfirm_placeholder')"
                 name="password_Confirmation"
                 v-model="form.password"
                 :label="$t('auth.confirm_password')"
               />
 
-              <Button class="w-full">{{ $t('home.nav.sign_up') }}</Button>
+              <Button class="fade-up w-full">{{ $t('home.nav.sign_up') }}</Button>
             </vee-form>
           </div>
         </div>
 
         <div class="hidden lg:block">
-          <img src="/src/assets/register.svg" alt="" class="md:h-[300px] lg:h-[350px] w-full" />
+          <img
+            src="/src/assets/register.svg"
+            alt=""
+            class="slide-right md:h-[300px] lg:h-[350px] w-full"
+          />
         </div>
       </div>
     </Container>
@@ -91,9 +99,38 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { register } from '@/services/api.js'
 import { useToast } from '@/components/ui/toast/use-toast'
-
 import { defineRule } from 'vee-validate'
 import { required, regex, alpha_spaces, email, min, max, confirmed } from '@vee-validate/rules'
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+onMounted(() => {
+  gsap.from('.slide-right', {
+    scrollTrigger: {
+      trigger: '.Register',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    opacity: 0,
+    x: -80,
+    delay: 0.1,
+    duration: 1
+  })
+
+  gsap.from('.fade-up', {
+    scrollTrigger: {
+      trigger: '.Register',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.1
+  })
+})
 
 defineRule('required', required)
 defineRule('regex', regex)

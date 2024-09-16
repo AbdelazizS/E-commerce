@@ -2,21 +2,28 @@
   <Loader v-if="loading" />
   <Navbar />
 
-  <BottomNav>
+  <!-- <BottomNav>
     {{ $t('home.nav.sign_up') }}
+  </BottomNav> -->
+
+  <BottomNav :baseRoute="'auth/register'">
+    <template #base>
+      {{ $t('home.nav.sign_up') }}
+    </template>
+    {{ $t('auth.verify_email') }}
   </BottomNav>
 
-  <div class="heroBg">
+  <div class="heroBg Verify">
     <div class="py-16 md:py-24">
       <Container>
         <div class="flex flex-col">
           <div class="text-center">
-            <img src="/src/assets/logo.png" class="mx-auto h-24 w-24" />
+            <img src="/src/assets/logo.png" class="fade-up mx-auto h-24 w-24" />
             <div class="mt-5 space-y-2">
-              <h3 class="text-foreground text-2xl font-bold md:text-3xl">
+              <h3 class="fade-up text-foreground text-2xl font-bold md:text-3xl">
                 {{ $t('verify_your_email') }}
               </h3>
-              <p class="text-muted-foreground w-full md:max-w-lg mx-auto">
+              <p class="fade-up text-muted-foreground w-full md:max-w-lg mx-auto">
                 We are glad, that you’re with us ? We’ve sent you a verification link to the email
                 address
                 <span class="font-medium text-indigo-500">{{ email.value }}</span>
@@ -37,20 +44,23 @@
               @submit="onSubmit"
               class="flex flex-col md:flex-row items-center max-md:space-y-2 gap-4 text-center"
             >
-              <PinInput id="pin-input" v-model="form.otp_number" placeholder="○">
+              <PinInput class="fade-up" id="pin-input" v-model="form.otp_number" placeholder="○">
                 <PinInputGroup>
                   <PinInputInput v-for="(id, index) in 4" :key="id" :index="index" />
                 </PinInputGroup>
               </PinInput>
-              <Button class="max-md:w-4/5">Verify email</Button>
+              <Button class="fade-up max-md:w-4/5">
+                {{ $t('submit') }}
+              </Button>
             </vee-form>
 
-            <div class="flex justify-center">
+            <div class="fade-up flex justify-center">
               <Button
                 v-if="hideInput"
                 @click="handleShow"
                 :class="`${hideInput ? 'w-60 md:w-64' : ''}`"
-                >Verify email</Button
+              >
+                {{ $t('submit') }}</Button
               >
             </div>
           </div>
@@ -75,8 +85,27 @@ import { useRouter } from 'vue-router'
 import { onBeforeMount } from 'vue'
 import { verify } from '@/services/api.js'
 import { useToast } from '@/components/ui/toast/use-toast'
-defineRule('required', required)
 
+import { onMounted } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+onMounted(() => {
+  gsap.from('.fade-up', {
+    scrollTrigger: {
+      trigger: '.Verify',
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
+    },
+    y: 50,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.1
+  })
+})
+
+defineRule('required', required)
 onBeforeMount(() => {
   email.value = router.options.history.state.email
 })
@@ -118,32 +147,32 @@ const onSubmit = () => {
     verify('verify', formData)
       .then((response) => {
         console.log(response)
-        // if (response.status === true) {
-        //   toast({
-        //     title: 'auth.verified_success',
-        //     success: true,
-        //     duration: 3000
-        //   })
+        if (response.status === true) {
+          toast({
+            title: 'auth.verified_success',
+            success: true,
+            duration: 3000
+          })
 
-        //   setTimeout(() => {
-        //     toast({
-        //       title: 'auth.redirect_to_login',
-        //       success: true,
-        //       duration: 3000
-        //     })
-        //     router.push({ name: 'login', state: { email: email.value } })
-        //   }, 1500)
+          setTimeout(() => {
+            toast({
+              title: 'auth.redirect_to_login',
+              success: true,
+              duration: 3000
+            })
+            router.push({ name: 'login', state: { email: email.value } })
+          }, 1500)
 
-        //   console.log(response)
-        // } else if (response.status === false) {
-        //   if (response.errNum === 0) {
-        //     if (response.msg === 'This code is expired') {
-        //       unValidCode.value = 'codeExpired'
-        //     } else {
-        //       unValidCode.value = 'unValidCode'
-        //     }
-        //   }
-        // }
+          console.log(response)
+        } else if (response.status === false) {
+          if (response.errNum === 0) {
+            if (response.msg === 'This code is expired') {
+              unValidCode.value = 'codeExpired'
+            } else {
+              unValidCode.value = 'unValidCode'
+            }
+          }
+        }
       })
       .catch((error) => {
         console.log(error)

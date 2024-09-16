@@ -41,7 +41,7 @@ const handleLogout = () => {
         setTimeout(() => {
           loading.value = false
           router.push('/')
-        }, 10000)
+        }, 1000)
       }
     })
     .catch((error) => {

@@ -4,7 +4,6 @@
     <div :class="`${label ? 'space-y-2' : ''}`">
       <label class="text-sm font-medium leading-none" :for="name">{{ label }}</label>
       <input
-<<<<<<< HEAD
         :class="{
           'border-2 border-red-500': !!errorMessage && hide_error,
           success: meta.valid,
@@ -12,10 +11,6 @@
           'bg-transparent': search_bar
         }"
         class="flex h-10 w-full rounded-md px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground outline-0"
-=======
-        :class="{ 'border-2 border-red-500': !!errorMessage && hide_error, success: meta.valid }"
-        class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground outline-0"
->>>>>>> 11252191ac8e126d917fd152361c3af4b75be6ab
         :name="name"
         :id="name"
         :type="type"
@@ -36,7 +31,6 @@ import { toRef } from 'vue'
 import { useField } from 'vee-validate'
 
 const props = defineProps({
-<<<<<<< HEAD
   search_bar: {
     type: Boolean,
     default: false
@@ -49,16 +43,6 @@ const props = defineProps({
     type: String,
     default: 'text'
   },
-=======
-  hide_error: {
-    type: Boolean,
-    default: false
-  },
-  type: {
-    type: String,
-    default: 'text'
-  },
->>>>>>> 11252191ac8e126d917fd152361c3af4b75be6ab
   value: {
     type: String,
     default: ''
@@ -92,9 +76,4 @@ const {
 } = useField(name, undefined, {
   initialValue: props.value
 })
-<<<<<<< HEAD
-=======
-
-console.log(meta)
->>>>>>> 11252191ac8e126d917fd152361c3af4b75be6ab
 </script>

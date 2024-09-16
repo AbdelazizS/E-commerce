@@ -198,144 +198,59 @@
 
           <!-- Buttons -->
           <div class="flex flex-wrap gap-4 mt-8 fade-up">
-          <div class="flex flex-wrap gap-4 mt-8">
-            <!-- <button
+            <div class="flex flex-wrap gap-4 mt-8">
+              <!-- <button
             Buy now
           </button> -->
 
-            <Button class="gap-2 relative w-40 max-w-sm" @click="addToCart(product)">
-              <span :class="loading ? 'hidden' : ''">{{ $t(`home.add_to_cart`) }}</span>
-              <ShoppingBag class="size-5" :class="loading ? 'hidden' : ''" />
-              <Spinner v-if="loading" />
-            </Button>
+              <Button class="gap-2 relative w-40 max-w-sm" @click="addToCart(product)">
+                <span :class="loading ? 'hidden' : ''">{{ $t(`home.add_to_cart`) }}</span>
+                <ShoppingBag class="size-5" :class="loading ? 'hidden' : ''" />
+                <Spinner v-if="loading" />
+              </Button>
 
-            <Button @click="setFav()" variant="outline" size="icon" class="favIcon rounded-full">
-              <svg
-                :class="`size-5 ${isInFavorites(id) ? 'fill-red-500 text-red-600 ' : ''}`"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-                />
-              </svg>
+              <Button @click="setFav()" variant="outline" size="icon" class="favIcon rounded-full">
+                <svg
+                  :class="`size-5 ${isInFavorites(id) ? 'fill-red-500 text-red-600 ' : ''}`"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
+                  />
+                </svg>
 
-              <!-- Add to Favorites -->
-            </Button>
-          </div>
+                <!-- Add to Favorites -->
+              </Button>
+            </div>
 
-          <!-- More Details -->
-          <div class="mt-12 md:mt-16">
-            <Tabs default-value="specification" class="dir-rtl">
-              <TabsList class="grid w-full grid-cols-2 pb-2 dir-rtl">
-                <TabsTrigger value="specification">
-                  {{ $t('product_details.specifications') }}
-                </TabsTrigger>
-                <TabsTrigger value="reviews"> {{ $t('product_details.reviews') }} </TabsTrigger>
-              </TabsList>
-              <TabsContent value="reviews">
-                <div class="mt-8 max-w-lg">
-                  <h3 class="text-lg font-bold text-foreground">
-                    {{ $t('product_details.customers_reviews') }}
-                  </h3>
-                  <div class="space-y-3 mt-4">
-                    <div class="flex items-center">
-                      <p class="text-sm text-foreground font-bold">5.0</p>
-                      <svg
-                        class="w-4 h-4 text-yellow-300 mx-1"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
-                        />
-                      </svg>
-
-                      <progress
-                        aria-labelledby="rating-label"
-                        id="rating"
-                        max="100"
-                        value="70"
-                        class="mx-2 [&::-webkit-progress-bar]:bg-muted [&::-webkit-progress-value]:bg-amber-400 [&::-moz-progress-bar]:bg-amber-400 block h-2 w-full overflow-hidden rounded"
-                      ></progress>
-                      <p class="text-sm text-foreground font-bold">66%</p>
-                    </div>
-                    <div class="flex items-center">
-                      <p class="text-sm text-foreground font-bold">5.0</p>
-                      <svg
-                        class="w-4 h-4 text-yellow-300 mx-1"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
-                        />
-                      </svg>
-
-                      <progress
-                        aria-labelledby="rating-label"
-                        id="rating"
-                        max="100"
-                        value="70"
-                        class="mx-2 [&::-webkit-progress-bar]:bg-muted [&::-webkit-progress-value]:bg-amber-400 [&::-moz-progress-bar]:bg-amber-400 block h-2 w-full overflow-hidden rounded"
-                      ></progress>
-                      <p class="text-sm text-foreground font-bold">66%</p>
-                    </div>
-                  </div>
-
-                  <div class="flex items-start mt-8 mb-4 border p-2 rounded-sm">
-                    <div
-                      class="font-bold bg-muted items-center w-16 h-9 rounded-full border-2 flex justify-center"
-                    >
-                      J
-                    </div>
-                    <div class="mx-3">
-                      <h4 class="text-sm font-bold">John Doe</h4>
-                      <div class="flex space-x-1 mt-1">
+            <!-- More Details -->
+            <div class="mt-12 md:mt-16">
+              <Tabs default-value="specification" class="dir-rtl">
+                <TabsList class="grid w-full grid-cols-2 pb-2 dir-rtl">
+                  <TabsTrigger value="specification">
+                    {{ $t('product_details.specifications') }}
+                  </TabsTrigger>
+                  <TabsTrigger value="reviews"> {{ $t('product_details.reviews') }} </TabsTrigger>
+                </TabsList>
+                <TabsContent value="reviews">
+                  <div class="mt-8 max-w-lg">
+                    <h3 class="text-lg font-bold text-foreground">
+                      {{ $t('product_details.customers_reviews') }}
+                    </h3>
+                    <div class="space-y-3 mt-4">
+                      <div class="flex items-center">
+                        <p class="text-sm text-foreground font-bold">5.0</p>
                         <svg
-                          class="w-4 h-4 text-yellow-300"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
-                          />
-                        </svg>
-                        <svg
-                          class="w-4 h-4 text-yellow-300"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
-                          />
-                        </svg>
-                        <svg
-                          class="w-4 h-4 text-yellow-300"
+                          class="w-4 h-4 text-yellow-300 mx-1"
                           aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
@@ -348,61 +263,148 @@
                           />
                         </svg>
 
-                        <svg
-                          class="w-4 fill-muted"
-                          viewBox="0 0 14 13"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z"
-                          />
-                        </svg>
-                        <svg
-                          class="w-4 fill-muted"
-                          viewBox="0 0 14 13"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z"
-                          />
-                        </svg>
-                        <p class="text-xs !ms-2 font-semibold">2 mins ago</p>
+                        <progress
+                          aria-labelledby="rating-label"
+                          id="rating"
+                          max="100"
+                          value="70"
+                          class="mx-2 [&::-webkit-progress-bar]:bg-muted [&::-webkit-progress-value]:bg-amber-400 [&::-moz-progress-bar]:bg-amber-400 block h-2 w-full overflow-hidden rounded"
+                        ></progress>
+                        <p class="text-sm text-foreground font-bold">66%</p>
                       </div>
-                      <p class="text-xs mt-4 text-muted-foreground">
-                        The service was amazing. I never had to wait that long for my food. The
-                        staff was friendly and attentive, and the delivery was impressively prompt.
-                      </p>
+                      <div class="flex items-center">
+                        <p class="text-sm text-foreground font-bold">5.0</p>
+                        <svg
+                          class="w-4 h-4 text-yellow-300 mx-1"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
+                          />
+                        </svg>
+
+                        <progress
+                          aria-labelledby="rating-label"
+                          id="rating"
+                          max="100"
+                          value="70"
+                          class="mx-2 [&::-webkit-progress-bar]:bg-muted [&::-webkit-progress-value]:bg-amber-400 [&::-moz-progress-bar]:bg-amber-400 block h-2 w-full overflow-hidden rounded"
+                        ></progress>
+                        <p class="text-sm text-foreground font-bold">66%</p>
+                      </div>
                     </div>
+
+                    <div class="flex items-start mt-8 mb-4 border p-2 rounded-sm">
+                      <div
+                        class="font-bold bg-muted items-center w-16 h-9 rounded-full border-2 flex justify-center"
+                      >
+                        J
+                      </div>
+                      <div class="mx-3">
+                        <h4 class="text-sm font-bold">John Doe</h4>
+                        <div class="flex space-x-1 mt-1">
+                          <svg
+                            class="w-4 h-4 text-yellow-300"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
+                            />
+                          </svg>
+                          <svg
+                            class="w-4 h-4 text-yellow-300"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
+                            />
+                          </svg>
+                          <svg
+                            class="w-4 h-4 text-yellow-300"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
+                            />
+                          </svg>
+
+                          <svg
+                            class="w-4 fill-muted"
+                            viewBox="0 0 14 13"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z"
+                            />
+                          </svg>
+                          <svg
+                            class="w-4 fill-muted"
+                            viewBox="0 0 14 13"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z"
+                            />
+                          </svg>
+                          <p class="text-xs !ms-2 font-semibold">2 mins ago</p>
+                        </div>
+                        <p class="text-xs mt-4 text-muted-foreground">
+                          The service was amazing. I never had to wait that long for my food. The
+                          staff was friendly and attentive, and the delivery was impressively
+                          prompt.
+                        </p>
+                      </div>
+                    </div>
+
+                    <Button variant="outline" class="w-full">
+                      {{ $t('product_details.read_all') }}
+                    </Button>
+                  </div>
+                </TabsContent>
+                <TabsContent value="specification">
+                  <div class="mt-8">
+                    <h3 class="text-lg font-bold text-foreground">
+                      {{ $t('product_details.product_specifications') }}
+                    </h3>
                   </div>
 
-                  <Button variant="outline" class="w-full">
-                    {{ $t('product_details.read_all') }}
-                  </Button>
-                </div>
-              </TabsContent>
-              <TabsContent value="specification">
-                <div class="mt-8">
-                  <h3 class="text-lg font-bold text-foreground">
-                    {{ $t('product_details.product_specifications') }}
-                  </h3>
-                </div>
-
-                <ul class="space-y-3 list-disc mt-6 ps-4 text-sm text-foreground">
-                  <li>A pair of gray shoes is a wardrobe essential due to its versatility.</li>
-                  <li>
-                    Available in a wide range of sizes, from extra small to extra large, and even in
-                    tall and petite sizes.
-                  </li>
-                  <li>Easy to maintain, they can be machine-washed and dried on low heat.</li>
-                  <li>
-                    Personalize them with your own designs, patterns, or embellishments to make them
-                    uniquely yours.
-                  </li>
-                </ul>
-              </TabsContent>
-            </Tabs>
+                  <ul class="space-y-3 list-disc mt-6 ps-4 text-sm text-foreground">
+                    <li>A pair of gray shoes is a wardrobe essential due to its versatility.</li>
+                    <li>
+                      Available in a wide range of sizes, from extra small to extra large, and even
+                      in tall and petite sizes.
+                    </li>
+                    <li>Easy to maintain, they can be machine-washed and dried on low heat.</li>
+                    <li>
+                      Personalize them with your own designs, patterns, or embellishments to make
+                      them uniquely yours.
+                    </li>
+                  </ul>
+                </TabsContent>
+              </Tabs>
+            </div>
           </div>
 
           <!-- Customer Review -->
@@ -415,19 +417,19 @@
 
   <Container>
     <div class="py-8 md:py-16 Related">
-    <div class="py-8 md:py-16">
-      <h2
-        class="border-b pb-4 text-2xl md:text-3xl text-foreground font-semibold mb-6 md:mb-8 leading-tight"
-      >
-        {{ $t('product_details.related_products') }}
-      </h2>
+      <div class="py-8 md:py-16">
+        <h2
+          class="border-b pb-4 text-2xl md:text-3xl text-foreground font-semibold mb-6 md:mb-8 leading-tight"
+        >
+          {{ $t('product_details.related_products') }}
+        </h2>
 
-      <div
-        class="justify-items-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-xl:gap-4 gap-6"
-      >
-        <ProductCard class="fade-up-card" v-for="item in newItems" :key="item.id" :item="item" />
+        <div
+          class="justify-items-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-xl:gap-4 gap-6"
+        >
+          <ProductCard class="fade-up-card" v-for="item in newItems" :key="item.id" :item="item" />
+        </div>
       </div>
-    </div>
     </div>
   </Container>
 
@@ -496,7 +498,6 @@ onMounted(() => {
     delay: 0.2
   })
 })
-
 
 const emblaMainApi = ref()
 const emblaThumbnailApi = ref()
@@ -588,7 +589,6 @@ function setFav() {
 // onMounted(() => {
 //   fetchProduct()
 // })
-
 
 const fetchProduct = () => {
   const item = products.find((x) => x.id === id)

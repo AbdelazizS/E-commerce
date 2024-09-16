@@ -74,7 +74,6 @@
           <!-- Account -->
           <Account />
 
-<<<<<<< HEAD
           <!-- LanguageSwitcher -->
           <LanguageSwitcher />
         </div>
@@ -95,21 +94,6 @@
                   stroke-width="1.5"
                   stroke="currentColor"
                   class="size-6"
-=======
-          <SheetContent side="left" class="flex flex-col justify-between bg-card p-4 border-0">
-            <div>
-              <SheetHeader class="mb-4">
-                <SheetTitle class="flex items-center">
-                  <a href="/" class="flex items-center">
-                    <img src="/src/assets/logo.png" alt="" class="w-20" />
-                    <h1 class="text-primary font-bold text-xl md:text:2xl">Elfateh</h1>
-                  </a>
-                </SheetTitle>
-              </SheetHeader>
-              <div class="md:max-w-xl w-full lg:hidden block my-2">
-                <div
-                  class="shadow-sm focus-within:shadow-md transition-all duration-300 text-foreground flex max-xl:w-full px-3 py-1 rounded-sm border border-muted items-center bg-muted/30"
->>>>>>> 11252191ac8e126d917fd152361c3af4b75be6ab
                 >
                   <path
                     stroke-linecap="round"

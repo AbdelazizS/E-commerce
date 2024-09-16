@@ -30,7 +30,6 @@ const notificationStore = useFavoritesStore()
 const handleLogout = () => {
   loading.value = true
   authStore
-
     .logout()
     .then((res) => {
       if (res.status === 200) {

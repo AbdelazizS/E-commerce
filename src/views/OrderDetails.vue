@@ -3,7 +3,6 @@ import Navbar from '@/components/Navbar.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import Container from '@/layouts/Container.vue'
 import Footer from '@/components/Footer.vue'
-
 import { onMounted } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -43,10 +42,9 @@ onMounted(() => {
     <div class="py-8 md:mb-16 Orders_details">
       <div class="grid md:grid-cols-2 md:gap-4 gap-6">
         <div class="fade-up bg-card shadow-md border max-w-lg p-4 relative">
-          <div
-            class="bg-primary w-8 h-8 md:h-10 md:w-10 flex items-center justify-center rounded-full cursor-pointer absolute top-2 ltr:right-2 rtl:left-2 rtl:md:left-4 md:top-4 ltr:md:right-4 text-white font-bold"
-          >
-            2
+    <div class="py-8 md:mb-16">
+      <div class="grid md:grid-cols-2 md:gap-4 gap-6">
+        <div class="bg-card shadow-md border max-w-lg p-4 relative">
           </div>
           <div class="flex items-center gap-4 md:gap-6 items-">
             <div class="w-36 h-26 md:w-40 md:h-40">

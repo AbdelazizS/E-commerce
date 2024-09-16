@@ -211,7 +211,6 @@ const onSubmit = (values, { resetForm }) => {
       setTimeout(() => {
         loading.value = false
       }, 1500)
-
       setTimeout(() => {
         errorMsg.value = ''
       }, 3500)

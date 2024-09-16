@@ -198,10 +198,8 @@
 
           <!-- Buttons -->
           <div class="flex flex-wrap gap-4 mt-8 fade-up">
+          <div class="flex flex-wrap gap-4 mt-8">
             <!-- <button
-            type="button"
-            class="min-w-[200px] px-4 py-3 bg-gray-800 hover:bg-gray-900 text-white text-sm font-semibold rounded"
-          >
             Buy now
           </button> -->
 
@@ -417,6 +415,7 @@
 
   <Container>
     <div class="py-8 md:py-16 Related">
+    <div class="py-8 md:py-16">
       <h2
         class="border-b pb-4 text-2xl md:text-3xl text-foreground font-semibold mb-6 md:mb-8 leading-tight"
       >
@@ -428,6 +427,7 @@
       >
         <ProductCard class="fade-up-card" v-for="item in newItems" :key="item.id" :item="item" />
       </div>
+    </div>
     </div>
   </Container>
 
@@ -497,6 +497,7 @@ onMounted(() => {
   })
 })
 
+
 const emblaMainApi = ref()
 const emblaThumbnailApi = ref()
 const selectedIndex = ref(0)
@@ -529,6 +530,7 @@ const product = ref({
   category: 'Computers',
   stars: 4
 })
+// const product = ref({})
 const loading = ref(false)
 const cartStore = useCartStore()
 const favoritesStore = useFavoritesStore()
@@ -587,15 +589,42 @@ function setFav() {
 //   fetchProduct()
 // })
 
+
+const fetchProduct = () => {
+  const item = products.find((x) => x.id === id)
+  product.value = item
+}
+onMounted(() => {
+  fetchProduct()
+})
+
 const newItems = ref([
   {
-    product_name: 'Mega LCD TV For Sports',
+    title: 'Mega LCD TV For Sports',
     id: 1,
-    product_price: 440,
-    product_price_old: 500,
-    image: '/src/assets/pc.png',
+    price: 440,
+    pre_price: 500,
+    img: '../assets/pc.png',
     category: 'Computers',
     stars: 4
+  },
+  {
+    title: 'Apple Watch',
+    id: 2,
+    img: '../assets/watch.png',
+    category: 'Accessories',
+    price: 240,
+    pre_price: 400.0,
+    stars: 2
+  },
+  {
+    title: 'Iphone X',
+    id: 3,
+    img: '../assets/squares-bg.png',
+    category: 'Phones',
+    price: 840,
+    pre_price: 900.0,
+    stars: 3
   }
 ])
 </script>

@@ -37,8 +37,8 @@ onMounted(() => {
   gsap.from('.p-card', {
     scrollTrigger: {
       trigger: '.Products',
-      start: 'top 65%',
-      toggleActions: 'play pause restart reset'
+      start: 'top 65%'
+      // toggleActions: 'play pause restart reset'
     },
     opacity: 0,
     y: 50,

@@ -146,25 +146,19 @@ console.log(isInFavorites(id))
           <h4
             class="text-lg font-bold cursor-pointer transition-all duration-300 hover:text-primary"
           >
-            <<<<<<< HEAD
             {{ product_name }}
-            =======
             {{ title }}
-            >>>>>>> 11252191ac8e126d917fd152361c3af4b75be6ab
           </h4>
         </RouterLink>
 
         <!-- price -->
         <div class="flex items-center gap-2">
-          <<<<<<< HEAD
           <p class="text-lg font-semibold text-foreground">${{ product_price }}</p>
           <p class="text-base font-medium line-through text-muted-foreground">
             ${{ product_price_old }}
           </p>
-          =======
           <p class="text-lg font-semibold text-foreground">${{ price }}</p>
           <p class="text-base font-medium line-through text-muted-foreground">${{ pre_price }}</p>
-          >>>>>>> 11252191ac8e126d917fd152361c3af4b75be6ab
         </div>
       </div>
 

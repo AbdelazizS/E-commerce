@@ -243,16 +243,16 @@ const onReset = (values) => {
     .catch((error) => {
       console.log(error)
 
-      // if (error.response.status === 422) {
-      //   unValidCode.value = 'unValidCode'
-      // }
-      // if (!error.response) {
-      //   toast({
-      //     title: 'network_error',
-      //     error: true,
-      //     duration: 3000
-      //   })
-      // }
+      if (error.response.status === 422) {
+        unValidCode.value = 'unValidCode'
+      }
+      if (!error.response) {
+        toast({
+          title: 'network_error',
+          error: true,
+          duration: 3000
+        })
+      }
     })
 
     .finally(() => {
@@ -300,13 +300,13 @@ const onSend = (values, { resetForm }) => {
     })
     .catch((error) => {
       console.log(error, 'ss')
-      // if (!error.response) {
-      //   toast({
-      //     title: 'network_error',
-      //     error: true,
-      //     duration: 3000
-      //   })
-      // }
+      if (!error.response) {
+        toast({
+          title: 'network_error',
+          error: true,
+          duration: 3000
+        })
+      }
     })
 
     .finally(() => {

@@ -6,17 +6,53 @@ import BottomNav from '@/components/BottomNav.vue'
 import Footer from '../components/Footer.vue'
 import CartItem from '../components/CartItem.vue'
 import { useCartStore } from '@/stores/cart.js'
-// import {storeToRefs} from 'pinia'
+import { storeToRefs } from 'pinia'
 // const { cartItems } = storeToRefs(store)
 // const { totalAmount, cartItems } = CartStore
 const CartStore = useCartStore()
+const authStore = useAuthStore()
 
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Skeleton } from '@/components/ui/skeleton'
-import { getCartItems, addCartItem } from '@/services/api'
+import { getCartItems, addCartItem, addOrder } from '@/services/api'
+import Loader from '@/components/Loader.vue'
+import { useAuthStore } from '@/stores/authStore'
+import { useToast } from '@/components/ui/toast'
+import { useRouter } from 'vue-router'
 
+const loading = ref(false)
+const { toast } = useToast()
+const router = useRouter()
+
+const checkout = () => {
+  loading.value = true
+  addOrder({ totalAmount: CartStore.totalAmount, user: authStore.userInfo })
+    .then((res) => {
+      console.log(res)
+      if (res.data.success) {
+        loading.value = false
+        toast({
+          title: 'orders.order_added',
+          success: true,
+          duration: 3000
+        })
+        router.push('/profile/orders')
+      }
+    })
+    .catch((err) => {
+      loading.value = false
+      if (!err.response) {
+        toast({
+          title: 'network_error',
+          error: true,
+          duration: 3000
+        })
+      }
+      console.log(err)
+    })
+}
 gsap.registerPlugin(ScrollTrigger)
 onMounted(() => {
   addCartItem()
@@ -41,6 +77,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <Loader v-if="loading" />
   <!--  -->
   <Navbar />
 
@@ -116,7 +153,16 @@ onMounted(() => {
               </dl>
             </div>
 
-            <Button variant="default" class="w-full">{{ $t('shopping_cart.checkout') }}</Button>
+            <Button
+              v-if="!CartStore.loading"
+              @click="checkout()"
+              variant="default"
+              class="w-full"
+              >{{ $t('shopping_cart.checkout') }}</Button
+            >
+            <Button v-else disabled variant="default" class="w-full">{{
+              $t('shopping_cart.checkout')
+            }}</Button>
 
             <div class="flex items-center justify-center gap-2">
               <span class="text-sm font-normal text-foreground/60 :text-gray-400">

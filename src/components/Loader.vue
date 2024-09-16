@@ -1,6 +1,7 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div
-    :class="'fixed bg-black/5 dark:bg-black/20 inset-0'"
+    :class="'fixed bg-black/5 dark:bg-black/20 inset-0 '"
     class="z-50 flex items-center justify-center left-0 top-0"
   >
     <div class="flex flex-auto flex-col justify-center items-center p-4 md:p-5">

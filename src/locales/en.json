@@ -152,6 +152,7 @@
     "orders": "Orders",
     "order_id": "Order Id",
     "status": "Status",
+    "order_added": "order added successfully",
     "products": "Products",
     "confirmed": "Confirmed",
     "order_details": "Order Details"

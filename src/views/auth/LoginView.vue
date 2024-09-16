@@ -202,7 +202,7 @@ const onSubmit = (values, { resetForm }) => {
       if (!err.response) {
         toast({
           title: 'network_error',
-          // success: true,
+          error: true,
           duration: 3000
         })
       }

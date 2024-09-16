@@ -10,9 +10,17 @@ import OrderCard from '@/components/OrderCard.vue'
 import { onMounted } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { getOrders } from '@/services/api'
 
 gsap.registerPlugin(ScrollTrigger)
 onMounted(() => {
+  getOrders()
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   gsap.from('.fade-up', {
     scrollTrigger: {
       trigger: '.Orders',

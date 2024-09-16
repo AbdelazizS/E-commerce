@@ -27,10 +27,12 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Loader from '@/components/Loader.vue'
 import Skeleton from '@/components/ui/skeleton/Skeleton.vue'
+import { getUser } from '@/services/api'
 
 const { toast } = useToast()
 const router = useRouter()
 const loading = ref(false)
+const userInfo = ref({})
 
 const authStore = useAuthStore()
 // const { userInfo } = storeToRefs(authStore)
@@ -59,7 +61,13 @@ const handleLogout = () => {
 }
 
 onMounted(() => {
-  console.log(authStore)
+  getUser(authStore.userInfo)
+    .then((res) => {
+      userInfo.value = res.data.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 })
 </script>
 
@@ -80,11 +88,11 @@ onMounted(() => {
           >
             <!-- Avatar -->
             <div
-              v-if="authStore.userInfo"
+              v-if="userInfo.client_name"
               class="flex justify-center items-center w-12 h-12 shadow-md rounded-full border-4 overflow-hidden border-card bg-primary/50"
             >
               <div class="font-bold">
-                {{ authStore.userInfo.client_name?.slice(0, 1) }}
+                {{ userInfo.client_name?.slice(0, 1) }}
               </div>
             </div>
             <data v-else>
@@ -95,14 +103,26 @@ onMounted(() => {
 
             <!-- user data -->
             <div class="">
-              <h3 class="text-lg md:text-xl text-foreground relative font-bold leading-6">
+              <h3
+                v-if="userInfo.client_name"
+                class="text-lg md:text-xl text-foreground relative font-bold leading-6"
+              >
                 <!-- {{ userInfo.client_name }} -->
-                {{ authStore.userInfo.client_name }}
+                {{ userInfo.client_name }}
               </h3>
-              <p class="text-ltr text-sm md:text-base text-muted-foreground">
+
+              <div v-else class="mb-3">
+                <Skeleton class="h-6 w-32 bg-card" />
+              </div>
+
+              <p v-if="userInfo.email" class="text-ltr text-sm md:text-base text-muted-foreground">
                 <!-- {{ userInfo.email }} -->
-                {{ authStore.userInfo.email }}
+                {{ userInfo.email }}
               </p>
+
+              <div v-else class="">
+                <Skeleton class="h-5 w-24 bg-card" />
+              </div>
             </div>
           </div>
 
@@ -222,8 +242,12 @@ onMounted(() => {
                   <div class="text-sm font-medium">
                     {{ $t('auth.name') }}
                   </div>
-                  <div class="text-sm text-muted-foreground">
-                    {{ authStore.userInfo.client_name }}
+                  <div v-if="userInfo.client_name" class="text-sm text-muted-foreground">
+                    {{ userInfo.client_name }}
+                  </div>
+
+                  <div v-else class="my-1">
+                    <Skeleton class="h-4 rounded-sm w-28" />
                   </div>
                 </div>
               </div>
@@ -241,8 +265,12 @@ onMounted(() => {
                   <div class="text-sm font-medium">
                     {{ $t('auth.email') }}
                   </div>
-                  <div class="text-sm text-muted-foreground">
-                    {{ authStore.userInfo.email }}
+                  <div v-if="userInfo.email" class="text-sm text-muted-foreground">
+                    {{ userInfo.email }}
+                  </div>
+
+                  <div v-else class="my-1">
+                    <Skeleton class="h-4 rounded-sm w-28" />
                   </div>
                 </div>
               </div>

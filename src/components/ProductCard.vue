@@ -10,6 +10,7 @@ import { useAuthStore } from '@/stores/authStore'
 import { useToast } from '@/components/ui/toast/use-toast'
 import { RouterLink } from 'vue-router'
 import { storeToRefs } from 'pinia'
+import { addFavouriteItem } from '@/services/api'
 
 const cartStore = useCartStore()
 const favoritesStore = useFavoritesStore()
@@ -59,6 +60,13 @@ function setFav() {
       })
     }
     addToFavorites(props.item)
+    addFavouriteItem({ product: props.item, user: authStore.userInfo })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   } else {
     toast({
       title: 'shopping_cart.requireAuth',

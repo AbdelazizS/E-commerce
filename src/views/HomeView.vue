@@ -12,18 +12,18 @@ import Services from '@/components/Services.vue'
 import { onMounted } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { getCartItems } from '@/services/api'
+// import { getCartItems, getCatagories } from '@/services/api'
 
 gsap.registerPlugin(ScrollTrigger)
 
 onMounted(() => {
-  getCartItems()
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  // getCatagories()
+  //   .then((res) => {
+  //     console.log(res)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //   })
 
   gsap.set('.whatsIcon', { scale: 0.8, y: 60, opacity: 0 })
   gsap.to('.whatsIcon', {

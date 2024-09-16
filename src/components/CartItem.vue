@@ -38,7 +38,7 @@ function setFav() {
   } else {
     toast({
       title: 'shopping_cart.requireAuth',
-      success: true,
+      error: true,
       duration: 3000
     })
   }

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouterView } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import { authGuard } from '@/guards/auth'
+import i18n from '@/plugins/i18n'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,7 +11,7 @@ const router = createRouter({
       component: RouterView,
       children: [
         {
-          path: '',
+          path: '/',
           name: 'home',
           component: HomeView
         },
@@ -115,6 +116,10 @@ router.beforeEach((to, from, next) => {
   // set the current language for vuex-i18n. note that translation data
   // for the language might need to be loaded first
   // Vue.i18n.set(language)
+  // i18n.global.locale = language
+
+  console.log(language, i18n.global.locale)
+
   next()
 })
 

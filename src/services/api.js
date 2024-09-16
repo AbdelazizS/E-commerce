@@ -30,6 +30,53 @@ export const addFavourites = () => {
       })
   })
 }
+
+export const addOrder = ({ user, totalAmount }) => {
+  return new Promise((resolve, reject) => {
+    console.log(user)
+
+    instance
+      .post('add_order_not_found_product', {
+        transportation_cost: '100',
+        total_price: totalAmount,
+        location: 'sennar',
+        locality_id: '480',
+        prominent_place: 'end',
+        state_id: '57',
+        app_id: user.app_id,
+        platform: '1',
+        client_id: user.id
+      })
+      .then((resp) => {
+        resolve(resp)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+export const addFavouriteItem = ({ product, user }) => {
+  return new Promise((resolve, reject) => {
+    console.log(product, user.app_id)
+
+    instance
+      .post('add_favorite', {
+        app_id: user.app_id,
+        client_id: user.client_id,
+        product_id: product.id,
+        product_name: product.product_name,
+        product_price: '222',
+        image: product.image
+      })
+      .then((resp) => {
+        resolve(resp)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+
 export const addCartItem = () => {
   return new Promise((resolve, reject) => {
     instance
@@ -49,12 +96,61 @@ export const addCartItem = () => {
       })
   })
 }
+export const getOrders = () => {
+  return new Promise((resolve, reject) => {
+    instance
+      // product_category
+      .get('get_client_orders', {
+        // client_id: '411'
+      })
+
+      .then((resp) => {
+        resolve(resp)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+
+export const getCatagories = () => {
+  return new Promise((resolve, reject) => {
+    instance
+      // product_category
+      .post('product_category')
+
+      .then((resp) => {
+        resolve(resp)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+export const getUser = (userInfo) => {
+  return new Promise((resolve, reject) => {
+    instance
+      // product_category
+      .post('client_info', {
+        client_id: userInfo.id,
+        app_id: userInfo.app_id
+      })
+
+      .then((resp) => {
+        resolve(resp)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
 export const getFavourites = () => {
   return new Promise((resolve, reject) => {
     instance
       // product_category
       .get('get_favorites', {
-        client_id: '411'
+        client_id: '411',
+        app_id: '199'
       })
 
       .then((resp) => {
@@ -147,7 +243,7 @@ export const ForgotPassword = (payload) => {
   return new Promise((resolve, reject) => {
     try {
       instance
-        .post('ForgotPassword', payload)
+        .post('resend_verify', payload)
         .then((resp) => {
           resolve(resp.data)
         })

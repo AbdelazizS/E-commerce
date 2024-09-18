@@ -1,6 +1,6 @@
 <template>
   <div
-    class="CategoryCard bg-primary/10 dark:bg-card shadow-p p-3 rounded-lg group overflow-hidden cursor-pointer relative z-50 hover:before:bg-black/50 before:absolute before:inset-0 before:opacity-10 before:transition-all w-full max-w-sm"
+    class="CategoryCard bg-primary/10 dark:bg-card shadow-p p-3 rounded-lg group overflow-hidden cursor-pointer relative z-50 hover:before:bg-black/50 before:absolute before:inset-0 before:opacity-10 before:transition-all w-full"
   >
     <div class="w-full h-[200px] overflow-hidden mx-auto aspect-w-16 aspect-h-8">
       <img

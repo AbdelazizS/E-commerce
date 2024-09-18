@@ -11,8 +11,8 @@ onMounted(() => {
   gsap.from('.scard', {
     scrollTrigger: {
       trigger: '.Services',
-      start: 'top 60%',
-      toggleActions: 'play pause restart reset'
+      start: 'top 60%'
+      // toggleActions: 'play pause restart reset'
     },
     y: 50,
     opacity: 0,
@@ -20,24 +20,6 @@ onMounted(() => {
     delay: 0.2,
     stagger: 0.2
   })
-
-  // gsap.fromTo(
-  //   '.scard',
-  //   { opacity: 0, y: 50 },
-  //   {
-  //     scrollTrigger: {
-  //       trigger: '.Services',
-  //       start: 'top 70%',
-  //       scrub: true
-  //     },
-  //     opacity: 1,
-  //     y: 0,
-  //     ease: 'power1.inOut',
-  //     stagger: 0.1,
-  //     delay: 0.6,
-  //     duration: 7
-  //   }
-  // )
 })
 </script>
 

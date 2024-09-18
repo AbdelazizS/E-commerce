@@ -4,6 +4,33 @@
 import CategoryCard from './CategoryCard.vue'
 import { Skeleton } from '@/components/ui/skeleton'
 import Container from '@/layouts/Container.vue'
+import { ref } from 'vue'
+
+const items = ref([])
+
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  setTimeout(() => {
+    items.value = [
+      {
+        title: 'Computers',
+        id: 1,
+        image: '/src/assets/pc.png'
+      },
+      {
+        title: 'Accessories',
+        id: 1,
+        image: '/src/assets/watch.png'
+      },
+      {
+        title: 'Phones',
+        id: 1,
+        image: '/src/assets/cta.png'
+      }
+    ]
+  }, 100)
+})
 </script>
 
 <template>
@@ -22,13 +49,21 @@ import Container from '@/layouts/Container.vue'
 
       <!-- Grid List -->
 
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center">
-        <!-- Card -->
+      <div
+        v-if="!items.length"
+        class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center"
+      >
+        <div
+          class="p-card flex flex-col relative rounded-md shadow-md border w-full max-w-xs max-h-fit"
+        >
+          <Skeleton class="h-48 w-full max-w-xs rounded-none" />
+        </div>
+      </div>
 
-        <CategoryCard />
-        <CategoryCard />
-        <CategoryCard />
-        <CategoryCard />
+      <div v-else class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div v-for="item in items" :key="item">
+          <CategoryCard :item="item" />
+        </div>
       </div>
     </Container>
   </section>

@@ -6,6 +6,7 @@ import Footer from '@/components/Footer.vue'
 import { ref, onMounted } from 'vue'
 import { useFavoritesStore } from '@/stores/favouritesStore.js'
 import { getFavourites } from '@/services/api'
+import Button from '@/components/ui/button/Button.vue'
 
 // const favouriteItems = ref([])
 const favouriteStore = useFavoritesStore()
@@ -74,17 +75,13 @@ onMounted(() => {
         class="heroBg mb-8 md:mb-16 flex flex-col justify-center space-y-6 text-center items-center"
       >
         <div>
-          <img src="/src/assets/empty_cart.svg" alt="" class="h-44 md:max-h-[200px] w-full mb-16" />
+          <img src="/src/assets/empty_fav.svg" alt="" class="h-44 md:max-h-[200px] w-full mb-16" />
           <h3 class="text-xl md:text-2xl font-semibold text-foreground">
-            {{ $t(`shopping_cart.your_cart`) }}
-            <span
-              class="text-transparent font-bold bg-gradient-to-r from-[#D247BF] to-primary bg-clip-text"
-              >{{ $t(`shopping_cart.empty`) }}
-            </span>
+            {{ $t(`no_favourites`) }}
           </h3>
 
           <p class="text-base md:text-lg text-muted-foreground mt-2">
-            {{ $t(`shopping_cart.empty_cart_desc`) }}
+            {{ $t(`empty_fav_desc`) }}
           </p>
         </div>
         <RouterLink to="/">

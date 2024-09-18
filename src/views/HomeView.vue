@@ -12,18 +12,18 @@ import Services from '@/components/Services.vue'
 import { onMounted } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-// import { getCartItems, getCatagories } from '@/services/api'
+import { getCartItems, getCatagories } from '@/services/api'
 
 gsap.registerPlugin(ScrollTrigger)
 
 onMounted(() => {
-  // getCatagories()
-  //   .then((res) => {
-  //     console.log(res)
-  //   })
-  //   .catch((err) => {
-  //     console.log(err)
-  //   })
+  getCatagories()
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 
   gsap.set('.whatsIcon', { scale: 0.8, y: 60, opacity: 0 })
   gsap.to('.whatsIcon', {
@@ -51,8 +51,6 @@ onMounted(() => {
   <Products />
   <Offer />
   <Cta />
-
-  =======
 
   <!-- <section
     data-aos="zoom-in"
@@ -98,7 +96,6 @@ onMounted(() => {
       class="absolute bottom-[-190%] right-[-16%] w-[500px] h-[680px] rotate-45 border-8 border-[rgba(255,255,255,0.75)] rounded-full"
     ></div>
   </section> -->
-  >>>>>>> 11252191ac8e126d917fd152361c3af4b75be6ab
   <Footer />
 
   <a

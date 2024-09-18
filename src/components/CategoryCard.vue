@@ -4,7 +4,7 @@
   >
     <div class="w-full h-[200px] overflow-hidden mx-auto aspect-w-16 aspect-h-8">
       <img
-        :src="image"
+        src="/src/assets/pc.png"
         alt="product8"
         class="CategoryImg h-full w-full object-contain rtl:object-left ltr:object-right"
       />

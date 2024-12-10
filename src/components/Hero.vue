@@ -134,7 +134,7 @@ onMounted(() => {
             <CarouselContent>
               <CarouselItem v-for="(_, index) in 2" :key="index">
                 <div class="p-1">
-                  <img className="w-full object-cover " :src="images[index]" alt="" />
+                  <img className="w-full object-cover " src="/src/assets/pc.png" alt="" />
                 </div>
               </CarouselItem>
             </CarouselContent>
